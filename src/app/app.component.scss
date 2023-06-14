@@ -1,6 +1,6 @@
 // import globale style
 @import "src/_globals.scss";
-//@use 'src/styles' as g;
+
 
 header{
     position: fixed;
@@ -10,6 +10,9 @@ header{
     z-index: 1000; 
 }
 
+mat-expansion-panel-header:hover {
+    background-color: unset !important;
+}
 
 .mat-toolbar, .mat-expansion-panel{
     background-color: $background;

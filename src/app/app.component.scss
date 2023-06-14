@@ -1,0 +1,48 @@
+.mat-drawer-container{
+    height: 100vh;
+}
+.mat-toolbar{
+    min-height:3.5rem;
+    height: 3.5rem;
+}
+
+.menu-icon{
+    cursor: pointer;
+}
+.sidenav{
+    width:18.75rem;
+   
+}
+.logo-container{
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    padding: 0 1rem;
+    min-height:3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.icon-menu{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    li{
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(0,0,0,.04);
+        }
+
+        mat-icon{
+            margin-right: 1rem;
+        }
+
+    }
+}
+
+main{
+    padding-left: 3.5rem;
+    padding-top: 1rem;
+}

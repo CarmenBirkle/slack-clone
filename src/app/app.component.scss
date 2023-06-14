@@ -1,4 +1,6 @@
-@use 'src/styles' as g;
+// import globale style
+@import "src/_globals.scss";
+//@use 'src/styles' as g;
 
 header{
     position: fixed;
@@ -10,18 +12,18 @@ header{
 
 
 .mat-toolbar, .mat-expansion-panel{
-    background-color: g.$background;
-    color: g.$color-text;
-    border-bottom: 1px solid g.$accent-darkgrey;
+    background-color: $background;
+    color: $color-text;
+    border-bottom: 1px solid $accent-darkgrey;
 }
 
 mat-panel-title{
-    color: g.$color-text;
+    color: $color-text;
 }
 
 mat-drawer-container{
-    background-color: g.$accent-darkgrey;
-    color: g.$color-text;
+    background-color: $accent-darkgrey;
+    color: $color-text;
 }
 
 mat-drawer-content {
@@ -42,8 +44,8 @@ mat-drawer-content {
 }
 .sidenav{
     width:18.75rem;
-    background-color: g.$background;
-    color: g.$color-text;
+    background-color: $background;
+    color: $color-text;
    
 }
 .logo-container{
@@ -65,7 +67,7 @@ mat-drawer-content {
         height: 3rem;
         cursor: pointer;
         &:hover{
-            background-color: g.$accent-darkgrey;
+            background-color: $accent-darkgrey;
         }
 
         mat-icon{

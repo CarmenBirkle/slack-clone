@@ -21,6 +21,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { UsersComponent } from './users/users.component';
 import { ChatComponent } from './chat/chat.component';
 import { TextEditComponent } from './text-edit/text-edit.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -42,6 +47,10 @@ import { TextEditComponent } from './text-edit/text-edit.component';
     FormsModule,
     MatDividerModule,
     MatExpansionModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [],
   bootstrap: [AppComponent],

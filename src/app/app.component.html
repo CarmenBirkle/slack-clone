@@ -1,6 +1,6 @@
 
     <header>
-       <mat-toolbar color="primary">
+       <mat-toolbar>
         <mat-icon class="menu-icon" (click)="drawer.toggle()">menu</mat-icon>
          <span>Slack</span>
       </mat-toolbar>
@@ -23,7 +23,7 @@
               Channels
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
+          <p>Render Component all Channels</p>
         </mat-expansion-panel>
 
                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" hideToggle>
@@ -33,7 +33,7 @@
               Direct Messages
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
+          <p>Render Component DirectMessages </p>
         </mat-expansion-panel>
     </mat-accordion>
 
@@ -42,15 +42,10 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <!-- <header>
-       <mat-toolbar color="primary">
-        <mat-icon class="menu-icon" (click)="drawer.toggle()">menu</mat-icon>
-         <span>Slack</span>
 
-      </mat-toolbar>
-    </header> -->
     <main>
       <router-outlet></router-outlet>
+      Test
     </main>
   </div>
 

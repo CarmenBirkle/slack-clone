@@ -1,4 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+$background: #202124;
+$background-second: #282A2D;
+
+$color-text: #fff;
+$color-warning: #ff9800;
+$color-error: #f44336;
+$color-success: #4caf50;
+$color-info: #2196f3;
+
+$accent-darkgrey:#353535;
+$accent-lightgrey:#838383;
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    box-sizing: border-box; 
+    color: $color-text;
+    background-color: $background;
+}
+
+
+
+
+
+
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

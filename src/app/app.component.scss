@@ -1,3 +1,15 @@
+@use 'src/styles' as g;
+
+.mat-toolbar, .mat-expansion-panel{
+    background-color: g.$background;
+    color: g.$color-text;
+    border-bottom: 1px solid g.$accent-darkgrey;
+}
+
+mat-panel-title{
+    color: g.$color-text;
+}
+
 .mat-drawer-container{
     height: 100vh;
 }
@@ -11,6 +23,8 @@
 }
 .sidenav{
     width:18.75rem;
+    background-color: g.$background;
+    color: g.$color-text;
    
 }
 .logo-container{

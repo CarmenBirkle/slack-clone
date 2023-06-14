@@ -65,7 +65,7 @@ mat-drawer-content {
         height: 3rem;
         cursor: pointer;
         &:hover{
-            background-color: rgba(0,0,0,.04);
+            background-color: g.$accent-darkgrey;
         }
 
         mat-icon{

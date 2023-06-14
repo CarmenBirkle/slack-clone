@@ -18,10 +18,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { UsersComponent } from './users/users.component';
+import { ChatComponent } from './chat/chat.component';
+import { TextEditComponent } from './text-edit/text-edit.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

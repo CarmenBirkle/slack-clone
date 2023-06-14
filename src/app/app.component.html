@@ -11,8 +11,8 @@
   <mat-drawer #drawer class="sidenav" [opened]="!isMobileView" [mode]="isMobileView ? 'over' : 'side'">
     <div class="logo-container">Platz für Logo </div>
     <ul class="icon-menu">
-      <li ><mat-icon>forum</mat-icon> Threads</li>
-      <li> <mat-icon>group</mat-icon>Users</li>
+      <li routerLink="/chat" (click)="onLinkClicked()"><mat-icon>forum</mat-icon> Threads</li>
+      <li routerLink="/users" (click)="onLinkClicked()"> <mat-icon>group</mat-icon>Users</li>
       <mat-divider></mat-divider>
 
     <mat-accordion>
@@ -41,11 +41,10 @@
 
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="content">
 
     <main>
       <router-outlet></router-outlet>
-      Test
     </main>
   </div>
 

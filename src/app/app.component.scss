@@ -1,5 +1,14 @@
 @use 'src/styles' as g;
 
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; 
+}
+
+
 .mat-toolbar, .mat-expansion-panel{
     background-color: g.$background;
     color: g.$color-text;
@@ -10,9 +19,19 @@ mat-panel-title{
     color: g.$color-text;
 }
 
+mat-drawer-container{
+    background-color: g.$accent-darkgrey;
+    color: g.$color-text;
+}
+
+mat-drawer-content {
+    margin-left: 100px;
+}
+
 .mat-drawer-container{
     height: 100vh;
 }
+
 .mat-toolbar{
     min-height:3.5rem;
     height: 3.5rem;
@@ -59,4 +78,10 @@ mat-panel-title{
 main{
     padding-left: 3.5rem;
     padding-top: 1rem;
+    // max-height: calc(100vh - 3.5rem);
+}
+
+.content{
+    margin-top: 3rem;
+    overflow-y: auto;
 }

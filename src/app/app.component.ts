@@ -11,7 +11,8 @@ import { MatDrawer } from '@angular/material/sidenav';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  panelOpenState = false;
+  panelOpenState1 = false;
+  panelOpenState2 = false;
 
   @ViewChild('drawer') drawer!: MatDrawer;
 

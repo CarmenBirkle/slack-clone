@@ -26,6 +26,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { UsersComponent } from './users/users.component';
 import { ChatComponent } from './chat/chat.component';
@@ -57,6 +58,7 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
     AngularEditorModule,
     ReactiveFormsModule,
     MatRadioModule,
+    MatProgressBarModule,
    
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),

@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Channel } from './../models/channel.class';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -29,9 +30,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./dialog-add-channel.component.scss'],
 })
 export class DialogAddChannelComponent {
-  formControl = new FormControl('', [
-    Validators.required,
-  ]);
+  formControl = new FormControl('', [Validators.required]);
+  channel:Channel = new Channel();
+  loading: boolean = false;
 
   matcher = new MyErrorStateMatcher();
+
+  saveChannel() {
+    this.loading = true;
+    console.log('save channel')
+// save firebase
+    this.loading = false;
+  }
 }

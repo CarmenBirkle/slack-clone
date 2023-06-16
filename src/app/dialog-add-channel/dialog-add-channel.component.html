@@ -1,11 +1,18 @@
+<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+
+<!-- *ngIf="loading"  -->
 <h1 mat-dialog-title>Create new Channel</h1>
+
 <div mat-dialog-content>
 
 <form class="example-form">
   <mat-form-field class="example-full-width">
     <mat-label>Channel Name</mat-label>
-    <input type="text" matInput [formControl]="formControl" [errorStateMatcher]="matcher"
-           placeholder="Channel Name">
+    <input  type="text" 
+            matInput [formControl]="formControl" 
+            [errorStateMatcher]="matcher"
+            placeholder="Channel Name"
+            required>
     <mat-error *ngIf="!formControl.hasError('required')">
       Please enter a Channel Name
     </mat-error>
@@ -23,7 +30,7 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Create</button>
+  <button mat-button mat-dialog-close (click)="saveChannel()">Create</button>
 </div>
 
 

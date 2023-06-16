@@ -1,4 +1,4 @@
-export class channel {
+export class Channel {
   channelName: string;
   channelPosts: string[] = [];
   authorizedUser: string[] = [];

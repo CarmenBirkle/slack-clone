@@ -76,9 +76,45 @@ mat-drawer-content {
         mat-icon{
             margin-right: 1rem;
         }
-
     }
 }
+
+.content{
+    margin-top: 3rem;
+    overflow-y: auto;
+}
+
+.expansion-header{
+    padding:0 10px !important
+}
+
+.mat-expansion-panel-body {
+  padding: 0 !important;
+  color:$color-text;
+}
+
+.expansion-panel{
+    color: $color-text !important;
+    gap: 1.2rem;
+}
+
+
+.channel-item{
+    height: 3rem;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;  
+    cursor: pointer;
+    gap: 1rem;
+        &:hover{
+            background-color: $accent-darkgrey;
+        }
+        &:active{
+            //TODO nochmals testen
+            background-color: $accent-lightgrey;
+        } 
+}
+
 // Positioning from main content  between header and navbar
 main{
     padding: 0 10% 0 10%;
@@ -87,9 +123,4 @@ main{
         padding-left: 3.5rem;
     }
     
-}
-
-.content{
-    margin-top: 3rem;
-    overflow-y: auto;
 }

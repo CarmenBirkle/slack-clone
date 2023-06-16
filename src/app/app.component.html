@@ -16,19 +16,22 @@
       <mat-divider></mat-divider>
 
     <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState1 = true" (closed)="panelOpenState1 = false" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
+        <mat-expansion-panel class="test"(opened)="panelOpenState1 = true" (closed)="panelOpenState1 = false" hideToggle>
+          <mat-expansion-panel-header class="expansion-header">
+            <mat-panel-title class="expansion-panel">
               <mat-icon>{{ panelOpenState1 ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
               Channels
             </mat-panel-title>
           </mat-expansion-panel-header>
+        
           <p>Render Component all Channels</p>
+          <div class="channel-item" (click)="openDialog('400ms', '400ms')"><mat-icon>add</mat-icon> Create new channel</div>
+          
         </mat-expansion-panel>
 
                <mat-expansion-panel (opened)="panelOpenState2 = true" (closed)="panelOpenState2 = false" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
+          <mat-expansion-panel-header class="expansion-header">
+            <mat-panel-title class="expansion-panel">
               <mat-icon>{{ panelOpenState2 ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
               Direct Messages
             </mat-panel-title>

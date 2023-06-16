@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,18 +25,17 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { UsersComponent } from './users/users.component';
 import { ChatComponent } from './chat/chat.component';
 import { TextEditComponent } from './text-edit/text-edit.component';
-
-
-
+import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 
 
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent],
+  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -55,7 +54,11 @@ import { TextEditComponent } from './text-edit/text-edit.component';
     MatDividerModule,
     MatExpansionModule,
     HttpClientModule, 
-    AngularEditorModule, 
+    AngularEditorModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+   
+
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

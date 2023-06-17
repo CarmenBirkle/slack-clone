@@ -33,11 +33,12 @@ import { ChatComponent } from './chat/chat.component';
 import { TextEditComponent } from './text-edit/text-edit.component';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-
-
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent, WelcomeComponent],
+  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent, WelcomeComponent, SignInComponent, SignUpComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -60,6 +61,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     ReactiveFormsModule,
     MatRadioModule,
     MatProgressBarModule,
+    MatCardModule,
    
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),

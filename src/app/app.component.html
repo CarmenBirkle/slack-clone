@@ -1,4 +1,6 @@
 
+   <div class="relative">
+   <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
     <header>
        <mat-toolbar>
         <mat-icon class="menu-icon" (click)="drawer.toggle()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
@@ -16,27 +18,33 @@
       <mat-divider></mat-divider>
 
     <mat-accordion>
-        <mat-expansion-panel class="test"(opened)="panelOpenState1 = true" (closed)="panelOpenState1 = false" hideToggle>
+        <mat-expansion-panel [expanded]="panelOpenState1" (opened)="panelOpenState1 = true"  (closed)="panelOpenState1 = false" hideToggle>
           <mat-expansion-panel-header class="expansion-header">
             <mat-panel-title class="expansion-panel">
               <mat-icon>{{ panelOpenState1 ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
               Channels
             </mat-panel-title>
           </mat-expansion-panel-header>
-        
-          <p>Render Component all Channels</p>
+        <div class="channel-item" *ngFor="let channel of allChannels">
+            <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
+            <div>{{channel.channelName}}</div>
+        </div>
+          
           <div class="channel-item" (click)="openDialog('400ms', '400ms')"><mat-icon>add</mat-icon> Create new channel</div>
           
         </mat-expansion-panel>
-
-               <mat-expansion-panel (opened)="panelOpenState2 = true" (closed)="panelOpenState2 = false" hideToggle>
+              <mat-expansion-panel [expanded]="panelOpenState2" (opened)="panelOpenState2 = true"  (closed)="panelOpenState2 = false"  hideToggle>
           <mat-expansion-panel-header class="expansion-header">
             <mat-panel-title class="expansion-panel">
               <mat-icon>{{ panelOpenState2 ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
               Direct Messages
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p>Render Component DirectMessages </p>
+          <!-- TODO: add direct messages - currently not working only placeholder   -->
+            <div class="channel-item" *ngFor="let channel of allChannels">
+                <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
+                <div>{{channel.channelName}}</div>
+            </div>
         </mat-expansion-panel>
     </mat-accordion>
 
@@ -53,3 +61,4 @@
 
 </mat-drawer-container>
 
+</div>

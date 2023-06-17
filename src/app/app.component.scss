@@ -113,7 +113,12 @@ mat-drawer-content {
             //TODO nochmals testen
             background-color: $accent-lightgrey;
         } 
+        p{
+        display:flex;
+        align-items: center;
+        }
 }
+
 
 // Positioning from main content  between header and navbar
 main{
@@ -121,6 +126,28 @@ main{
     padding-top: 2rem;
     @media (min-width: 768px) {
         padding-left: 3.5rem;
-    }
-    
+    }   
+}
+
+.loader{
+    inset: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 150px;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    animation: rotate 2s linear infinite;
+}
+
+
+
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }

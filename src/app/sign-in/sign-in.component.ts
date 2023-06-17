@@ -7,6 +7,9 @@ import { AuthenticationService } from '../service/authentication.service';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
+  // email: max@mustermann.de
+  // pw: test123
+  // username: MusterMax
 
   constructor(public authentication: AuthenticationService) {
     if(localStorage.getItem('user')!== null) {

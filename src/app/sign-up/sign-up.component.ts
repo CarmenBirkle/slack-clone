@@ -10,7 +10,7 @@ export class SignUpComponent {
 
   constructor(public authentication: AuthenticationService) {}
 
-  signUp(email: string, password: string, username: string) {
-
+  async signUp(email: string, password: string, username: string) {
+    //await this.authentication.sigup(email, password);
   }
 }

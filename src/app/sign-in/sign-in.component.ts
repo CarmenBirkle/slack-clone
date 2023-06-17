@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -7,4 +8,20 @@ import { Component } from '@angular/core';
 })
 export class SignInComponent {
 
+  constructor(public authentication: AuthenticationService) {
+    if(localStorage.getItem('user')!== null) {
+      authentication.isLoggedIn = true;
+    } else {
+      authentication.isLoggedIn = false;
+    }
+  }
+
+  async signIn(email: string, password: string) {
+    await this.authentication.signin(email, password);
+
+  }
+
+  async signInAnonymously() {
+    await this.authentication.signinAnonymously();
+  }
 }

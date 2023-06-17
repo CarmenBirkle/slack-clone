@@ -1,5 +1,8 @@
-<div class="sigin-main">
-    <img src="assets/img/slack-logo-brand.png" alt="Slack Clon Logo">
+<div class="signin-main">
+    <div class="logo">
+        <img src="assets/img/slack-logo-brand.png" alt="Slack Clon Logo">
+    </div>
+
     <div class="signin-container">
         <mat-card>
             <h1>Sign in</h1>
@@ -8,11 +11,11 @@
                 
                     <div class="input-container">
                         <div class="input">
-                            <input type="email" required>
+                            <input type="text" #emailSignIn required>
                             <span>Email</span>
                         </div>
                         <div class="input">
-                            <input type="password" required>
+                            <input type="password" #passwordSignIn required>
                             <span>Password</span>
                         </div>
                     </div>
@@ -26,10 +29,18 @@
                     </mat-error> -->
 
                     <a href="#">Forgot password?</a>
-                    <button>Sign in</button>
+                    <button (click)="signIn(emailSignIn.value, passwordSignIn.value)">
+                        Sign in
+                    </button>
+
+                    <span class="signin-test">Test Slack-Clone with <a>Guest account</a></span>
               </form>
         </mat-card>
     
-        <span>New to Slack-Clone? <a href="sign-up">Sign up</a></span>
+        <span class="sign-up">
+            New to Slack-Clone? <a (click)="signInAnonymously()" href="sign-up">Sign up</a>
+        </span>
     </div>
 </div>
+
+<app-home *ngIf="authentication.isLoggedIn" (isLogout)="authentication.logout()"></app-home>

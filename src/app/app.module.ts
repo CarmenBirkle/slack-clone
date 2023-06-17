@@ -36,9 +36,10 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {MatCardModule} from '@angular/material/card';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent, WelcomeComponent, SignInComponent, SignUpComponent],
+  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent, WelcomeComponent, SignInComponent, SignUpComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

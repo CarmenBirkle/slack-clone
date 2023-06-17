@@ -7,14 +7,35 @@ $input-focus-border: 0 0 0 1px #0073b1;
 $input-border: 1px solid rgba(255,255,255,0.25);
 $card-box-shadow: 0px 4px 6px rgba(255,255,255,0.15), 0px 0px 2px rgba(255,255,255,0.15);
 $card-background: #1d2b3a;
+$slack-green: #2eb67d;
+$slack-blue: #36c5f0;
 
-.sigin-main {
+a {
+    color: $color-info;
+
+    &:hover {
+        color: #d3d3d3;
+    }
+}
+
+.signin-main {
     height: 100vh;
     max-height: 100%;
     width: 100vw;
     max-width: 100%;
     background-color: $background-second;
     font-size: 18px;
+}
+
+.logo {
+    width: 100%;
+    max-width: 1128px;
+    margin: auto;
+    padding: 12px 30px;
+
+    img {
+        height: 40px;
+    }
 }
 
 .signin-container {
@@ -25,6 +46,7 @@ $card-background: #1d2b3a;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 50px;
     color: $color-text;
 
     mat-card {
@@ -50,13 +72,25 @@ $card-background: #1d2b3a;
     display: flex;
     flex-direction: column;
 
-    a {
-        color: $color-info;
+    button {
+        height: 56px;
+        margin-top: 55px;
+        font-size: 1.7rem;
+        border-radius: 12px;
+        //color: $color-text;
+        background: #0086ce;
+        border: 0;
+        cursor: pointer;
+
+        &:hover {
+            background: $slack-blue;
+        }
     }
 }
 
 .input-container {
     padding-top: 10px;
+    padding-bottom: 5px;
     display: flex;
     flex-direction: column;
     gap: 35px;
@@ -99,5 +133,14 @@ $card-background: #1d2b3a;
         font-size: $input-font-size;
         pointer-events: none;
         transition: 150ms;
+    }
+}
+
+.signin-test {
+    margin-top: 30px;
+    text-align: center;
+
+    a {
+        cursor: pointer;
     }
 }

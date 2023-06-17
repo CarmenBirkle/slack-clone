@@ -33,11 +33,13 @@ $card-background: #1d2b3a;
         border-radius: 8px;
         box-shadow: $card-box-shadow;
         background: $card-background;
+        //background: #474E68;
     }
 
     h1 {
         margin: 0 0 12px 0;
         font-size: 40px;
+        font-weight: 500;
     }
 }
 

@@ -14,6 +14,8 @@ import { LoadingService } from '../app/service/loadingService';
 export class AppComponent {
   panelOpenState1 = false;
   panelOpenState2 = false;
+  dataLoaded = false;
+  isSidebarOpened: boolean = true;
 
   @ViewChild('drawer') drawer!: MatDrawer;
   allChannels: any = [];
@@ -31,11 +33,11 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-     this.readData();
+    this.readData();
   }
-/**
- * Start the loading animation, from the loadingService
- */
+  /**
+   * Start the loading animation, from the loadingService
+   */
   startLoading() {
     this.loadingService.setLoadingState(true);
   }
@@ -66,6 +68,7 @@ export class AppComponent {
 
       //TODO: console.log entfernen
       console.log('changes', changes);
+      this.dataLoaded = true;
       this.stopLoading();
     });
   }
@@ -91,7 +94,9 @@ export class AppComponent {
   checkViewport() {
     this.isMobileView = window.innerWidth <= 768; // TODO Adjust the breakpoint as needed
     this.drawer.opened = !this.isMobileView;
+    this.isSidebarOpened = !this.isMobileView;
     this.drawer.mode = this.isMobileView ? 'over' : 'side';
+    console.log('isSidebarOpened', this.isSidebarOpened);
   }
 
   /**
@@ -100,10 +105,14 @@ export class AppComponent {
    */
   onLinkClicked() {
     if (this.isMobileView) {
-      this.drawer.close(); 
+      this.drawer.close();
     }
   }
 
+  onToggleSidebar() {
+    this.drawer.toggle();
+    this.isSidebarOpened = !this.isSidebarOpened; 
+  }
 
   openDialog(
     enterAnimationDuration: string,

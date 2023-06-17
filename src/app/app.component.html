@@ -3,21 +3,21 @@
    <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
     <header>
        <mat-toolbar>
-        <mat-icon class="menu-icon" (click)="drawer.toggle()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
-         <span>Slack</span>
+        <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
+         <img src="assets/img/slack-logo-brand.png" alt="Slack"> 
       </mat-toolbar>
     </header>
 
 
 <mat-drawer-container class="mat-drawer-container" autosize>
   <mat-drawer #drawer class="sidenav" [opened]="!isMobileView" [mode]="isMobileView ? 'over' : 'side'">
-    <div class="logo-container">Platz für Logo </div>
+    <div class="logo-container"> </div>
     <ul class="icon-menu">
-      <li routerLink="/chat" (click)="onLinkClicked()"><mat-icon>forum</mat-icon> Threads</li>
-      <li routerLink="/users" (click)="onLinkClicked()"> <mat-icon>group</mat-icon>Users</li>
+      <li class="nav-link" routerLink="/chat" [routerLinkActive]="'active'" (click)="onLinkClicked()"><mat-icon>forum</mat-icon> Threads</li>
+      <li class="nav-link" routerLink="/users" [routerLinkActive]="'active'" (click)="onLinkClicked()"> <mat-icon>group</mat-icon>Users</li>
       <mat-divider></mat-divider>
 
-    <mat-accordion>
+    <mat-accordion *ngIf="dataLoaded" >
         <mat-expansion-panel [expanded]="panelOpenState1" (opened)="panelOpenState1 = true"  (closed)="panelOpenState1 = false" hideToggle>
           <mat-expansion-panel-header class="expansion-header">
             <mat-panel-title class="expansion-panel">
@@ -25,10 +25,12 @@
               Channels
             </mat-panel-title>
           </mat-expansion-panel-header>
-        <div class="channel-item" *ngFor="let channel of allChannels">
-            <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
-            <div>{{channel.channelName}}</div>
-        </div>
+          <!-- Render all channels -->
+            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels" [routerLink]="['/chat', channel.id]">
+              <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
+              <div>{{channel.channelName}}</div>
+          </div>
+         
           
           <div class="channel-item" (click)="openDialog('400ms', '400ms')"><mat-icon>add</mat-icon> Create new channel</div>
           
@@ -41,7 +43,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <!-- TODO: add direct messages - currently not working only placeholder   -->
-            <div class="channel-item" *ngFor="let channel of allChannels">
+            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels" [routerLink]="['/chat', channel.id]">
                 <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
                 <div>{{channel.channelName}}</div>
             </div>

@@ -11,13 +11,24 @@ header{
 }
 
 mat-expansion-panel-header:hover {
-    background-color: unset !important;
+    background-color:unset !important;
+}
+
+.mat-expansion-panel-header{
+    &:hover{
+        background-color: $accent-darkgrey !important;
+    }
 }
 
 .mat-toolbar, .mat-expansion-panel{
     background-color: $background;
     color: $color-text;
     border-bottom: 1px solid $accent-darkgrey;
+}
+
+.mat-toolbar{
+     gap: 3rem;
+     img { height: 30px}
 }
 
 mat-panel-title{
@@ -29,8 +40,13 @@ mat-drawer-container{
     color: $color-text;
 }
 
-mat-drawer-content {
-    margin-left: 100px;
+//TODO entfernen, vorab prüfen ob noch benötigt
+// mat-drawer-content {
+//     margin-left: 100px;
+// }
+
+.expanded-menu {
+  margin-left: 100px;
 }
 
 .mat-drawer-container{
@@ -79,13 +95,17 @@ mat-drawer-content {
     }
 }
 
+.nav-link.active{
+background-color: $accent-lightgrey;
+}
+
 .content{
     margin-top: 3rem;
     overflow-y: auto;
 }
 
 .expansion-header{
-    padding:0 10px !important
+    padding:0 10px !important;
 }
 
 .mat-expansion-panel-body {
@@ -109,16 +129,15 @@ mat-drawer-content {
         &:hover{
             background-color: $accent-darkgrey;
         }
-        &:active{
-            //TODO nochmals testen
-            background-color: $accent-lightgrey;
-        } 
         p{
         display:flex;
         align-items: center;
         }
 }
 
+.channel-item.active{
+    background-color: $accent-lightgrey;
+}
 
 // Positioning from main content  between header and navbar
 main{

@@ -32,11 +32,12 @@ import { UsersComponent } from './users/users.component';
 import { ChatComponent } from './chat/chat.component';
 import { TextEditComponent } from './text-edit/text-edit.component';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent],
+  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent, WelcomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

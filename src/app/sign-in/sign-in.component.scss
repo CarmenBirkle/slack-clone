@@ -138,7 +138,7 @@ a {
 
 .input-pwd {
     input {
-        width: calc(100% - $input-padding - 40px);
+        width: calc(100% - $input-padding - 48px);
         padding-right: 48px
     }
 
@@ -147,7 +147,7 @@ a {
         top: 0;
         right: 0;
         height: 30px;
-        margin: 10px 5px;
+        margin: 10px;
         background-size: contain;
         filter: invert(62%) sepia(41%) saturate(10%) hue-rotate(23deg) brightness(91%) contrast(88%);
 

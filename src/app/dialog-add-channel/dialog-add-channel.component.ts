@@ -1,6 +1,6 @@
 import { Component, OnDestroy, NgModule } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MyErrorStateMatcher } from '../models/interfaces/errorStateMatcher';
+import { MyErrorStateMatcher } from '../service/errorStateMatcher.service';
 
 import {
   FormControl,
@@ -10,7 +10,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Channel } from './../models/channel.class';
+import { Channel } from '../../models/channel.class';
 import {
   Firestore,
   collection,

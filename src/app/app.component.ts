@@ -4,7 +4,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
-import { LoadingService } from '../app/service/loadingService';
+import { LoadingService } from './service/loading.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

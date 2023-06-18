@@ -4,7 +4,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { Channel } from '../models/channel.class';
+import { Channel } from '../../models/channel.class';
 
 @Component({
   selector: 'app-chat',

@@ -31,6 +31,11 @@ export class SignInComponent {
   async signIn(email: string, password: string) {
     await this.authentication.signin(email, password);
     this.errorMsg = this.authentication.errorMsg;
+    /* if(errorMsg.code == AuthErrorCodes.INVALID_Password) {
+      // write "wrong password"
+    } else {
+      // write `Error: ${errorMsg.message}`
+    }*/
   }
 
   async signInAnonymously() {

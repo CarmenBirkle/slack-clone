@@ -11,21 +11,33 @@
                 
                     <div class="input-container">
                         <div class="input">
-                            <input type="text" #usernameSignUp required>
+                            <input type="text" #usernameSignUp required [(ngModel)]="user.username"
+                                (focusout)="valUsername(usernameSignUp.value)">
                             <span>Username</span>
                         </div>
+                        <span class="errorTxt">{{ errorNameTxt }}</span>
+                        
                         <div class="input">
-                            <input type="email" #emailSignUp required>
+                            <input type="email" #emailSignUp required [(ngModel)]="user.email">
                             <span>Email</span>
                         </div>
-                        <div class="input">
+                        <span class="errorTxt">{{ errorEmailTxt }}</span>
+
+                        <div class="input input-pwd">
                             <input type="password" #passwordSignUp required>
                             <span>Password</span>
+                            <img class="show-pwd" (click)="toggleShowPwd(false)"
+                                [src]="pwdImg">
                         </div>
-                        <div class="input">
-                            <input type="password" required>
-                            <span>Password repeat</span>
+                        <span #errorPwd class="errorTxt">Password is to weak</span>
+
+                        <div class="input input-pwd">
+                            <input type="password" #passwordRepeat required>
+                            <span>repeat Password</span>
+                            <img class="show-pwd" (click)="toggleShowPwd(true)"
+                                [src]="pwdRepeatImg">
                         </div>
+                        <span #errorPwdRepeat class="errorTxt">Password do not match</span>
                     </div>
 
                     <!-- <mat-hint>Errors appear instantly!</mat-hint>

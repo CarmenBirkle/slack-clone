@@ -41,7 +41,7 @@ export class AuthenticationService {
       .catch((error) => {
         /* const errorCode = error.code;
         const errorMessage = error.message; */
-        this.errorMsg = error.message;
+        this.errorMsg = error;
       });
   }
 

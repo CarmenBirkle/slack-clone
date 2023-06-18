@@ -40,10 +40,11 @@ mat-drawer-container{
     color: $color-text;
 }
 
-//TODO entfernen, vorab prüfen ob noch benötigt
-// mat-drawer-content {
-//     margin-left: 100px;
-// }
+mat-drawer-content {
+    // margin-left: 100px;
+    background-color: $background-second;
+    color:white;
+}
 
 .expanded-menu {
   margin-left: 100px;
@@ -139,12 +140,12 @@ background-color: $accent-lightgrey;
     background-color: $accent-lightgrey;
 }
 
-// Positioning from main content  between header and navbar
+// TODO ggf. in die unterseiten auslagern, aktuell noch behalten - Positioning from main content  between header and navbar
 main{
-    padding: 0 10% 0 10%;
-    padding-top: 2rem;
+    // padding: 0 10% 0 10%;
+    // padding-top: 2rem;
     @media (min-width: 768px) {
-        padding-left: 3.5rem;
+        // padding-left: 3.5rem;
     }   
 }
 

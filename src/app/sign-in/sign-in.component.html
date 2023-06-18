@@ -9,15 +9,17 @@
             <!-- <span>Stay connected with your friends and colleagues</span> -->
             <form class="signin-form">
                 
-                    <div class="input-container">
+                    <div class="input-container" [class.error]="errorMsg">
                         <div class="input">
-                            <input type="text" #emailSignIn required>
+                            <input type="text" #emailSignIn required> <!-- (keydown)="signInKey($event)" -->
                             <span>Email</span>
                         </div>
-                        <div class="input">
+                        <div class="input input-pwd" [class.error]="errorMsg">
                             <input type="password" #passwordSignIn required>
                             <span>Password</span>
-                        </div>
+                            <img class="show-pwd" (click)="toggleShowPwd()"
+                                [src]="pwdImg">
+                            </div>
                     </div>
 
                     <!-- <mat-hint>Errors appear instantly!</mat-hint>
@@ -29,6 +31,13 @@
                     </mat-error> -->
 
                     <a href="#">Forgot password?</a>
+
+                    <div class="errorBox">
+                        <mat-error *ngIf="errorMsg">
+                            Email or Password invalid!
+                        </mat-error>
+                    </div>
+
                     <button (click)="signIn(emailSignIn.value, passwordSignIn.value)">
                         Sign in
                     </button>

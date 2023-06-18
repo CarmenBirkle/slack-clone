@@ -74,7 +74,7 @@ a {
 
     button {
         height: 56px;
-        margin-top: 55px;
+        //margin-top: 55px;
         font-size: 1.7rem;
         border-radius: 12px;
         //color: $color-text;
@@ -136,11 +136,54 @@ a {
     }
 }
 
+.input-pwd {
+    input {
+        width: calc(100% - $input-padding - 40px);
+        padding-right: 48px
+    }
+
+    img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 30px;
+        margin: 10px 5px;
+        background-size: contain;
+        filter: invert(62%) sepia(41%) saturate(10%) hue-rotate(23deg) brightness(91%) contrast(88%);
+
+        cursor: pointer;
+    }
+}
+
 .signin-test {
     margin-top: 30px;
     text-align: center;
 
     a {
         cursor: pointer;
+    }
+}
+
+.errorBox {
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mat-error {
+        //font-size: 1.5rem;
+        text-align: center;
+    }
+}
+
+.error input {
+    border-color: $color-error;
+    -webkit-box-shadow: 0 0 0 1px $color-error;
+    box-shadow: 0 0 0 1px $color-error;
+
+    &:focus {
+        border-color: $color-error;
+        -webkit-box-shadow: 0 0 0 1px $color-error;
+        box-shadow: 0 0 0 1px $color-error;
     }
 }

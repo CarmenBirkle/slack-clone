@@ -26,7 +26,7 @@
                     <div class="input input-pwd">
                         <input type="password" #passwordSignUp required>
                         <span>Password</span>
-                        <img class="show-pwd" (click)="toggleShowPwd(false)"
+                        <img class="show-pwd noselect" (click)="toggleShowPwd(false)"
                             [src]="pwdImg">
                     </div>
                     <span #errorPwd class="errorTxt">Password is to weak</span>
@@ -35,7 +35,7 @@
                         <input (focusout)="valPwdRepeat(passwordSignUp.value, passwordRepeat.value)"
                             type="password" #passwordRepeat required>
                         <span>repeat Password</span>
-                        <img class="show-pwd" (click)="toggleShowPwd(true)"
+                        <img class="show-pwd noselect" (click)="toggleShowPwd(true)"
                             [src]="pwdRepeatImg">
                     </div>
                     <span #errorPwdRepeat class="errorTxt">{{ errorPwRepeatTxt }}</span>

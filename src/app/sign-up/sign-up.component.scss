@@ -137,7 +137,8 @@ a {
 }
 
 .errorTxt {
-    height: 35px;
+    min-height: 35px;
+    max-height: 50px;
     font-size: 14px;
     color: $color-error;
 }
@@ -158,5 +159,17 @@ a {
         filter: invert(62%) sepia(41%) saturate(10%) hue-rotate(23deg) brightness(91%) contrast(88%);
 
         cursor: pointer;
+    }
+}
+
+.errorBorder input {
+    border-color: $color-error;
+    -webkit-box-shadow: 0 0 0 1px $color-error;
+    box-shadow: 0 0 0 1px $color-error;
+
+    &:focus {
+        border-color: $color-error;
+        -webkit-box-shadow: 0 0 0 1px $color-error;
+        box-shadow: 0 0 0 1px $color-error;
     }
 }

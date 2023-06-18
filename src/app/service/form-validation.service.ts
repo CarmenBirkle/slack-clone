@@ -63,6 +63,21 @@ export class FormValidationService {
     }
   }
 
+  testInputStrength(inputString: string, numOfCritera: number) {
+    const hasUpperCase = /[A-Z]/.test(inputString);
+    const hasLowerCase = /[a-z]/.test(inputString);
+    const hasNumbers = /\d/.test(inputString);
+    const hasSpecialCharacters = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(inputString);
+
+    const count = [hasUpperCase, hasLowerCase, hasNumbers, hasSpecialCharacters].filter(Boolean).length;
+
+    if (count >= numOfCritera) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   getData() {
     const collectionInstance = collection(this.firestore, 'users');
 

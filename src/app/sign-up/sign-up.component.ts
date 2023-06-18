@@ -32,6 +32,11 @@ export class SignUpComponent {
   user = new User();
   loading: boolean = false;
 
+  errorUsername: boolean = false;
+  errorEmail: boolean = false;
+  errorPwd: boolean = false;
+  errorPwdRepeat: boolean = false;
+
   constructor(public authentication: AuthenticationService, 
       private formValidation: FormValidationService, private firestore: Firestore) {
     this.pwdField = {} as ElementRef<HTMLInputElement>;
@@ -47,12 +52,11 @@ export class SignUpComponent {
       this.errorNameTxt = 'Username already exist.'
     } else {
       this.errorNameTxt = '';
-      // remove red border
+      this.errorUsername = false;
       return true;
     }
 
-    
-    // red border
+    this.errorUsername = true;
     return false;
   }
 
@@ -62,13 +66,13 @@ export class SignUpComponent {
         this.errorEmailTxt = 'Email already exist.';
       } else {
         this.errorEmailTxt = '';
-        // remove red border      
+        this.errorEmail = false;
         return true;
       }
     } else {
       this.errorEmailTxt = 'Email is invalid.';
     }
-    // red border 
+    this.errorEmail = true;
     return false;
   }
 
@@ -77,24 +81,27 @@ export class SignUpComponent {
       this.errorPwdTxt = 'Password is to weak. Min. 8 characters required.'
     } else if(!this.formValidation.testInputLengthGt(pwd, 30)) {
       this.errorPwdTxt = 'Password is to long. Max. 30 characters allowed.'
+    } else if(!this.formValidation.testInputStrength(pwd, 3)) {
+      this.errorPwdTxt = `Password is to weak. You need 3 of this 4 criteria: 
+        uppercase, lowercase, numbers, special characters`;
     } else {
       this.errorPwdTxt = '';
-      // remove red border
+      this.errorPwd = false;
       return true;
     }
 
-    // red border
+    this.errorPwd = true;
     return false;
   }
 
   valPwdRepeat(pwd: string, pwdRepeat: string) {
     if(pwd != pwdRepeat) {
       this.errorPwdRepeatTxt = `Password don't match.`;
-      // red border
+      this.errorPwdRepeat = true;
       return false;
     } else {
       this.errorPwdRepeatTxt = '';
-      // remove red border
+      this.errorPwdRepeat = false;
       return true;
     }
   }
@@ -144,5 +151,10 @@ export class SignUpComponent {
     if (event.key === "Enter" && signUpBtn) {
       signUpBtn.click();
     }
+  }
+
+  onSelect(event: Event) {
+    event.preventDefault();
+    window.getSelection()?.removeAllRanges();
   }
 }

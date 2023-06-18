@@ -2,17 +2,19 @@
 @import "src/_globals.scss";
 
 section {
-    padding: 0 10% 0 10%;
+    // padding: 0 10% 0 10%;
 }
 
 .chat-header{
-    width: 100%;
+   width: 100%; 
+    padding: 0 4%; 
     position:fixed;
     z-index:10;
     background-color: $background-second;
     height: 3.3rem;
     padding-top:0.2rem;
     display: flex;
+    gap:0.5rem;
     align-items: center;
     border-bottom: 1px solid $accent-darkgrey;
     h2{
@@ -21,19 +23,13 @@ section {
 }
 
 .chat-content{
-      padding-top: 4.5rem 
+       padding: 4.5rem 6% 0 6%;
 }
 
-//main{
-    // padding: 0 10% 0 10%;
-    // padding-top: 2rem;
-  //  @media (min-width: 768px) {
-        // padding-left: 3.5rem;
-    //}   
-//}
+
 
 app-text-edit{
     position : fixed;
     bottom: 5px; 
-    margin-right: 10%
+    padding:0 6% 0 6%
 }

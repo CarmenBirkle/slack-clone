@@ -38,6 +38,31 @@ export class FormValidationService {
     }
   }
 
+  testExistEmail(inputString: string) {
+    const emailExists = this.userData?.some(
+      userData => userData.email.toLowerCase() === inputString.toLowerCase());
+
+    if(emailExists) {
+      return true; // user exist
+    } else {
+      return false; // not exist
+    }
+  }
+
+  testEmailFormat(inputString: string) {
+    const trimmedEmail = inputString.trim();
+
+    const email = inputString.toLowerCase();
+
+    const re = /\S+@\S+\.\S+/;
+
+    if (!re.test(email) || trimmedEmail.includes(" ")) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   getData() {
     const collectionInstance = collection(this.firestore, 'users');
 

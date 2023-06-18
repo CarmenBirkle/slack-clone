@@ -18,27 +18,28 @@
                     <span class="errorTxt">{{ errorNameTxt }}</span>
                     
                     <div class="input">
-                        <input type="string" #emailSignUp required [(ngModel)]="user.email">
+                        <input type="string" #emailSignUp required (keydown)="signUpKey($event)"
+                            [(ngModel)]="user.email">
                         <span>Email</span>
                     </div>
                     <span class="errorTxt">{{ errorEmailTxt }}</span>
 
                     <div class="input input-pwd">
-                        <input type="password" #passwordSignUp required>
+                        <input type="password" #passwordSignUp required (keydown)="signUpKey($event)">
                         <span>Password</span>
                         <img class="show-pwd noselect" (click)="toggleShowPwd(false)"
                             [src]="pwdImg">
                     </div>
-                    <span #errorPwd class="errorTxt">Password is to weak</span>
+                    <span #errorPwd class="errorTxt">{{ errorPwdTxt }}</span>
 
                     <div class="input input-pwd">
                         <input (focusout)="valPwdRepeat(passwordSignUp.value, passwordRepeat.value)"
-                            type="password" #passwordRepeat required>
+                            type="password" #passwordRepeat required (keydown)="signUpKey($event)">
                         <span>repeat Password</span>
                         <img class="show-pwd noselect" (click)="toggleShowPwd(true)"
                             [src]="pwdRepeatImg">
                     </div>
-                    <span #errorPwdRepeat class="errorTxt">{{ errorPwRepeatTxt }}</span>
+                    <span #errorPwdRepeat class="errorTxt">{{ errorPwdRepeatTxt }}</span>
                 </div>
 
                 <!-- <mat-hint>Errors appear instantly!</mat-hint>
@@ -50,7 +51,7 @@
                 </mat-error> -->
 
                 <button id="signUpBtn"
-                    (click)="signUp(emailSignUp.value, passwordSignUp.value, passwordRepeat.value, usernameSignUp.value)">
+                    (click)="signUp(emailSignUp.value.toLowerCase(), passwordSignUp.value, passwordRepeat.value, usernameSignUp.value)">
                     Sign up
                 </button>
             </div>

@@ -26,8 +26,8 @@ export class SignUpComponent {
 
   errorNameTxt: string = '';
   errorEmailTxt: string = '';
-  errorPwTxt: string = '';
-  errorPwRepeatTxt: string = '';
+  errorPwdTxt: string = '';
+  errorPwdRepeatTxt: string = '';
 
   user = new User();
   loading: boolean = false;
@@ -39,37 +39,61 @@ export class SignUpComponent {
   }
 
   async valUsername(username: string) {
-    var errors: boolean = false;
-
     if(!this.formValidation.testInputLengthLt(username, 3)) {
       this.errorNameTxt = 'Username is to short. Min. 3 characters required.'
-      errors = true;
     } else if(!this.formValidation.testInputLengthGt(username, 30)) {
       this.errorNameTxt = 'Username is to long. Max. 30 characters allowed.'
-      errors = true;
     } else if(await this.formValidation.testExistUsername(username)) {
       this.errorNameTxt = 'Username already exist.'
     } else {
       this.errorNameTxt = '';
-      errors = false;
-    }
-
-    if(errors) {
-      // red border
-      return false;
-    } else {
       // remove red border
       return true;
     }
+
+    
+    // red border
+    return false;
+  }
+
+  async valEmail(email: string) {
+    if(this.formValidation.testEmailFormat(email)) {
+      if(await this.formValidation.testExistEmail(email)) {
+        this.errorEmailTxt = 'Email already exist.';
+      } else {
+        this.errorEmailTxt = '';
+        // remove red border      
+        return true;
+      }
+    } else {
+      this.errorEmailTxt = 'Email is invalid.';
+    }
+    // red border 
+    return false;
+  }
+
+  valPwd(pwd: string) {
+    if(!this.formValidation.testInputLengthLt(pwd, 8)) {
+      this.errorPwdTxt = 'Password is to weak. Min. 8 characters required.'
+    } else if(!this.formValidation.testInputLengthGt(pwd, 30)) {
+      this.errorPwdTxt = 'Password is to long. Max. 30 characters allowed.'
+    } else {
+      this.errorPwdTxt = '';
+      // remove red border
+      return true;
+    }
+
+    // red border
+    return false;
   }
 
   valPwdRepeat(pwd: string, pwdRepeat: string) {
     if(pwd != pwdRepeat) {
-      this.errorPwRepeatTxt = `Password don't match`;
+      this.errorPwdRepeatTxt = `Password don't match.`;
       // red border
       return false;
     } else {
-      this.errorPwRepeatTxt = '';
+      this.errorPwdRepeatTxt = '';
       // remove red border
       return true;
     }
@@ -77,13 +101,15 @@ export class SignUpComponent {
 
   async signUp(email: string, password: string, passwordRepeat: string, username: string) {
     const usernameOk = await this.valUsername(username);
+    const emailOk = await this.valEmail(email);
+    const pwdOk = await this.valPwd(password);
     const pwdRepeatOk = await this.valPwdRepeat(password, passwordRepeat);
     
-    if(usernameOk && pwdRepeatOk) {
+    if(usernameOk && emailOk && pwdOk && pwdRepeatOk) {
       //await this.authentication.sigup(email, password);
     
-    // create User in DB ('users')
-    this.addUser();
+      // create User in DB ('users')
+      this.addUser();
     }
   }
 

@@ -1,13 +1,30 @@
 <section>
-    <div class="chat-header">
-        <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
-        <h2>{{channel.channelName}}</h2>
-    </div>
-    <div class="chat-content">
-<p>chat works</p>
+    <div class="container">
+        <div class="header">
+            <div class="left-items">
+                    <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
+                    <h2>{{channel.channelName}}</h2>
+                </div>
+                <div class="right-items">
+                        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                             <mat-icon>edit</mat-icon>
+                         </button>
+                           <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                             <mat-icon>delete</mat-icon>
+                         </button>
+                </div>
+    
+        </div>
 
-    einzelene Posts mit:
-    Bild - name uhrzeit darunter text , gegebene icons + icons add
-    </div>
-    <app-text-edit></app-text-edit>
+        <div class="main-content">
+          Main Content
+        </div>
+
+        <div class="app-text-edit">
+              <app-text-edit></app-text-edit>
+        </div>
+</div>
+
 </section>
+
+

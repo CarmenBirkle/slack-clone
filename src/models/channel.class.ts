@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Channel class to create new Channel objects.
+ */
+//TODO: talk about the channelType/authorizedUser
 export class Channel {
   channelName: string;
   channelPosts: string[] = [];

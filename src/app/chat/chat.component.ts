@@ -2,9 +2,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { Channel } from '../../models/channel.class';
+import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
+import { DialogDeleteChannelComponent } from '../dialog-delete-channel/dialog-delete-channel.component';
+
+
 
 @Component({
   selector: 'app-chat',
@@ -25,7 +29,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
-      this.getChannel(); 
+      this.getChannel();
     });
   }
 
@@ -44,5 +48,46 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.unsubscribe();
     }
   }
+
+  openEditDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): MatDialogRef<DialogEditChannelComponent> {
+    return this.dialog.open(DialogEditChannelComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+  openDeleteDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): MatDialogRef<DialogDeleteChannelComponent> {
+    return this.dialog.open(DialogDeleteChannelComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
+  // editChannel(channelId: string) {
+  //   const dialog = this.openDialog(
+  //     'enterAnimationDurationValue',
+  //     'exitAnimationDurationValue'
+  //   );
+  //   dialog.componentInstance.channel = new Channel(this.channel.toJson());
+  //   dialog.componentInstance.channelId = channelId;
+  // }
+
+  // editChannel() {
+  //   const dialog = this.openDialog(
+  //     'enterAnimationDurationValue',
+  //     'exitAnimationDurationValue',
+  //     channelId
+  //   );
+  //   dialog.componentInstance.channel = new Channel(this.channel.toJson());
+  // }
+
+  deleteChannel() {}
 }
 

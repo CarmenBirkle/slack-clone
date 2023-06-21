@@ -80,29 +80,66 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
+  // getPosts() {
+  //   this.unsubscribePosts && this.unsubscribePosts();
+  //   const postsRef = collection(this.firestore, 'posts');
+  //   this.unsubscribePosts = onSnapshot(postsRef, (querySnapshot) => {
+  //     this.allPosts = [];
+  //     querySnapshot.forEach((doc) => {
+  //       let postData = doc.data();
+  //       postData['id'] = doc.id;
+  //       const post = new Post(postData);
+  //       if (this.channel.channelPosts.includes(post.id)) {
+  //         this.allPosts.push(post);
+  //         this.hasData = true;
+  //       }
+  //     });
+  //     if (this.hasData) {
+  //       this.sortPosts();
+  //       console.log('all posts: ', this.allPosts);
+  //       this.stopLoading();
+  //       this.cd.detectChanges();
+  //     }
+  //     //TODO console.log delete
+  //     this.stopLoading();
+  //   });
+  // }
+
   getPosts() {
     this.unsubscribePosts && this.unsubscribePosts();
     const postsRef = collection(this.firestore, 'posts');
     this.unsubscribePosts = onSnapshot(postsRef, (querySnapshot) => {
-      this.allPosts = [];
-      querySnapshot.forEach((doc) => {
-        let postData = doc.data();
-        postData['id'] = doc.id; // Sie setzen die ID hier
-        const post = new Post(postData);
-        if (this.channel.channelPosts.includes(post.id)) {
-          this.allPosts.push(post);
-          this.hasData = true;
-        }
-      });
-      if (this.hasData) {
-        this.sortPosts();
-        console.log('all posts: ', this.allPosts);
-        this.stopLoading();
-        this.cd.detectChanges();
-      }
-      //TODO console.log delete
-      this.stopLoading();
+      this.processQuerySnapshot(querySnapshot);
     });
+  }
+
+  processQuerySnapshot(querySnapshot: any) {
+    this.allPosts = [];
+    querySnapshot.forEach((doc: any) => {
+      this.processDocumentSnapshot(doc);
+    });
+    this.finalizePostProcessing();
+  }
+
+  processDocumentSnapshot(doc: any) {
+    let postData = doc.data();
+    postData['id'] = doc.id;
+    const post = new Post(postData);
+    if (this.channel.channelPosts.includes(post.id)) {
+      this.allPosts.push(post);
+      this.hasData = true;
+    }
+  }
+
+  finalizePostProcessing() {
+    if (this.hasData) {
+      this.sortPosts();
+      console.log('all posts: ', this.allPosts);
+      this.stopLoading();
+      this.cd.detectChanges();
+    } else {
+      this.stopLoading();
+    }
   }
 
   sortPosts() {

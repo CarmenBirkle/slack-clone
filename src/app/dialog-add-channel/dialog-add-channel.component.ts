@@ -1,28 +1,11 @@
 import { Component, OnDestroy, NgModule } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MyErrorStateMatcher } from '../service/errorStateMatcher.service';
-
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-
+import { FormControl, Validators } from '@angular/forms';
 import { Channel } from '../../models/channel.class';
-import {
-  Firestore,
-  collection,
-  collectionData,
-  setDoc,
-  doc,
-  getDoc,
-  getDocs,
-} from '@angular/fire/firestore';
+import { Firestore, collection, getDoc } from '@angular/fire/firestore';
 import { addDoc } from 'firebase/firestore';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @NgModule({
   providers: [{ provide: ErrorStateMatcher, useClass: MyErrorStateMatcher }],

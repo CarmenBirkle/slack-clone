@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 import { LoadingService } from './service/loading.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,7 +30,8 @@ export class AppComponent {
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
     private firestore: Firestore,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -77,14 +79,21 @@ export class AppComponent {
    * Angular's AfterViewInit lifecycle hook, executes after the component's view (and child views) has been initialized.
    * Here, we're setting up the viewport checker and event listener for window resizing.
    */
-  ngAfterViewInit() {
-    this.checkViewport();
-    this.cdr.detectChanges();
 
-    window.addEventListener('resize', () => {
+  ngAfterViewInit() {
+    setTimeout(() => {
       this.checkViewport();
       this.cdr.detectChanges();
-    });
+
+      window.addEventListener('resize', () => {
+        this.checkViewport();
+        this.cdr.detectChanges();
+      });
+    }, 0);
+  }
+
+  ngAfterViewChecked() {
+    this.cd.detectChanges();
   }
 
   /**
@@ -111,7 +120,7 @@ export class AppComponent {
 
   onToggleSidebar() {
     this.drawer.toggle();
-    this.isSidebarOpened = !this.isSidebarOpened; 
+    this.isSidebarOpened = !this.isSidebarOpened;
   }
 
   openDialog(

@@ -17,9 +17,11 @@
 
         <div class="main-content">
                 
-            <div class="post-item" *ngFor="let post of allPosts">
+            <!-- <div class="post-item" *ngFor="let post of allPosts">
                 <div [innerHTML]="post.message"></div>
-            </div>
+            </div> -->
+            <app-post *ngFor="let post of allPosts" [post]="post"></app-post>
+
         </div>
 
         <div class="app-text-edit">

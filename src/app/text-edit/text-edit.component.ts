@@ -13,6 +13,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingService } from './../service/loading.service';
 
 @Component({
   selector: 'app-text-edit',
@@ -25,7 +26,11 @@ export class TextEditComponent {
   post: Post = new Post();
   channelId: string = '';
 
-  constructor(private firestore: Firestore, private route: ActivatedRoute) {}
+  constructor(
+    private firestore: Firestore,
+    private route: ActivatedRoute,
+    public loadingService: LoadingService
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -47,9 +52,22 @@ export class TextEditComponent {
     console.log(this.editorContent); // Prints the current content of the editor
   }
 
+  /**
+   * Start the loading animation, from the loadingService
+   */
+  startLoading() {
+    this.loadingService.setLoadingState(true);
+  }
 
+  /**
+   * Stop the loading animation, from the loadingService
+   */
+  stopLoading() {
+    this.loadingService.setLoadingState(false);
+  }
 
   async addPost() {
+    this.startLoading();
     console.log('addPost aufgerufen - channel: ', this.channelId);
     const docRef = await addDoc(
       collection(this.firestore, 'posts'),
@@ -57,7 +75,7 @@ export class TextEditComponent {
     );
     this.post.id = docRef.id;
     console.log('Document written with ID: ', docRef.id);
-this.editorContent = '';
+    this.editorContent = '';
     // Get the current channel object
     const channelDoc = doc(this.firestore, 'channels', this.channelId);
     const channelSnap = await getDoc(channelDoc);
@@ -68,22 +86,12 @@ this.editorContent = '';
       channelData['channelPosts'].push(this.post.id);
 
       // Update the channel document in Firestore
-      await updateDoc(channelDoc, { channelPosts: channelData['channelPosts'] });
+      await updateDoc(channelDoc, {
+        channelPosts: channelData['channelPosts'],
+      });
     }
-     
-}
+    this.stopLoading();
   }
+}
 
-  ///
-  //
-
-  // async function addPost() {
-  //   const docRef = await addDoc(collection(this.firestore, "posts"), {
-  //     message: this.editorContent,
-  //     channelId: this.channelId,
-  //     // hier können Sie alle anderen Felder hinzufügen, die Sie benötigen
-  //   });
-
-  //   console.log("Document written with ID: ", docRef.id);
-  // }
-
+ 

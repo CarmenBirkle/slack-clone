@@ -13,7 +13,7 @@
   <mat-drawer #drawer class="sidenav" [opened]="!isMobileView" [mode]="isMobileView ? 'over' : 'side'">
     <div class="logo-container"> </div>
     <ul class="icon-menu">
-      <li class="nav-link" routerLink="/chat" [routerLinkActive]="'active'" (click)="onLinkClicked()"><mat-icon>forum</mat-icon> Threads</li>
+      <li class="nav-link" routerLink="/chat" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}" (click)="onLinkClicked()"><mat-icon>forum</mat-icon> Threads</li>
       <li class="nav-link" routerLink="/users" [routerLinkActive]="'active'" (click)="onLinkClicked()"> <mat-icon>group</mat-icon>Users</li>
       <mat-divider></mat-divider>
 
@@ -26,7 +26,8 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <!-- Render all channels -->
-            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels" [routerLink]="['/chat', channel.id]" (click)="onLinkClicked()">
+          
+            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/chat', channel.id]" (click)="onLinkClicked()">
               <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
               <div>{{channel.channelName}}</div>
           </div>

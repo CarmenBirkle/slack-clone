@@ -20,8 +20,6 @@ import {
 import { LoadingService } from './../service/loading.service';
 
 
-
-
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -66,9 +64,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   getChannel() {
     this.startLoading();
-    if (this.unsubscribeChannel) {
-      this.unsubscribeChannel();
-    }
+    this.unsubscribeChannel && this.unsubscribeChannel();
+
     const docRef = doc(this.firestore, 'channels', this.channelId);
     this.unsubscribeChannel = onSnapshot(docRef, (docSnap) => {
       this.channel = new Channel(docSnap.data());
@@ -78,9 +75,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   getPosts() {
-    if (this.unsubscribePosts) {
-      this.unsubscribePosts();
-    }
+    this.unsubscribePosts && this.unsubscribePosts();
     const postsRef = collection(this.firestore, 'posts');
     this.unsubscribePosts = onSnapshot(postsRef, (querySnapshot) => {
       this.allPosts = [];
@@ -94,9 +89,18 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
 
       //TODO console.log delete
+      this.sortPosts();
       console.log('all posts: ', this.allPosts);
     });
-    this.stopLoading(); 
+    this.stopLoading();
+  }
+
+
+
+  sortPosts() {
+    this.allPosts.sort((a, b) => {
+      return a.timestamp - b.timestamp;
+    });
   }
 
   ngOnDestroy() {

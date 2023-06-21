@@ -1,4 +1,14 @@
-<p>post works!</p>
+<div class="post">
+<!-- 
+  <div class="post-author">{{ post.author }}</div> -->
+<div class="post-date">{{ dateString }}</div>
+
+
+
+  <div class="post-message" [innerHTML]="post.message"></div>
+  
+</div>
+
 
 <!-- // Bild Name(fett) Uhrzeit
 Message

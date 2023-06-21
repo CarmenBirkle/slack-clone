@@ -1,6 +1,7 @@
 .post{
   display: flex;
-  padding: 1rem 0;;
+  padding: 1rem 0;
+  position: relative;
 }
 
 .profile-pic{
@@ -31,7 +32,12 @@
 }
 
 .post-message  {
-  
   max-width: 100%;
   height: auto;
+}
+
+.getActiveContainer{
+  position: absolute;
+  top:0;
+  right:0;
 }

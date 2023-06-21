@@ -1,25 +1,28 @@
 <div class="post">
+  <div class="getActiveContainer">
+    <mat-icon>add_reaction</mat-icon>
+    <mat-icon>bookmark</mat-icon>
+    <mat-icon>chat</mat-icon>
+    <mat-icon>forward</mat-icon>
+  </div>
+  <h3 *ngIf="showHeader">{{ dateString }}</h3>
    <img class="profile-pic" src="assets/img/carmen.png">
 <!-- 
   <div class="post-author">{{ post.author }}</div> -->
   <div>
    
     <div class="post-header">
-        <h3>Username</h3>
-        <div class="post-date">{{ dateString }} </div>
+        <h3>Carmen Birkle</h3>
+        <div class="post-date">{{ timeString }} </div>
     </div>
     <div class="post-message" [innerHTML]="post.message"></div>
-    <div>Platzhalter bisherige Emojis + Add Emojis</div>
-    <div class="reaction">
+    <div>Platzhalter bisherige Emojis <mat-icon>add_reaction</mat-icon></div>
+    <div class="reaction" (mouseenter)="showThread()" (mouseleave)="hideThread()">
       <div>Render Userpic</div>
       <div>x answers</div>
-      <div>last answer .. </div>
+       <div *ngIf="!showThreadContent">last answer...</div>
+      <div *ngIf="showThreadContent">Thread content...</div>
     </div>
   </div>
 </div>
 
-
-<!-- // Bild Name(fett) Uhrzeit
-Message
-reactionen addReaction 
-iconsUser Anzahl der Antworten - letzte Antwort -->

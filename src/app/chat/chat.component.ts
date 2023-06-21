@@ -57,6 +57,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: { channelId: this.channelId },
     });
   }
   openDeleteDialog(
@@ -67,6 +68,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: { channelId: this.channelId },
     });
   }
 

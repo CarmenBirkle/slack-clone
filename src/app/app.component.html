@@ -26,7 +26,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <!-- Render all channels -->
-            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels" [routerLink]="['/chat', channel.id]">
+            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels" [routerLink]="['/chat', channel.id]" (click)="onLinkClicked()">
               <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
               <div>{{channel.channelName}}</div>
           </div>

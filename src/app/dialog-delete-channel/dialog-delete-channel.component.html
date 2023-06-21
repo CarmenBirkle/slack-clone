@@ -10,7 +10,8 @@
 <mat-form-field class="example-full-width">
     
   <mat-label>Channel Name</mat-label>
-  <input type="text" matInput [formControl]="formControl" [errorStateMatcher]="matcher" placeholder="Channel Name">
+  
+  
 
   <mat-error *ngIf="!formControl.hasError('required')">
     Please enter a Channel Name
@@ -27,6 +28,7 @@
   <button mat-button mat-dialog-close>Cancel</button>
   <button mat-button (click)="deleteChannel()" mat-dialog-close [disabled]="formControl.invalid">Delete</button>
 </div>
+  <!-- <div>{{ errorMessage }}</div> -->
 
 </section>
 

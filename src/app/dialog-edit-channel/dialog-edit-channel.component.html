@@ -1,33 +1,33 @@
 <section>
-<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <h3 *ngIf="errorMessage">{{errorMessage}}</h3>
+    <h1 mat-dialog-title>Edit Channel</h1>
 
-<h1 mat-dialog-title>Edit Channel -noch nicht funktional-</h1>
+    <div mat-dialog-content>
+      <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Channel Name</mat-label>
+      <input type="text" matInput [formControl]="formControl" [errorStateMatcher]="matcher" placeholder="Channel Name">
 
-<div mat-dialog-content>
-  <form class="example-form">
-<mat-form-field class="example-full-width">
-  <mat-label>Channel Name</mat-label>
-  <input type="text" matInput [formControl]="formControl" [errorStateMatcher]="matcher" placeholder="Channel Name">
+      <mat-error *ngIf="!formControl.hasError('required')">
+        Please change the Channel Name
+      </mat-error>
+      <mat-error *ngIf="formControl.hasError('required')">
+        Channel Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-radio-group aria-label="Select an option" [formControl]="channelTypeControl">
+      <mat-radio-button [checked]="true" [value]="'public'">public</mat-radio-button>
+      <mat-radio-button [value]="'protected'">protected</mat-radio-button>
+    </mat-radio-group>
 
-  <mat-error *ngIf="!formControl.hasError('required')">
-    Please enter a Channel Name
-  </mat-error>
-  <mat-error *ngIf="formControl.hasError('required')">
-    Channel Name is <strong>required</strong>
-  </mat-error>
-</mat-form-field>
-<mat-radio-group aria-label="Select an option" [formControl]="channelTypeControl">
-  <mat-radio-button [checked]="true" [value]="'public'">public</mat-radio-button>
-  <mat-radio-button [value]="'protected'">protected</mat-radio-button>
-</mat-radio-group>
+      </form>
+    </div>
 
-  </form>
-</div>
-
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="saveChannel()" mat-dialog-close [disabled]="formControl.invalid">Create</button>
-</div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button (click)="saveChannel()" mat-dialog-close [disabled]="formControl.invalid">Create</button>
+    </div>
 
 </section>
 

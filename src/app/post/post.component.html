@@ -1,12 +1,21 @@
 <div class="post">
+   <img class="profile-pic" src="assets/img/carmen.png">
 <!-- 
   <div class="post-author">{{ post.author }}</div> -->
-<div class="post-date">{{ dateString }}</div>
-
-
-
-  <div class="post-message" [innerHTML]="post.message"></div>
-  
+  <div>
+   
+    <div class="post-header">
+        <h3>Username</h3>
+        <div class="post-date">{{ dateString }} </div>
+    </div>
+    <div class="post-message" [innerHTML]="post.message"></div>
+    <div>Platzhalter bisherige Emojis + Add Emojis</div>
+    <div class="reaction">
+      <div>Render Userpic</div>
+      <div>x answers</div>
+      <div>last answer .. </div>
+    </div>
+  </div>
 </div>
 
 

@@ -43,6 +43,8 @@ import { PostComponent } from './post/post.component';
 import 'emoji-picker-element';
 import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-picker.component';
 
+import { InfoComponent } from './info/info.component';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-p
     DialogDeleteChannelComponent,
     PostComponent,
     DialogEmojiPickerComponent,
+    InfoComponent, 
+    InfoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -82,8 +86,9 @@ import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-p
     ReactiveFormsModule,
     MatRadioModule,
     MatProgressBarModule,
-    MatCardModule,
-
+    MatCardModule,  
+ 
+   
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

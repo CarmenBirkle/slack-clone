@@ -2,9 +2,10 @@
    <div class="relative">
    <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
     <header>
-       <mat-toolbar>
+      <mat-toolbar>
         <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
-         <img src="assets/img/slack-logo-brand.png" alt="Slack"> 
+        <img src="assets/img/slack-logo-brand.png" alt="Slack"> 
+          <button class="infoButten" (click)="switchVisible()">?</button>
       </mat-toolbar>
     </header>
 
@@ -56,12 +57,21 @@
   </mat-drawer>
 
   <div class="content">
-
     <main>
-      <router-outlet></router-outlet>
+
+      <div style="display: flex;flex-direction: row;">
+
+  
+        <router-outlet></router-outlet>
+    
+      <app-info></app-info>
+    
+    </div>
     </main>
   </div>
 
 </mat-drawer-container>
 
 </div>
+
+

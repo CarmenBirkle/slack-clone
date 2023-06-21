@@ -1,0 +1,23 @@
+<div *ngIf="visible" class="infoBox">
+
+    <h2 mat-dialog-title>Support-Themen</h2>
+    <video  autoplay loop src="../assets/video/Präsentation3.mp4"></video>
+
+
+
+
+  
+    <mat-dialog-content class="mat-typography">
+
+        <button (click)="openDialog()">Direktnachrichten verstehen</button>
+        <button (click)="openDialog()">Huddles in Slack verwenden</button>
+    
+        <button (click)="openDialog()">Benachrichtigungen konfigurieren</button>
+        <button (click)="openDialog()">Status und Verfügbarkeit einstellen</button>
+        <button (click)="openDialog()">Erinnerungen einrichten</button>
+        <button (click)="openDialog()">Impressum und Datenschutz</button>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+    <!-- <button class="b" mat-button mat-dialog-close>Cancel</button> -->
+    </mat-dialog-actions>
+</div>

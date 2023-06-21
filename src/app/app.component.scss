@@ -9,6 +9,15 @@ header{
     width: 100%;
     z-index: 1000; 
 }
+// ? button header start 
+.infoButten{
+    margin-left: 65vw;
+    background-color: $background-second;
+    border: none;
+    color: $color-text;
+}
+// ? button header end
+
 
 mat-expansion-panel-header:hover {
     background-color:unset !important;
@@ -103,6 +112,7 @@ background-color: $accent-lightgrey;
 .content{
     margin-top: 3rem;
     overflow-y: auto;
+  
 }
 
 .expansion-header{

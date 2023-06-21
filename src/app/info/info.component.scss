@@ -1,0 +1,44 @@
+// import globale style
+@import "src/_globals.scss";
+
+.infoBox {
+    background-color: $background;
+    color: $color-text;
+    width: 20vw;
+    height: 100vh;
+    text-align: start !important;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+video{
+    width:250px;
+    height: 200;
+    border-radius: 5px;
+    margin: 25px 0;
+}
+
+button{
+    background-color: #3a3a3d;
+    border: 2px solid rgb(145, 139, 139);
+    margin: 10px 0;
+    color: $color-text;
+    width: 250px;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 5px;
+    line-height: 18px;
+}
+
+h2{
+    text-align: start !important;
+    margin: 0;
+    padding-top: 15px;
+}
+
+mat-dialog-content{
+    display: flex;
+    flex-direction: column;
+}

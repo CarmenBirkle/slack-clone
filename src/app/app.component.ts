@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 import { LoadingService } from './service/loading.service';
+import { InfoComponent } from './info/info.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,8 @@ export class AppComponent {
   isSidebarOpened: boolean = true;
 
   @ViewChild('drawer') drawer!: MatDrawer;
+
+  @ViewChild(InfoComponent) infoComponent!: InfoComponent;
   allChannels: any = [];
   isMobileView = true;
 
@@ -44,6 +47,9 @@ export class AppComponent {
     this.loadingService.setLoadingState(true);
   }
 
+  switchVisible(){
+    this.infoComponent.switchVisible();
+  }
   /**
    * Stop the loading animation, from the loadingService
    */

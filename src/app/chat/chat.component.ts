@@ -72,24 +72,5 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
-  // editChannel(channelId: string) {
-  //   const dialog = this.openDialog(
-  //     'enterAnimationDurationValue',
-  //     'exitAnimationDurationValue'
-  //   );
-  //   dialog.componentInstance.channel = new Channel(this.channel.toJson());
-  //   dialog.componentInstance.channelId = channelId;
-  // }
-
-  // editChannel() {
-  //   const dialog = this.openDialog(
-  //     'enterAnimationDurationValue',
-  //     'exitAnimationDurationValue',
-  //     channelId
-  //   );
-  //   dialog.componentInstance.channel = new Channel(this.channel.toJson());
-  // }
-
-  deleteChannel() {}
 }
 

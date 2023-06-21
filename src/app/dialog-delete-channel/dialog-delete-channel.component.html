@@ -1,34 +1,14 @@
-<section>
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
-<h1 mat-dialog-title>Delete Channel -noch nicht funktional-</h1>
+<h1 mat-dialog-title>Delete Channel</h1>
 
 <div mat-dialog-content>
   <form class="example-form">
-    <div>You'll delete the Channel: <b>Channelname</b> <br>
-        Shure ? Then repeat the Channelname in the input</div>
-<mat-form-field class="example-full-width">
-    
-  <mat-label>Channel Name</mat-label>
-  
-  
-
-  <mat-error *ngIf="!formControl.hasError('required')">
-    Please enter a Channel Name
-  </mat-error>
-  <mat-error *ngIf="formControl.hasError('required')">
-    Channel Name is <strong>required</strong>
-  </mat-error>
-</mat-form-field>
-
+    <h3>You'll delete the Channel, are you sure? </h3>
   </form>
 </div>
 
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="deleteChannel()" mat-dialog-close [disabled]="formControl.invalid">Delete</button>
+  <button mat-button (click)="deleteChannel()" mat-dialog-close >Yes - Delete!</button>
 </div>
-  <!-- <div>{{ errorMessage }}</div> -->
-
-</section>
-

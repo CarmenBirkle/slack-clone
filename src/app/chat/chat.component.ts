@@ -17,6 +17,7 @@ import {
 
   DocumentSnapshot,
 } from 'firebase/firestore';
+import { LoadingService } from './../service/loading.service';
 
 
 
@@ -38,18 +39,33 @@ export class ChatComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private firestore: Firestore,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public loadingService: LoadingService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
       this.getChannel();
-      this.getPosts();
     });
   }
 
+  /**
+   * Start the loading animation, from the loadingService
+   */
+  startLoading() {
+    this.loadingService.setLoadingState(true);
+  }
+
+  /**
+   * Stop the loading animation, from the loadingService
+   */
+  stopLoading() {
+    this.loadingService.setLoadingState(false);
+  }
+
   getChannel() {
+    this.startLoading();
     if (this.unsubscribeChannel) {
       this.unsubscribeChannel();
     }
@@ -57,6 +73,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.unsubscribeChannel = onSnapshot(docRef, (docSnap) => {
       this.channel = new Channel(docSnap.data());
       console.log(this.channel);
+      this.getPosts();
     });
   }
 
@@ -64,20 +81,22 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.unsubscribePosts) {
       this.unsubscribePosts();
     }
-
     const postsRef = collection(this.firestore, 'posts');
-
     this.unsubscribePosts = onSnapshot(postsRef, (querySnapshot) => {
-      const posts: Post[] = [];
+      this.allPosts = [];
       querySnapshot.forEach((doc) => {
         let postData = doc.data();
-        postData['id'] = doc.id;
+        postData['id'] = doc.id; // Sie setzen die ID hier
         const post = new Post(postData);
-        this.allPosts.push(post);
+        if (this.channel.channelPosts.includes(post.id)) {
+          this.allPosts.push(post);
+        }
       });
 
+      //TODO console.log delete
       console.log('all posts: ', this.allPosts);
     });
+    this.stopLoading(); 
   }
 
   ngOnDestroy() {
@@ -100,6 +119,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       data: { channelId: this.channelId },
     });
   }
+
   openDeleteDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string

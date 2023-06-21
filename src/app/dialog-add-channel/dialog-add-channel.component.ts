@@ -65,9 +65,6 @@ export class DialogAddChannelComponent implements OnDestroy {
 
   saveChannel() {
     this.loading = true;
-    // console.log('save channel');
-    // console.log(this.channel);
-
     const usersCollection = collection(this.firestore, 'channels');
     addDoc(usersCollection, this.channel.toJson()).then(async (result) => {
       const docSnap = await getDoc(result);

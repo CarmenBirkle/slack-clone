@@ -39,9 +39,10 @@ import {MatCardModule} from '@angular/material/card';
 import { HomeComponent } from './home/home.component';
 import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
 import { DialogDeleteChannelComponent } from './dialog-delete-channel/dialog-delete-channel.component';
+import { PostComponent } from './post/post.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent, WelcomeComponent, SignInComponent, SignUpComponent, HomeComponent, DialogEditChannelComponent, DialogDeleteChannelComponent],
+  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent, WelcomeComponent, SignInComponent, SignUpComponent, HomeComponent, DialogEditChannelComponent, DialogDeleteChannelComponent, PostComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

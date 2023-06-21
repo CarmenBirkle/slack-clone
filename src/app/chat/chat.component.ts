@@ -5,8 +5,19 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { Channel } from '../../models/channel.class';
+import { Post } from 'src/models/post.class';
 import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
 import { DialogDeleteChannelComponent } from '../dialog-delete-channel/dialog-delete-channel.component';
+import { get } from '@angular/fire/database';
+import {
+  collection,
+  query,
+  where,
+  getDoc,
+
+  DocumentSnapshot,
+} from 'firebase/firestore';
+
 
 
 
@@ -18,7 +29,11 @@ import { DialogDeleteChannelComponent } from '../dialog-delete-channel/dialog-de
 export class ChatComponent implements OnInit, OnDestroy {
   channelId: string = '';
   channel: Channel = new Channel();
-  private unsubscribe!: () => void;
+  post: Post = new Post();
+  allPosts: Post[] = [];
+  postId: string = '';
+  private unsubscribeChannel!: () => void;
+  private unsubscribePosts!: () => void;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,22 +45,47 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
       this.getChannel();
+      this.getPosts();
     });
   }
 
   getChannel() {
-    if (this.unsubscribe) {
-      this.unsubscribe();
+    if (this.unsubscribeChannel) {
+      this.unsubscribeChannel();
     }
     const docRef = doc(this.firestore, 'channels', this.channelId);
-    this.unsubscribe = onSnapshot(docRef, (docSnap) => {
+    this.unsubscribeChannel = onSnapshot(docRef, (docSnap) => {
       this.channel = new Channel(docSnap.data());
+      console.log(this.channel);
+    });
+  }
+
+  getPosts() {
+    if (this.unsubscribePosts) {
+      this.unsubscribePosts();
+    }
+
+    const postsRef = collection(this.firestore, 'posts');
+
+    this.unsubscribePosts = onSnapshot(postsRef, (querySnapshot) => {
+      const posts: Post[] = [];
+      querySnapshot.forEach((doc) => {
+        let postData = doc.data();
+        postData['id'] = doc.id;
+        const post = new Post(postData);
+        this.allPosts.push(post);
+      });
+
+      console.log('all posts: ', this.allPosts);
     });
   }
 
   ngOnDestroy() {
-    if (this.unsubscribe) {
-      this.unsubscribe();
+    if (this.unsubscribeChannel) {
+      this.unsubscribeChannel();
+    }
+    if (this.unsubscribePosts) {
+      this.unsubscribePosts();
     }
   }
 
@@ -71,6 +111,5 @@ export class ChatComponent implements OnInit, OnDestroy {
       data: { channelId: this.channelId },
     });
   }
-
 }
 

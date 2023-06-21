@@ -18,7 +18,7 @@ import {
   DocumentSnapshot,
 } from 'firebase/firestore';
 import { LoadingService } from './../service/loading.service';
-
+  import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-chat',
@@ -31,6 +31,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   post: Post = new Post();
   allPosts: Post[] = [];
   postId: string = '';
+  hasData: boolean = false;
   private unsubscribeChannel!: () => void;
   private unsubscribePosts!: () => void;
 
@@ -38,7 +39,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private firestore: Firestore,
     public dialog: MatDialog,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -46,6 +48,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.channelId = params['id'];
       this.getChannel();
     });
+  }
+  ngOnDestroy() {
+    this.unsubscribeChannel && this.unsubscribeChannel();
+    this.unsubscribePosts && this.unsubscribePosts();
   }
 
   /**
@@ -63,7 +69,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   getChannel() {
-    this.startLoading();
+    // this.startLoading();
     this.unsubscribeChannel && this.unsubscribeChannel();
 
     const docRef = doc(this.firestore, 'channels', this.channelId);
@@ -85,31 +91,24 @@ export class ChatComponent implements OnInit, OnDestroy {
         const post = new Post(postData);
         if (this.channel.channelPosts.includes(post.id)) {
           this.allPosts.push(post);
+          this.hasData = true;
         }
       });
-
+      if (this.hasData) {
+        this.sortPosts();
+        console.log('all posts: ', this.allPosts);
+        this.stopLoading();
+        this.cd.detectChanges();
+      }
       //TODO console.log delete
-      this.sortPosts();
-      console.log('all posts: ', this.allPosts);
+      this.stopLoading();
     });
-    this.stopLoading();
   }
-
-
 
   sortPosts() {
     this.allPosts.sort((a, b) => {
       return a.timestamp - b.timestamp;
     });
-  }
-
-  ngOnDestroy() {
-    if (this.unsubscribeChannel) {
-      this.unsubscribeChannel();
-    }
-    if (this.unsubscribePosts) {
-      this.unsubscribePosts();
-    }
   }
 
   openEditDialog(

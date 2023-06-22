@@ -1,7 +1,7 @@
 <section>
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
     <h3 *ngIf="errorMessage">{{errorMessage}}</h3>
-    <h1 mat-dialog-title>Edit Channel</h1>
+    <h1 mat-dialog-title class="white">Edit Channel</h1>
 
     <div mat-dialog-content>
       <form class="example-form">
@@ -25,8 +25,8 @@
     </div>
 
     <div mat-dialog-actions>
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button (click)="saveChannel()" mat-dialog-close [disabled]="formControl.invalid">Create</button>
+      <button class="white" mat-button mat-dialog-close>Cancel</button>
+      <button mat-button (click)="saveChannel()" mat-dialog-close [disabled]="formControl.invalid">Save the change</button>
     </div>
 
 </section>

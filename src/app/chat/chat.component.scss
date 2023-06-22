@@ -4,7 +4,7 @@
 .container{
     display:grid;
     grid-template-rows: 60px 1fr auto;
-    padding:0 10%;
+    // padding:0 10%;
     height: calc(100vh - 60px);
 }
 
@@ -12,7 +12,9 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
+    padding:0 10%;
     padding-top:0.2rem; 
+   
        .left-items, .right-items{
         display:flex;
         gap:0.5rem;

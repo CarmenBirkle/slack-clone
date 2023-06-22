@@ -16,9 +16,10 @@
         <div class="post-date">{{ timeString }} </div>
     </div>
     <div class="post-message" [innerHTML]="post.message"></div>
-    <div>Platzhalter bisherige Emojis <mat-icon>add_reaction</mat-icon></div>
+    <div class="emojis">Platzhalter bisherige Emojis <mat-icon>add_reaction</mat-icon></div>
     <div class="reaction" (mouseenter)="showThread()" (mouseleave)="hideThread()">
-      <div>Render Userpic</div>
+
+      <img class="small-icon" src="assets/img/carmen.png">
       <div>x answers</div>
        <div *ngIf="!showThreadContent">last answer...</div>
       <div *ngIf="showThreadContent">Thread content...</div>

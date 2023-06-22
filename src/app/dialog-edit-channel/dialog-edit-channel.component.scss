@@ -1,10 +1,32 @@
 // import globale style
 @import "src/_globals.scss";
+
 section{
-    color: black;
+        background: $accent-lightgrey;
 }
+
+h1{
+    color: white;
+}
+
+.white{
+    color: white;
+}
+
+button{
+    color: white!important;
+}
+
+
+:host ::ng-deep .mdc-form-field{
+    color: white!important;
+}
+:host ::ng-deep .mat-mdc-radio-button{
+    color: white!important;
+} 
 
 h3{
     margin: 9px 16px;
     color: $color-error;
 }
+

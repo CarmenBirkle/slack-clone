@@ -1,7 +1,26 @@
+// import globale style
+@import "src/_globals.scss";
+
 .post{
   display: flex;
-  padding: 1rem 0;
+  // padding: 1rem 0;
+  padding:1rem 10%;
+
   position: relative;
+  // padding: 1rem;
+  // border-radius: 10px;
+  &:hover{
+    cursor: pointer;
+    background-color: $accent-darkgrey;
+     .getActiveContainer {
+      background-color: $background;
+    }
+  }
+
+}
+
+.post:hover .getActiveContainer {
+  display: block;
 }
 
 .profile-pic{
@@ -25,9 +44,14 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0.2rem;
+  border-radius: 10px;
+  border:1px solid transparent;
+  font-size: $small;
   &:hover{
     cursor: pointer;
-    border:1px solid red;
+    background-color: $background-second;
+    border:1px solid $accent-lightgrey;
   }
 }
 
@@ -38,6 +62,30 @@
 
 .getActiveContainer{
   position: absolute;
-  top:0;
-  right:0;
+  display: none;
+  top:-13px;
+  right:1rem;
+  padding: 0.7rem 0rem 0rem 0.6rem;
+  border-radius: 10px;
+     mat-icon{
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+}
+.small-icon{
+  width:20px;
+  border-radius:10%
+}
+
+.emojis{
+  display:flex;
+  align-items: center;
+
+  mat-icon{
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
 }

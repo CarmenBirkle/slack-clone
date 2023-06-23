@@ -3,12 +3,8 @@
 
 .post{
   display: flex;
-  // padding: 1rem 0;
   padding:1rem 10%;
-
   position: relative;
-  // padding: 1rem;
-  // border-radius: 10px;
   &:hover{
     cursor: pointer;
     background-color: $accent-darkgrey;
@@ -40,6 +36,9 @@
   }
 }
 
+
+
+
 .reaction{
   display: flex;
   align-items: center;
@@ -48,6 +47,8 @@
   border-radius: 10px;
   border:1px solid transparent;
   font-size: $small;
+  justify-content: space-between;
+  height:1.05rem;
   &:hover{
     cursor: pointer;
     background-color: $background-second;
@@ -88,4 +89,21 @@
       display: flex;
       align-items: center;
     }
+}
+
+.right-area{
+  width: 100%;
+}
+
+.reaction-left{
+  display: flex;
+  gap:10px
+}
+
+.reaction-right{
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
 }

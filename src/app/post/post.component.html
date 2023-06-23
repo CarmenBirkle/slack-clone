@@ -5,24 +5,27 @@
     <mat-icon>chat</mat-icon>
     <mat-icon>forward</mat-icon>
   </div>
-  <h3 *ngIf="showHeader">{{ dateString }}</h3>
+  <!-- <h3 *ngIf="showHeader">{{ dateString }}</h3> -->
    <img class="profile-pic" src="assets/img/carmen.png">
 <!-- 
   <div class="post-author">{{ post.author }}</div> -->
-  <div>
+  <div class="right-area">
    
     <div class="post-header">
         <h3>Carmen Birkle</h3>
-        <div class="post-date">{{ timeString }} </div>
+        <div  class="text-small">{{ timeString }} Uhr </div>
     </div>
     <div class="post-message" [innerHTML]="post.message"></div>
     <div class="emojis">Platzhalter bisherige Emojis <mat-icon>add_reaction</mat-icon></div>
     <div class="reaction" (mouseenter)="showThread()" (mouseleave)="hideThread()">
-
-      <img class="small-icon" src="assets/img/carmen.png">
-      <div>x answers</div>
-       <div *ngIf="!showThreadContent">last answer...</div>
-      <div *ngIf="showThreadContent">Thread content...</div>
+      <div class="reaction-left">
+            <img class="small-icon" src="assets/img/carmen.png">
+            <div class="link">x answers</div>
+            <div  class="text-small" *ngIf="!showThreadContent">last answer...</div>
+            <div  class="text-small" *ngIf="showThreadContent">Thread content...</div>
+      </div>
+      
+      <mat-icon class="reaction-right" *ngIf="showThreadContent">chevron_right</mat-icon>
     </div>
   </div>
 </div>

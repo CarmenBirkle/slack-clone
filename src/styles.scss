@@ -48,4 +48,18 @@ body {
 }
 
 
+.text-small {
+    font-size: $small;
+    color: $accent-lightgrey;
+}
+
+.link {
+    color: $color-info;
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+
 

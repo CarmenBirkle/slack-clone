@@ -4,7 +4,6 @@
 .container{
     display:grid;
     grid-template-rows: 60px 1fr auto;
-    // padding:0 10%;
     height: calc(100vh - 60px);
 }
 
@@ -44,5 +43,40 @@ section::after {
 
 .main-content{
     overflow-y: auto;
+   
 }
+
+.single-post{
+ position: relative;
+}
+
+.show-date{
+    position: absolute;
+    top: 0;
+    position: absolute;
+    top: -10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    p {
+        position: relative;
+        z-index: 1;
+        background-color: $background-second;
+        padding: 0px 5px 0 5px;
+        border-radius: 10%;
+    }
+
+}
+
+.show-date::before {
+    content: "";
+    position: absolute;
+    top: 32%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: $accent-darkgrey;
+    transform: translateY(-50%);
+}
+
 

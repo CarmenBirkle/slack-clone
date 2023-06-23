@@ -4,32 +4,11 @@ import { Component, OnDestroy, NgModule, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MyErrorStateMatcher } from '../service/errorStateMatcher.service';
-
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Channel } from '../../models/channel.class';
-import {
-  Firestore,
-  collection,
-  collectionData,
-  setDoc,
-  doc,
-  getDoc,
-  getDocs,
-  updateDoc,
-} from '@angular/fire/firestore';
-import { addDoc } from 'firebase/firestore';
-import { Observable, Subscription } from 'rxjs';
+import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
 import { onSnapshot } from 'firebase/firestore';
-
-
-
 
 @Component({
   selector: 'app-dialog-edit-channel',
@@ -83,10 +62,7 @@ export class DialogEditChannelComponent {
       const channelDoc = doc(this.firestore, 'channels', this.channelId);
       this.channel.channelName = this.formControl.value;
       this.channel.channelType = this.channelTypeControl.value;
-
-
-
-
+//TODO Console log delete
       console.log('saveChannel', this.data.channelId);
       console.log(this.channel.channelName);
       updateDoc(channelDoc, this.channel.toJson())

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -40,9 +40,26 @@ import { HomeComponent } from './home/home.component';
 import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
 import { DialogDeleteChannelComponent } from './dialog-delete-channel/dialog-delete-channel.component';
 import { PostComponent } from './post/post.component';
+import 'emoji-picker-element';
+import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-picker.component';
+
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, ChatComponent, TextEditComponent, DialogAddChannelComponent, WelcomeComponent, SignInComponent, SignUpComponent, HomeComponent, DialogEditChannelComponent, DialogDeleteChannelComponent, PostComponent],
+  declarations: [
+    AppComponent,
+    UsersComponent,
+    ChatComponent,
+    TextEditComponent,
+    DialogAddChannelComponent,
+    WelcomeComponent,
+    SignInComponent,
+    SignUpComponent,
+    HomeComponent,
+    DialogEditChannelComponent,
+    DialogDeleteChannelComponent,
+    PostComponent,
+    DialogEmojiPickerComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -60,13 +77,12 @@ import { PostComponent } from './post/post.component';
     FormsModule,
     MatDividerModule,
     MatExpansionModule,
-    HttpClientModule, 
+    HttpClientModule,
     AngularEditorModule,
     ReactiveFormsModule,
     MatRadioModule,
     MatProgressBarModule,
     MatCardModule,
-   
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
@@ -75,5 +91,6 @@ import { PostComponent } from './post/post.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

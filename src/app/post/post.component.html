@@ -1,6 +1,6 @@
 <div class="post">
   <div class="getActiveContainer">
-    <mat-icon>add_reaction</mat-icon>
+    <mat-icon (click)="openIconDialog('400ms', '400ms')">add_reaction</mat-icon>
     <mat-icon>bookmark</mat-icon>
     <mat-icon>chat</mat-icon>
     <mat-icon>forward</mat-icon>
@@ -16,13 +16,15 @@
         <div  class="text-small">{{ timeString }} Uhr </div>
     </div>
     <div class="post-message" [innerHTML]="post.message"></div>
-    <div class="emojis">Platzhalter bisherige Emojis <mat-icon>add_reaction</mat-icon></div>
+    <div class="emojis">Platzhalter bisherige Emojis <mat-icon (click)="openIconDialog('400ms', '400ms')">add_reaction</mat-icon></div>
     <div class="reaction" (mouseenter)="showThread()" (mouseleave)="hideThread()">
       <div class="reaction-left">
             <img class="small-icon" src="assets/img/carmen.png">
             <div class="link">x answers</div>
             <div  class="text-small" *ngIf="!showThreadContent">last answer...</div>
             <div  class="text-small" *ngIf="showThreadContent">Thread content...</div>
+           
+
       </div>
       
       <mat-icon class="reaction-right" *ngIf="showThreadContent">chevron_right</mat-icon>

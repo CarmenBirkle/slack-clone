@@ -1,5 +1,8 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { Post } from './../../models/post.class';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogEmojiPickerComponent } from '../dialog-emoji-picker/dialog-emoji-picker.component';
+
 
 @Component({
   selector: 'app-post',
@@ -11,7 +14,10 @@ export class PostComponent {
   showThreadContent: boolean = false;
   showHeader: boolean = false;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    public dialog: MatDialog
+  ) {}
 
   get dateString(): string {
     if (this.post) {
@@ -51,4 +57,20 @@ export class PostComponent {
       this.showHeader = previousDate !== currentDate;
     }
   }
+
+  openIconDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): MatDialogRef<DialogEmojiPickerComponent> {
+    return this.dialog.open(DialogEmojiPickerComponent, {
+      width: '343px',
+      height: '400px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: { postId: this.post.id },
+    });
+  }
+
+  
 }
+

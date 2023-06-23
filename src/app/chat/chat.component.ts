@@ -181,10 +181,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   shouldShowDate(previousPost: Post | undefined, currentPost: Post): boolean {
-    console.log('previousPost:', previousPost);
-    console.log('currentPost:', currentPost);
-
-    if (previousPost && currentPost) {
+      if (previousPost && currentPost) {
       const previousDate = new Date(
         previousPost.timestamp
       ).toLocaleDateString();

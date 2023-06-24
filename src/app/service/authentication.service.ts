@@ -1,6 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { createUserWithEmailAndPassword, getAuth, signInAnonymously, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -43,26 +42,5 @@ export class AuthenticationService {
         const errorMessage = error.message; */
         this.errorMsg = error;
       });
-  }
-
-  async signinAnonymously() {
-    const auth = getAuth();
-    signInAnonymously(auth)
-      .then((userCredential) => {
-        // Signed in..
-        const user = userCredential.user;
-        console.log(user, 'logged in');
-        this.isLoggedIn = true;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ...
-      });
-  }
-
-  logout() {
-    this.isLogout.emit(); // <app-home *ngIf="authentication.isLoggedIn" (isLogout)="authentication.logout()"></app-home>
-    this.isLoggedIn = false;
   }
 }

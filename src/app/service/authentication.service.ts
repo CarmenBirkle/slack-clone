@@ -16,10 +16,12 @@ export class AuthenticationService {
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(user, 'signed up');
+      return user.uid;
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      return null;
     });
   }
 
@@ -29,6 +31,7 @@ export class AuthenticationService {
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        console.log('user signed in:', user);
       })
       .catch((error) => {
         const errorCode = error.code;

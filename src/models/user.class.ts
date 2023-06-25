@@ -4,6 +4,7 @@ export class User {
     phone: string;
     picture: string; */
     guest: boolean;
+    "bookmarked-posts": Array<string>;
     
     constructor(obj?: any) {
         this.username = obj ? obj.username : '';
@@ -11,6 +12,7 @@ export class User {
         this.phone = obj ? obj.phone : '';
         this.picture = obj ? obj.picture : ''; */
         this.guest = obj ? obj.guest : '';
+        this["bookmarked-posts"] = obj ? obj["bookmarked-posts"] : [];
     }
 
     public toJSON() {
@@ -20,6 +22,7 @@ export class User {
             phone: this.phone,
             picture: this.picture, */
             guest: this.guest,
+            "bookmarked-posts": this["bookmarked-posts"]
         }
       }
 }

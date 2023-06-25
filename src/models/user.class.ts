@@ -4,10 +4,6 @@ export class User {
     phone: string;
     picture: string; */
     guest: boolean;
-    sessionToken: {
-        token: string,
-        created: number
-    }
     
     constructor(obj?: any) {
         this.username = obj ? obj.username : '';
@@ -15,7 +11,6 @@ export class User {
         this.phone = obj ? obj.phone : '';
         this.picture = obj ? obj.picture : ''; */
         this.guest = obj ? obj.guest : '';
-        this.sessionToken = obj ? obj.sessionToken : null;
     }
 
     public toJSON() {
@@ -25,7 +20,6 @@ export class User {
             phone: this.phone,
             picture: this.picture, */
             guest: this.guest,
-            sessionToken: this.sessionToken,
         }
       }
 }

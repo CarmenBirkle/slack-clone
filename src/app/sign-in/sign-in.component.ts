@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
+import { getAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,12 +20,7 @@ export class SignInComponent {
   pwdHide = 'assets/img/icons/eye-crossed-out.png';
   pwdImg: any = this.pwdShow;
 
-  constructor(public authentication: AuthenticationService) {
-    /* if(localStorage.getItem('user')!== null) {
-      authentication.isLoggedIn = true;
-    } else {
-      authentication.isLoggedIn = false;
-    } */
+  constructor(public authentication: AuthenticationService) { 
     this.pwdField = {} as ElementRef<HTMLInputElement>;
   }
 
@@ -38,8 +34,7 @@ export class SignInComponent {
     }*/
   }
 
-  async signInAnonymously() {
-    //await this.authentication.signinAnonymously();
+  signInAnonymously() {
     this.signIn('guest@user.com', 'sl4ck-Gu3st')
   }
 

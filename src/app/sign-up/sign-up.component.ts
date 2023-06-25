@@ -135,27 +135,8 @@ export class SignUpComponent {
   addUser() {
     this.loading = true;
     this.user.guest = false;
-    this.user.sessionToken = {
-      token: this.authentication.generateRandomToken(64),
-      created: new Date().getTime()
-    }
 
-   /*  this.user.sessionToken.created = new Date().getTime();
-    this.user.sessionToken.token = this.authentication.generateRandomToken(64);
- */
     console.log('add user:', this.user.toJSON());
-    
-    /* const collectionInstance = collection(this.firestore, 'users');
-    const userId = '007'
-    const docRef = doc(collectionInstance, userId);
-
-    setDoc(docRef, this.user.toJSON()).then((newUser) => {
-      console.log(newUser, 'added');
-    }).catch((error: any) => {
-      console.error('Error adding user:', error);
-    });
-
-    this.loading = false; */
     
     /* const collectionInstance = collection(this.firestore, 'users');
     addDoc(collectionInstance, this.user.toJSON()).then((result: any) => {

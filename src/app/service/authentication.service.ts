@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,10 @@ import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } f
 export class AuthenticationService {
   errorMsg = null;
   @Output() isLogout = new EventEmitter<void>();
+
+  constructor() {
+    this.subAuthState();
+  }
 
   async sigup(email: string, password: string) {
     const auth = getAuth();
@@ -19,7 +23,6 @@ export class AuthenticationService {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
     });
   }
 
@@ -28,44 +31,46 @@ export class AuthenticationService {
     const auth = getAuth();
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in 
         const user = userCredential.user;
         console.log(user, 'logged in');
-        this.checkSessionTokenWithUser(user.uid);
       })
       .catch((error) => {
-        /* const errorCode = error.code;
-        const errorMessage = error.message; */
+        const errorCode = error.code;
+        const errorMessage = error.message;
         this.errorMsg = error;
       });
   }
 
-  checkSessionTokenWithUser(userId: string) {
-    const token = this.generateRandomToken(64);
-    this.saveTokenToLocalStorage(token);
+  async subAuthState() {
+    const auth = getAuth();
+    await onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        const uid = user.uid;
+        console.log('user is signed in:', user);
+      } else {
+        // User is signed out
+        console.log('nobody is signed in.');
+      }
+
+      this.checkAuthUser();
+    });
   }
 
-  generateRandomToken(length: number): string {
-    const characters = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:!_-=+(*)[]{}/?|@#$%^&~`;
-    let token = '';
+  checkAuthUser() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    console.log('user:', user);
     
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      token += characters.charAt(randomIndex);
+
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      console.log('redirect to home');
+      window.location.href="/";
+    } else {
+      // No user is signed in.
+      console.log('go to sign-in');
     }
-    
-    return token;
-  }
-  
-  saveTokenToLocalStorage(token: string): void {
-    localStorage.setItem('sessionToken', token);
-  }
-  
-  getTokenFromLocalStorage(): string | null {
-    return localStorage.getItem('sessionToken');
-  }
-  
-  removeTokenFromLocalStorage(): void {
-    localStorage.removeItem('sessionToken');
   }
 }

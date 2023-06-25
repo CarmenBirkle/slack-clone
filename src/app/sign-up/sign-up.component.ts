@@ -3,6 +3,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { FormValidationService } from '../service/form-validation.service';
 import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
 import { User } from 'src/models/user.class';
+import { NavigationService } from '../service/navigation.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -38,9 +39,12 @@ export class SignUpComponent {
   errorPwdRepeat: boolean = false;
 
   constructor(public authentication: AuthenticationService, 
-      private formValidation: FormValidationService, private firestore: Firestore) {
+      private formValidation: FormValidationService, private firestore: Firestore,
+      private navigation: NavigationService) {
     this.pwdField = {} as ElementRef<HTMLInputElement>;
     this.pwdRepeatField = {} as ElementRef<HTMLInputElement>;
+
+    this.checkSignedInUser();
   }
 
   async valUsername(username: string) {
@@ -156,5 +160,14 @@ export class SignUpComponent {
   onSelect(event: Event) {
     event.preventDefault();
     window.getSelection()?.removeAllRanges();
+  }
+
+  async checkSignedInUser() { 
+    if(await this.authentication.checkAuthUser()) {
+      // go back
+      this.navigation.navigateToPreviousPage();
+    } else {
+      // nobody signed in
+    }
   }
 }

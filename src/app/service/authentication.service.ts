@@ -8,15 +8,12 @@ export class AuthenticationService {
   errorMsg = null;
   @Output() isLogout = new EventEmitter<void>();
 
-  constructor() {
-    this.subAuthState();
-  }
+  constructor() { }
 
   async sigup(email: string, password: string) {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in 
       const user = userCredential.user;
       console.log(user, 'signed up');
     })
@@ -32,7 +29,6 @@ export class AuthenticationService {
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user, 'logged in');
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -41,36 +37,34 @@ export class AuthenticationService {
       });
   }
 
-  async subAuthState() {
-    const auth = getAuth();
-    await onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in
-        const uid = user.uid;
-        console.log('user is signed in:', user);
-      } else {
-        // User is signed out
-        console.log('nobody is signed in.');
-      }
+  async subAuthState():Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in
+          const uid = user.uid;
+        } else {
+          // User is signed out
+        }
 
-      this.checkAuthUser();
+        resolve();
+      });
     });
   }
 
-  checkAuthUser() {
+  async checkAuthUser():Promise<boolean> {
+    await this.subAuthState();
+
     const auth = getAuth();
     const user = auth.currentUser;
-
-    console.log('user:', user);
     
-
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      console.log('redirect to home');
-      window.location.href="/";
+      // User is signed in.
+      return true;
     } else {
       // No user is signed in.
-      console.log('go to sign-in');
+      return false;
     }
   }
 }

@@ -1,11 +1,10 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { createUserWithEmailAndPassword, getAuth, signInAnonymously, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  isLoggedIn = false;
   errorMsg = null;
   @Output() isLogout = new EventEmitter<void>();
 
@@ -16,9 +15,6 @@ export class AuthenticationService {
       // Signed in 
       const user = userCredential.user;
       console.log(user, 'signed up');
-      
-      this.isLoggedIn = true;
-      // ...
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -35,12 +31,41 @@ export class AuthenticationService {
         // Signed in 
         const user = userCredential.user;
         console.log(user, 'logged in');
-        this.isLoggedIn = true;
+        this.checkSessionTokenWithUser(user.uid);
       })
       .catch((error) => {
         /* const errorCode = error.code;
         const errorMessage = error.message; */
         this.errorMsg = error;
       });
+  }
+
+  checkSessionTokenWithUser(userId: string) {
+    const token = this.generateRandomToken(64);
+    this.saveTokenToLocalStorage(token);
+  }
+
+  generateRandomToken(length: number): string {
+    const characters = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:!_-=+(*)[]{}/?|@#$%^&~`;
+    let token = '';
+    
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      token += characters.charAt(randomIndex);
+    }
+    
+    return token;
+  }
+  
+  saveTokenToLocalStorage(token: string): void {
+    localStorage.setItem('sessionToken', token);
+  }
+  
+  getTokenFromLocalStorage(): string | null {
+    return localStorage.getItem('sessionToken');
+  }
+  
+  removeTokenFromLocalStorage(): void {
+    localStorage.removeItem('sessionToken');
   }
 }

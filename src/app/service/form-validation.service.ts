@@ -27,7 +27,7 @@ export class FormValidationService {
     }
   }
 
-  testExistUsername(inputString: string) {
+/*   testExistUsername(inputString: string) {
     const userExists = this.userData?.some(
       userData => userData.username.toLowerCase() === inputString.toLowerCase());
 
@@ -36,9 +36,9 @@ export class FormValidationService {
     } else {
       return false; // not exist
     }
-  }
+  } */
 
-  testExistEmail(inputString: string) {
+/*   testExistEmail(inputString: string) {
     const emailExists = this.userData?.some(
       userData => userData.email.toLowerCase() === inputString.toLowerCase());
 
@@ -47,7 +47,7 @@ export class FormValidationService {
     } else {
       return false; // not exist
     }
-  }
+  } */
 
   testEmailFormat(inputString: string) {
     const trimmedEmail = inputString.trim();

@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
 import { FormValidationService } from '../service/form-validation.service';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
 import { User } from 'src/models/user.class';
 
 @Component({
@@ -48,9 +48,9 @@ export class SignUpComponent {
       this.errorNameTxt = 'Username is to short. Min. 3 characters required.'
     } else if(!this.formValidation.testInputLengthGt(username, 30)) {
       this.errorNameTxt = 'Username is to long. Max. 30 characters allowed.'
-    } else if(await this.formValidation.testExistUsername(username)) {
+    } /* else if(await this.formValidation.testExistUsername(username)) {
       this.errorNameTxt = 'Username already exist.'
-    } else {
+    }  */else {
       this.errorNameTxt = '';
       this.errorUsername = false;
       return true;
@@ -62,13 +62,13 @@ export class SignUpComponent {
 
   async valEmail(email: string) {
     if(this.formValidation.testEmailFormat(email)) {
-      if(await this.formValidation.testExistEmail(email)) {
+      /* if(await this.formValidation.testExistEmail(email)) {
         this.errorEmailTxt = 'Email already exist.';
       } else {
         this.errorEmailTxt = '';
         this.errorEmail = false;
         return true;
-      }
+      } */
     } else {
       this.errorEmailTxt = 'Email is invalid.';
     }
@@ -113,10 +113,10 @@ export class SignUpComponent {
     const pwdRepeatOk = await this.valPwdRepeat(password, passwordRepeat);
     
     if(usernameOk && emailOk && pwdOk && pwdRepeatOk) {
-      //await this.authentication.sigup(email, password);
+      //console.log(await this.authentication.sigup(email, password));
     
       // create User in DB ('users')
-      this.addUser();
+      //this.addUser();
     }
   }
 
@@ -135,9 +135,28 @@ export class SignUpComponent {
   addUser() {
     this.loading = true;
     this.user.guest = false;
+    this.user.sessionToken = {
+      token: this.authentication.generateRandomToken(64),
+      created: new Date().getTime()
+    }
+
+   /*  this.user.sessionToken.created = new Date().getTime();
+    this.user.sessionToken.token = this.authentication.generateRandomToken(64);
+ */
     console.log('add user:', this.user.toJSON());
     
+    /* const collectionInstance = collection(this.firestore, 'users');
+    const userId = '007'
+    const docRef = doc(collectionInstance, userId);
 
+    setDoc(docRef, this.user.toJSON()).then((newUser) => {
+      console.log(newUser, 'added');
+    }).catch((error: any) => {
+      console.error('Error adding user:', error);
+    });
+
+    this.loading = false; */
+    
     /* const collectionInstance = collection(this.firestore, 'users');
     addDoc(collectionInstance, this.user.toJSON()).then((result: any) => {
       console.log('Adding user finished', result);

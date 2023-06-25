@@ -19,7 +19,7 @@
                     
                     <div class="input" [class.errorBorder]="errorEmail">
                         <input type="string" #emailSignUp required (keydown)="signUpKey($event)"
-                            [(ngModel)]="user.email" maxlength="256">
+                             maxlength="256"> <!-- [(ngModel)]="user.email" -->
                         <span>Email</span>
                     </div>
                     <span class="errorTxt">{{ errorEmailTxt }}</span>

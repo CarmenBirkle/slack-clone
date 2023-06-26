@@ -52,9 +52,9 @@ export class SignUpComponent {
       this.errorNameTxt = 'Username is to short. Min. 3 characters required.'
     } else if(!this.formValidation.testInputLengthGt(username, 30)) {
       this.errorNameTxt = 'Username is to long. Max. 30 characters allowed.'
-    } /* else if(await this.formValidation.testExistUsername(username)) {
+    } else if(await this.formValidation.testExistUsername(username)) {
       this.errorNameTxt = 'Username already exist.'
-    }  */else {
+    } else {
       this.errorNameTxt = '';
       this.errorUsername = false;
       return true;
@@ -66,16 +66,19 @@ export class SignUpComponent {
 
   async valEmail(email: string) {
     if(this.formValidation.testEmailFormat(email)) {
-      /* if(await this.formValidation.testExistEmail(email)) {
-        this.errorEmailTxt = 'Email already exist.';
-      } else {
+      if(await this.formValidation.testExistEmail(email)) {
+        // Email not exist
         this.errorEmailTxt = '';
         this.errorEmail = false;
         return true;
-      } */
-    } else {
-      this.errorEmailTxt = 'Email is invalid.';
+      } else {
+        this.errorEmailTxt = 'Email already exist.';
+        this.errorEmail = true;
+        return false;
+      }
     }
+    // false Email format
+    this.errorEmailTxt = 'Email is invalid.';
     this.errorEmail = true;
     return false;
   }
@@ -117,10 +120,10 @@ export class SignUpComponent {
     const pwdRepeatOk = await this.valPwdRepeat(password, passwordRepeat);
     
     if(usernameOk && emailOk && pwdOk && pwdRepeatOk) {
-      //const userId = await this.authentication.sigup(email, password);
-    
+      const userId = await this.authentication.sigup(email, password);
+      
       // create User in DB ('users')
-      //this.addUser(userId);
+      this.addUser(userId);
     }
   }
 
@@ -136,11 +139,9 @@ export class SignUpComponent {
     }
   }
 
-  addUser(userId: string) {
+  addUser(userId: any) {
     this.loading = true;
-    this.user.guest = false;
-    // DELETE
-    this.user.username = 'MuMax'
+    this.user.guest = true;
 
     console.log('add user:', this.user.toJSON());
     
@@ -178,7 +179,7 @@ export class SignUpComponent {
   async checkSignedInUser() { 
     if(await this.authentication.checkAuthUser()) {
       // go back
-      this.navigation.navigateToPreviousPage();
+      //this.navigation.navigateToPreviousPage();
     } else {
       // nobody signed in
     }

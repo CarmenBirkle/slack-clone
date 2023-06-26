@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { fetchSignInMethodsForEmail, getAuth } from '@angular/fire/auth';
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 
 @Injectable({
@@ -27,7 +28,7 @@ export class FormValidationService {
     }
   }
 
-/*   testExistUsername(inputString: string) {
+  testExistUsername(inputString: string) {
     const userExists = this.userData?.some(
       userData => userData.username.toLowerCase() === inputString.toLowerCase());
 
@@ -36,18 +37,26 @@ export class FormValidationService {
     } else {
       return false; // not exist
     }
-  } */
+  }
 
-/*   testExistEmail(inputString: string) {
-    const emailExists = this.userData?.some(
-      userData => userData.email.toLowerCase() === inputString.toLowerCase());
+  async testExistEmail(email: string): Promise<boolean> {
+    const auth = getAuth();
 
-    if(emailExists) {
-      return true; // user exist
-    } else {
-      return false; // not exist
+    try {
+      const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+
+      if (signInMethods.length > 0) {
+        //console.log('Email already exists');
+        return false;
+      } else {
+        //console.log('Email does not exist');
+        return true;
+      }
+    } catch (error) {
+      //console.log('Error during email check', error);
+      return false;
     }
-  } */
+  }
 
   testEmailFormat(inputString: string) {
     const trimmedEmail = inputString.trim();

@@ -38,9 +38,7 @@ export class SignInComponent {
     this.checkSignedInUser();
   }
 
-  signInAnonymously() {
-    console.log('sign in Guest');
-    
+  signInAnonymously(): void {
     this.signIn('guest@user.com', 'sl4ck-Gu3st')
   }
 

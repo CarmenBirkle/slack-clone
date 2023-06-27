@@ -42,12 +42,14 @@
                         Sign in
                     </button>
 
-                    <span class="signin-test">Test Slack-Clone with <a>Guest account</a></span>
+                    <span class="signin-test">Test Slack-Clone with 
+                        <a (click)="signInAnonymously()">Guest account</a>
+                    </span>
               </form>
         </mat-card>
     
         <span class="sign-up">
-            New to Slack-Clone? <a (click)="signInAnonymously()">Sign up</a>
+            New to Slack-Clone? <a href="sign-up">Sign up</a>
         </span>
     </div>
 </div>

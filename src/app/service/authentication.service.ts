@@ -11,19 +11,19 @@ export class AuthenticationService {
 
   constructor() { }
 
-  async sigup(email: string, password: string) {
+  async sigup(email: string, password: string): Promise<string | null> {
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log(user, 'signed up');
       return user.uid;
-    })
-    .catch((error) => {
+    } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log('Error during sign up:', errorMessage);
       return null;
-    });
+    }
   }
 
   async signin(email: string, password: string) {

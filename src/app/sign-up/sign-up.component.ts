@@ -119,11 +119,14 @@ export class SignUpComponent {
     const pwdOk = await this.valPwd(password);
     const pwdRepeatOk = await this.valPwdRepeat(password, passwordRepeat);
     
-    if(usernameOk && emailOk && pwdOk && pwdRepeatOk) {
-      const userId = await this.authentication.sigup(email, password);
-      
-      // create User in DB ('users')
-      this.addUser(userId);
+    if (usernameOk && emailOk && pwdOk && pwdRepeatOk) {
+      try {
+        const userId = await this.authentication.sigup(email, password);
+        // create User in DB ('users')
+        this.addUser(userId);
+      } catch (error) {
+        console.log('Error during sign up:', error);
+      }
     }
   }
 
@@ -141,26 +144,16 @@ export class SignUpComponent {
 
   addUser(userId: any) {
     this.loading = true;
-    this.user.guest = true;
-
-    console.log('add user:', this.user.toJSON());
+    this.user.guest = false;
     
     const collectionInstance = collection(this.firestore, 'users');
     const documentRef = doc(collectionInstance, userId);
-    setDoc(documentRef, this.user.toJSON()).then((result: any) => {
-      console.log('User add finished:', result);
-    })
+    setDoc(documentRef, this.user.toJSON()).then((result: any) => {})
     .catch((error: any) => {
       console.error('User add ERROR:', error);
     });
 
     this.loading = false;
-
-    /* const collectionInstance = collection(this.firestore, 'users');
-    addDoc(collectionInstance, this.user.toJSON()).then((result: any) => {
-      console.log('Adding user finished', result);
-      this.loading = false;
-    }); */
   }
 
   signUpKey(event: KeyboardEvent) {
@@ -179,7 +172,7 @@ export class SignUpComponent {
   async checkSignedInUser() { 
     if(await this.authentication.checkAuthUser()) {
       // go back
-      //this.navigation.navigateToPreviousPage();
+      this.navigation.navigateToPreviousPage();
     } else {
       // nobody signed in
     }

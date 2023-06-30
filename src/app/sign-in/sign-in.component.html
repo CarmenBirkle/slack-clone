@@ -3,7 +3,7 @@
         <img src="assets/img/slack-logo-brand.png" alt="Slack Clon Logo">
     </div>
 
-    <div class="signin-container">
+    <div class="signin-container" [class.d-none]="authentication.checkAuthUser">
         <mat-card>
             <h1>Sign in</h1>
             <!-- <span>Stay connected with your friends and colleagues</span> -->
@@ -51,5 +51,19 @@
         <span class="sign-up">
             New to Slack-Clone? <a href="sign-up">Sign up</a>
         </span>
+    </div>
+
+    <!-- signed in, but not verified -->
+    <div class="signin-container" [class.d-none]="!authentication.checkAuthUser">
+        <mat-card>
+            <h1>Please Verify Your Email Address</h1>
+            <span>
+                We noticed your email address has not been verified.
+                Please verify your email {{ authentication.getEmail() }}.
+            </span>
+            <button (click)="authentication.emailVerification()">
+                VERIFY YOUR EMAIL ADDRESS
+            </button>
+        </mat-card>
     </div>
 </div>

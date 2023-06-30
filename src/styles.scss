@@ -30,6 +30,10 @@ body {
     position: relative;
 }
 
+.d-none {
+    display: none !important;
+}
+
 .noselect {
     -moz-drag-over: none;
     -webkit-user-drag: none;

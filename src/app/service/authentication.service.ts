@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged,
+   sendEmailVerification,
    signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
@@ -17,6 +18,7 @@ export class AuthenticationService {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      this.emailVerification();
       return user.uid;
     } catch (error: any) {
       const errorCode = error.code;
@@ -48,27 +50,58 @@ export class AuthenticationService {
         if (user) {
           // User is signed in
           const uid = user.uid;
-        } else {
-          // User is signed out
-        }
+        } // else User is signed out
 
         resolve();
       });
     });
   }
 
-  async checkAuthUser():Promise<boolean> {
+  async checkAuthUser(): Promise<boolean> {
     await this.subAuthState();
 
     const auth = getAuth();
     const user = auth.currentUser;
     
     if (user) {
+      console.log('User', user);
+      
       // User is signed in.
       return true;
     } else {
       // No user is signed in.
       return false;
     }
+  }
+
+  async checkEmailVerification(): Promise<boolean> {
+    await this.subAuthState();
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    return user?.emailVerified || false;
+  }
+
+  emailVerification() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if(user) {
+      sendEmailVerification(user)
+        .then(() => {
+          // Email verification sent!
+        })
+        .catch((error) => {
+          console.error('Error sending email verification:', error);
+        });
+    }
+  }
+
+  getEmail() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    return user?.email;
   }
 }

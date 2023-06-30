@@ -50,10 +50,12 @@ export class SignInComponent {
 
   async checkSignedInUser() { 
     if(await this.authentication.checkAuthUser()) {
-      // go back
-      this.navigation.navigateToPreviousPage();
-    } else {
-      // nobody signed in
-    }
+      if(await this.authentication.checkEmailVerification()) {
+        // go back
+        this.navigation.navigateToPreviousPage();
+      } else {
+        // SHOW PLS VERIFICATE E-MAIL CARD
+      }
+    } // else nobody signed in
   }
 }

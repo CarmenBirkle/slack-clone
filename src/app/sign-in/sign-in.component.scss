@@ -71,20 +71,20 @@ a {
 
     display: flex;
     flex-direction: column;
+}
 
-    button {
-        height: 56px;
-        //margin-top: 55px;
-        font-size: 1.7rem;
-        border-radius: 12px;
-        //color: $color-text;
-        background: #0086ce;
-        border: 0;
-        cursor: pointer;
+button {
+    height: 56px;
+    //margin-top: 55px;
+    font-size: 1.7rem;
+    border-radius: 12px;
+    //color: $color-text;
+    background: #0086ce;
+    border: 0;
+    cursor: pointer;
 
-        &:hover {
-            background: $slack-blue;
-        }
+    &:hover {
+        background: $slack-blue;
     }
 }
 

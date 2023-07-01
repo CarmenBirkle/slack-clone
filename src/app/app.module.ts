@@ -42,6 +42,8 @@ import { DialogDeleteChannelComponent } from './dialog-delete-channel/dialog-del
 import { PostComponent } from './post/post.component';
 import 'emoji-picker-element';
 import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-picker.component';
+import { EmailVerificationComponent } from './component/email-verification/email-verification.component';
+import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -59,6 +61,8 @@ import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-p
     DialogDeleteChannelComponent,
     PostComponent,
     DialogEmojiPickerComponent,
+    EmailVerificationComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

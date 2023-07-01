@@ -46,63 +46,9 @@
     </div>
 
     <!-- ========== VERIFY EMAIL ========== -->
-    <div class="signin-container" [class.d-none]="!userSignedIn">
-        <mat-card class="verify-container" [class.in-bg]="verificationSended">
-            <div class="verify-img-container">
-                <div><img src="assets/img/icons/mail.png" alt="Mail Icon" class="noselect"></div>
-            </div>
-            <h1>Verify your email address</h1>
-            <hr>
-            <span>
-                In order to start using your <strong>Slack-Clone</strong> Account,
-                please verify your email address <strong>{{ authentication.getEmail() }}</strong>.
-            </span>
-            <button (click)="sendVerification()" class="noselect">
-                Send Verification Email
-            </button>
-        </mat-card>
-
-        <div class="verification-sended" [class.d-none]="!verificationSended">
-            Verification Email sended <br>
-            to <strong>{{ authentication.getEmail() }}</strong>!
-        </div>
-    </div>
+    <app-email-verification [class.d-none]="!userSignedIn"></app-email-verification>
 
     <!-- ========== FORGOT PASSWORD ========== -->
-    <div class="signin-container" [class.d-none]="!forgotPassword">
-        <mat-card>
-            <h1>Reset your Password</h1>
-            <span class="forgot-pw-txt">
-                Please provide the email address that you used when you signed up 
-                for your account.
-            </span>
-            
-            <form class="signin-form">
-                
-                    <div class="input-container" [class.error]="errorMsg">
-                        <div class="input">
-                            <input type="text" #emailSignIn required>
-                            <span class="noselect">Email</span>
-                        </div>
-                    </div>
+    <app-forgot-password [class.d-none]="!forgotPassword"></app-forgot-password>
 
-                    <div class="errorBox">
-                        <mat-error *ngIf="errorMsg">
-                            Email invalid!
-                        </mat-error>
-                    </div>
-
-                    <button class="noselect">
-                        Reset password
-                    </button>
-              </form>
-        </mat-card>
-    
-        <span class="sign-up">
-            Not forgot your Password?
-            <a (click)="forgotPassword = false;" style="text-decoration: underline;">
-                Sign in
-            </a>
-        </span>
-    </div>
 </div>

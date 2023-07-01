@@ -70,17 +70,17 @@ export class SignUpComponent {
         // Email not exist
         this.errorEmailTxt = '';
         this.errorEmail = false;
-        return true;
+        return 'not exist';
       } else {
         this.errorEmailTxt = 'Email already exist.';
         this.errorEmail = true;
-        return false;
+        return 'exist';
       }
     }
     // false Email format
     this.errorEmailTxt = 'Email is invalid.';
     this.errorEmail = true;
-    return false;
+    return 'invalid';
   }
 
   valPwd(pwd: string) {

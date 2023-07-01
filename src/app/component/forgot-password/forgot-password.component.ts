@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 import { FormValidationService } from 'src/app/service/form-validation.service';
 import { SignInComponent } from 'src/app/sign-in/sign-in.component';
 
@@ -12,11 +13,12 @@ export class ForgotPasswordComponent {
   errorEmailTxt: string = '';
   resetPwdSent: boolean = false;
 
-  constructor(public signIn: SignInComponent, private formValidation: FormValidationService) { }
+  constructor(public signIn: SignInComponent, private formValidation: FormValidationService,
+    private authentication: AuthenticationService) { }
 
   async resetPassword(email: string) {
     if(await this.valEmail(email)) {
-      console.log('send reset Email');
+      this.authentication.sendPasswordResetEmail(email);
       this.resetPwdSent = true;
       setTimeout(() => {
         this.signIn.forgotPassword = false;

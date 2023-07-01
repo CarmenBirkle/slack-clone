@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged,
    sendEmailVerification,
+   sendPasswordResetEmail,
    signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
@@ -103,5 +104,16 @@ export class AuthenticationService {
     const user = auth.currentUser;
 
     return user?.email;
+  }
+
+  sendPasswordResetEmail(email: string) {
+    const auth = getAuth();
+
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+      })
+      .catch((error) => {
+        console.log('Error sending password reset email:', error);
+      });
   }
 }

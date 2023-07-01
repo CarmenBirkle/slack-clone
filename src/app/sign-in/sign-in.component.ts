@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
 import { NavigationService } from '../service/navigation.service';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,6 +20,9 @@ export class SignInComponent {
   pwdShow = 'assets/img/icons/eye.png';
   pwdHide = 'assets/img/icons/eye-crossed-out.png';
   pwdImg: any = this.pwdShow;
+  userSignedIn: boolean = false;
+  verificationSended: boolean = false;
+  forgotPassword: boolean = false;
 
   constructor(public authentication: AuthenticationService, 
     public navigation: NavigationService) { 
@@ -50,12 +54,21 @@ export class SignInComponent {
 
   async checkSignedInUser() { 
     if(await this.authentication.checkAuthUser()) {
+      this.userSignedIn = true;
+
       if(await this.authentication.checkEmailVerification()) {
         // go back
         this.navigation.navigateToPreviousPage();
-      } else {
-        // SHOW PLS VERIFICATE E-MAIL CARD
       }
     } // else nobody signed in
+  }
+
+  sendVerification() {
+    this.verificationSended = true;
+    this.authentication.emailVerification()
+
+    /* setTimeout(() => {
+      this.verificationSended = false;
+    }, 3000); */
   }
 }

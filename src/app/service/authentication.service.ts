@@ -116,4 +116,11 @@ export class AuthenticationService {
         console.log('Error sending password reset email:', error);
       });
   }
+
+  getUserId() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    return user?.uid;
+  }
 }

@@ -11,7 +11,7 @@
                 
                 <div class="input-container">
                     <div class="input" [class.errorBorder]="errorUsername">
-                        <input type="text" #usernameSignUp required [(ngModel)]="user.username"
+                        <input type="text" #usernameSignUp required [(ngModel)]="firestoreUser.user.username"
                             (keydown)="signUpKey($event)" maxlength="30">
                         <span>Username</span>
                     </div>
@@ -44,14 +44,6 @@
                     <span class="errorTxt">{{ errorPwdRepeatTxt }}</span>
                 </div>
 
-                <!-- <mat-hint>Errors appear instantly!</mat-hint>
-                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
-                </mat-error>
-                <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
-                </mat-error> -->
-
                 <button id="signUpBtn"
                     (click)="signUp(emailSignUp.value.toLowerCase(), passwordSignUp.value, passwordRepeat.value, usernameSignUp.value)">
                     Sign up
@@ -59,7 +51,7 @@
             </div>
 
             <button style="height: 50px; font-size: 24px; background-color: red; margin-top: 20px;"
-                 (click)="getFirestoreUser()">get db users in console</button>
+                 (click)="firestoreUser.getFirestoreUser()">get db users in console</button>
 
         </mat-card>
     

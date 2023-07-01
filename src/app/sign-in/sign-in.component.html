@@ -55,15 +55,23 @@
 
     <!-- signed in, but not verified -->
     <div class="signin-container" [class.d-none]="!authentication.checkAuthUser">
-        <mat-card>
-            <h1>Please Verify Your Email Address</h1>
+        <mat-card class="verify-container">
+            <div class="verify-img-container">
+                <div><img src="assets/img/icons/mail.png" alt="Mail Icon"></div>
+            </div>
+            <h1>Verify your email address</h1>
+            <hr>
             <span>
-                We noticed your email address has not been verified.
-                Please verify your email {{ authentication.getEmail() }}.
+                In order to start using your <strong>Slack-Clone</strong> Account,
+                please verify your email address <strong>{{ authentication.getEmail() }}</strong>.
             </span>
             <button (click)="authentication.emailVerification()">
-                VERIFY YOUR EMAIL ADDRESS
+                Send Verification Email
             </button>
         </mat-card>
+
+        <div class="verification-sended">
+            Verification Email sended!
+        </div>
     </div>
 </div>

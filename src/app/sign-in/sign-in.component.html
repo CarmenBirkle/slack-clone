@@ -3,7 +3,7 @@
         <img src="assets/img/slack-logo-brand.png" alt="Slack Clon Logo">
     </div>
 
-    <div class="signin-container">
+    <div class="signin-container" [class.d-none]="userSignedIn || forgotPassword">
         <mat-card>
             <h1>Sign in</h1>
             <!-- <span>Stay connected with your friends and colleagues</span> -->
@@ -12,25 +12,17 @@
                     <div class="input-container" [class.error]="errorMsg">
                         <div class="input">
                             <input type="text" #emailSignIn required>
-                            <span>Email</span>
+                            <span class="noselect">Email</span>
                         </div>
                         <div class="input input-pwd">
                             <input type="password" #passwordSignIn required>
-                            <span>Password</span>
-                            <img class="show-pwd" (click)="toggleShowPwd()"
+                            <span class="noselect">Password</span>
+                            <img class="show-pwd noselect" (click)="toggleShowPwd()"
                                 [src]="pwdImg">
                         </div>
                     </div>
 
-                    <!-- <mat-hint>Errors appear instantly!</mat-hint>
-                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                    Please enter a valid email address
-                    </mat-error>
-                    <mat-error *ngIf="emailFormControl.hasError('required')">
-                    Email is <strong>required</strong>
-                    </mat-error> -->
-
-                    <a href="#">Forgot password?</a>
+                    <a (click)="forgotPassword = true;">Forgot password?</a>
 
                     <div class="errorBox">
                         <mat-error *ngIf="errorMsg">
@@ -38,7 +30,7 @@
                         </mat-error>
                     </div>
 
-                    <button (click)="signIn(emailSignIn.value, passwordSignIn.value)">
+                    <button (click)="signIn(emailSignIn.value, passwordSignIn.value)" class="noselect">
                         Sign in
                     </button>
 
@@ -52,4 +44,11 @@
             New to Slack-Clone? <a href="sign-up">Sign up</a>
         </span>
     </div>
+
+    <!-- ========== VERIFY EMAIL ========== -->
+    <app-email-verification [class.d-none]="!userSignedIn"></app-email-verification>
+
+    <!-- ========== FORGOT PASSWORD ========== -->
+    <app-forgot-password [class.d-none]="!forgotPassword"></app-forgot-password>
+
 </div>

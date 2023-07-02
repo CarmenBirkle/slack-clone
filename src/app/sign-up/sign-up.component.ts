@@ -1,9 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
 import { FormValidationService } from '../service/form-validation.service';
-import { Firestore, collection, doc, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
-import { User } from 'src/models/user.class';
 import { NavigationService } from '../service/navigation.service';
+import { FirestoreUserService } from '../service/firestore-user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,6 +13,7 @@ export class SignUpComponent {
   // email: max@mustermann.de
   // username: MusterMax
   // uid: "BDFNy8NT4GOD7rFa5aIuNsL1Kr82"
+  // pwd: test123
 
   @ViewChild('passwordSignUp') pwdField: ElementRef<HTMLInputElement>;
   @ViewChild('passwordRepeat') pwdRepeatField: ElementRef<HTMLInputElement>;
@@ -30,7 +30,6 @@ export class SignUpComponent {
   errorPwdTxt: string = '';
   errorPwdRepeatTxt: string = '';
 
-  user = new User();
   loading: boolean = false;
 
   errorUsername: boolean = false;
@@ -39,8 +38,8 @@ export class SignUpComponent {
   errorPwdRepeat: boolean = false;
 
   constructor(public authentication: AuthenticationService, 
-      private formValidation: FormValidationService, private firestore: Firestore,
-      private navigation: NavigationService) {
+      private formValidation: FormValidationService, private navigation: NavigationService,
+      public firestoreUser: FirestoreUserService) {
     this.pwdField = {} as ElementRef<HTMLInputElement>;
     this.pwdRepeatField = {} as ElementRef<HTMLInputElement>;
 
@@ -70,17 +69,17 @@ export class SignUpComponent {
         // Email not exist
         this.errorEmailTxt = '';
         this.errorEmail = false;
-        return true;
+        return 'not exist';
       } else {
         this.errorEmailTxt = 'Email already exist.';
         this.errorEmail = true;
-        return false;
+        return 'exist';
       }
     }
     // false Email format
     this.errorEmailTxt = 'Email is invalid.';
     this.errorEmail = true;
-    return false;
+    return 'invalid';
   }
 
   valPwd(pwd: string) {
@@ -122,12 +121,14 @@ export class SignUpComponent {
     if (usernameOk && emailOk && pwdOk && pwdRepeatOk) {
       try {
         const userId = await this.authentication.sigup(email, password);
+        this.loading = true;
         // create User in DB ('users')
-        this.addUser(userId);
+        await this.firestoreUser.addUser(userId);
       } catch (error) {
         console.log('Error during sign up:', error);
       }
     }
+    this.loading = false;
   }
 
   toggleShowPwd(pwdRepeatInput: boolean) {
@@ -142,7 +143,7 @@ export class SignUpComponent {
     }
   }
 
-  addUser(userId: any) {
+  /* addUser(userId: any) {
     this.loading = true;
     this.user.guest = false;
     
@@ -154,7 +155,7 @@ export class SignUpComponent {
     });
 
     this.loading = false;
-  }
+  } */
 
   signUpKey(event: KeyboardEvent) {
     const signUpBtn = document.getElementById('signUpBtn');
@@ -173,16 +174,14 @@ export class SignUpComponent {
     if(await this.authentication.checkAuthUser()) {
       // go back
       this.navigation.navigateToPreviousPage();
-    } else {
-      // nobody signed in
-    }
+    } // else nobody signed in
   }
 
-  async getFirestoreUser() {
+  /* async getFirestoreUser() {
     const querySnapshot = await getDocs(collection(this.firestore, "users"));
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       console.log(doc.id, " => ", doc.data());
     });
-  }
+  } */
 }

@@ -42,6 +42,8 @@ import { DialogDeleteChannelComponent } from './dialog-delete-channel/dialog-del
 import { PostComponent } from './post/post.component';
 import 'emoji-picker-element';
 import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-picker.component';
+import { EmailVerificationComponent } from './component/email-verification/email-verification.component';
+import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 
 import { InfoComponent } from './info/info.component';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
@@ -65,7 +67,10 @@ import { InfoImpressumComponent } from './info-impressum/info-impressum.componen
     DialogEmojiPickerComponent,
     InfoComponent, 
     InfoDialogComponent, 
-    InfoDirektnachrichtenComponent, InfoImpressumComponent
+    InfoDirektnachrichtenComponent, 
+    InfoImpressumComponent,
+    EmailVerificationComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

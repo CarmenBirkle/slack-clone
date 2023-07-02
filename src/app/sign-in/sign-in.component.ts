@@ -19,6 +19,9 @@ export class SignInComponent {
   pwdShow = 'assets/img/icons/eye.png';
   pwdHide = 'assets/img/icons/eye-crossed-out.png';
   pwdImg: any = this.pwdShow;
+  userSignedIn: boolean = false;
+  //verificationSended: boolean = false;
+  forgotPassword: boolean = false;
 
   constructor(public authentication: AuthenticationService, 
     public navigation: NavigationService) { 
@@ -50,10 +53,12 @@ export class SignInComponent {
 
   async checkSignedInUser() { 
     if(await this.authentication.checkAuthUser()) {
-      // go back
-      this.navigation.navigateToPreviousPage();
-    } else {
-      // nobody signed in
-    }
+      this.userSignedIn = true;
+
+      if(await this.authentication.checkEmailVerification()) {
+        // go back
+        this.navigation.navigateToPreviousPage();
+      }
+    } // else nobody signed in
   }
 }

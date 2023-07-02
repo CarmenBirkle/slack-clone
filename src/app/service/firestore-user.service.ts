@@ -24,17 +24,13 @@ export class FirestoreUserService {
 
   async changeUsername(input: string) {
     const userId = await this.authentication.getUserId();
-    console.log('userId:', userId);
-    
-    /* const docRef = doc(this.firestore, db, userId);
+    const docRef = doc(this.firestore, 'users', `${userId}`);
 
-    await updateDoc(docRef, this.user.toJSON())
-      .then((e) => {
-        console.log('change Firestore Entry:', e);
-      })
+    await updateDoc(docRef, {username: input})
+      .then((e) => { })
       .catch((err) => {
-        console.log(err);
-    }); */
+        console.log('Error while changing Username', err);
+    });
   }
 
   async getFirestoreUser() {

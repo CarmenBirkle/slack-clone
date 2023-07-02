@@ -7,7 +7,8 @@
         <hr>
         <span>
             In order to start using your <strong>Slack-Clone</strong> Account,
-            please verify your email address <strong>{{ authentication.getEmail() }}</strong>.
+            please verify your email address <br>
+            <strong>{{ authentication.getEmail() }}</strong>
         </span>
         <button (click)="sendVerification()" class="noselect">
             Send Verification Email
@@ -18,10 +19,4 @@
         Verification Email sent to<br>
         <strong>{{ authentication.getEmail() }}</strong>
     </div>
-
-    <!-- TEST EDIT USERNAME -->
-    <form action="">
-        <input type="text" #inputField style="font-size: 24px;">
-        <button (click)="test(inputField.value)">update username</button>
-    </form>
 </div>

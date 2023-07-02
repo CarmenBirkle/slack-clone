@@ -1,8 +1,7 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, onAuthStateChanged,
-   sendEmailVerification,
-   sendPasswordResetEmail,
-   signInWithEmailAndPassword } from '@angular/fire/auth';
+import { EmailAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, 
+  reauthenticateWithCredential, signOut, sendEmailVerification, sendPasswordResetEmail, 
+  signInWithEmailAndPassword, updateEmail, updatePassword} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -35,13 +34,18 @@ export class AuthenticationService {
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log('user signed in:', user);
+        //console.log('user signed in:', user);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         this.errorMsg = error;
       });
+  }
+
+  async signout() {
+    const auth = getAuth();
+    await signOut(auth);
   }
 
   async subAuthState():Promise<void> {
@@ -65,7 +69,7 @@ export class AuthenticationService {
     const user = auth.currentUser;
     
     if (user) {
-      console.log('User', user);
+      //console.log('User', user);
       
       // User is signed in.
       return true;
@@ -122,5 +126,61 @@ export class AuthenticationService {
     const user = auth.currentUser;
 
     return user?.uid;
+  }
+
+  async changeEmail(newEmail: string, password: string) {
+    const auth = getAuth();
+    const user: any = auth.currentUser;
+
+    if (user) {
+      try {
+        await updateEmail(user, newEmail);
+      } catch (error: any) {
+        if (error.code === 'auth/requires-recent-login') {
+          try {
+            // Reauthenticate the user with their current credentials
+            const emailCredential = EmailAuthProvider.credential(user.email, password);
+            await reauthenticateWithCredential(user, emailCredential);
+            
+            // Update the email address again
+            await updateEmail(user, newEmail);
+          } catch (error) {
+            console.log('Error updating email:', error);
+          }
+        } else {
+          console.log('Error updating email:', error);
+        }
+      }
+    } else {
+      console.log('User is not signed in');
+    }
+  }
+
+  async changePassword(oldPassword: string, newPassword: string) {
+    const auth = getAuth();
+    const user: any = auth.currentUser;
+
+    if (user) {
+      try {
+        await updatePassword(user, newPassword);
+      } catch (error: any) {
+        if (error.code === 'auth/requires-recent-login') {
+          try {
+            // Reauthenticate the user with their current credentials
+            const emailCredential = EmailAuthProvider.credential(user.email, oldPassword);
+            await reauthenticateWithCredential(user, emailCredential);
+            
+            // Update password again
+            await updatePassword(user, newPassword);
+          } catch (error) {
+            console.log('Error changing password:', error);
+          }
+        } else {
+          console.log('Error changing password:', error);
+        }
+      }
+    } else {
+      console.log('User is not signed in');
+    }
   }
 }

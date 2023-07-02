@@ -22,9 +22,4 @@ export class EmailVerificationComponent {
       this.verificationSended = false;
     }, 3000); */
   }
-
-  async test(input: string) {
-    await this.firestoreUser.getFirestoreUser();
-    this.firestoreUser.changeUsername(input);
-  }
 }

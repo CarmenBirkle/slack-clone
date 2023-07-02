@@ -7,6 +7,7 @@ import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 import { LoadingService } from './service/loading.service';
 import { InfoComponent } from './info/info.component';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

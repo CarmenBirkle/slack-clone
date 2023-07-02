@@ -1,23 +1,18 @@
 <div *ngIf="visible" class="infoBox">
 
     <h2 mat-dialog-title>Support-Themen</h2>
-    <video  autoplay loop src="../assets/video/Präsentation3.mp4"></video>
+    <video  autoplay loop src="../assets/video/Präsentation1.mp4"></video>
 
-
+   
 
 
   
     <mat-dialog-content class="mat-typography">
-
-        <button (click)="openDialog()">Direktnachrichten verstehen</button>
-        <button (click)="openDialog()">Huddles in Slack verwenden</button>
-    
-        <button (click)="openDialog()">Benachrichtigungen konfigurieren</button>
-        <button (click)="openDialog()">Status und Verfügbarkeit einstellen</button>
-        <button (click)="openDialog()">Erinnerungen einrichten</button>
-        <button (click)="openDialog()">Impressum und Datenschutz</button>
+        <button (click)="openDirektnachrichten()"><img src="../assets/img/Direktnachrichten.png">Direktnachrichten verstehen</button>
+        <button (click)="openBenachrichtigungen()"><img src="../assets/img/Benachrichtigungen.png" >Benachrichtigungen konfigurieren</button>
+        <button (click)="openStatus()"><img src="../assets/img/Status.png" >Status und Verfügbarkeit einstellen</button>
+        <button (click)="openErinnerungen()"><img src="../assets/img/Erinnerungen.png" >Erinnerungen einrichten</button>
+        <button (click)="openImpressum()"><img src="../assets/img/Impressum.png" >Impressum und Datenschutz</button>
+        <button (click)="closeDialog()"><img src="../assets/img/Close.png" >Close</button>
     </mat-dialog-content>
-    <mat-dialog-actions>
-    <!-- <button class="b" mat-button mat-dialog-close>Cancel</button> -->
-    </mat-dialog-actions>
 </div>

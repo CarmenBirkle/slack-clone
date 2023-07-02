@@ -23,13 +23,19 @@ video{
 button{
     background-color: #3a3a3d;
     border: 2px solid rgb(145, 139, 139);
-    margin: 10px 0;
+    margin: 15px 0;
     color: $color-text;
     width: 250px;
     height: 40px;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 5px;
     line-height: 18px;
+    display: flex;
+    align-items: center;
+    &:hover{
+        background-color: #78787a;
+    }
+
 }
 
 h2{
@@ -38,7 +44,9 @@ h2{
     padding-top: 15px;
 }
 
-mat-dialog-content{
-    display: flex;
-    flex-direction: column;
+
+
+img{
+    width: 10%;
+    margin: 0 5%;
 }

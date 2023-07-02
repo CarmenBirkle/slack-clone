@@ -45,6 +45,8 @@ import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-p
 
 import { InfoComponent } from './info/info.component';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import { InfoDirektnachrichtenComponent } from './info-direktnachrichten/info-direktnachrichten.component';
+import { InfoImpressumComponent } from './info-impressum/info-impressum.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,8 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component';
     PostComponent,
     DialogEmojiPickerComponent,
     InfoComponent, 
-    InfoDialogComponent
+    InfoDialogComponent, 
+    InfoDirektnachrichtenComponent, InfoImpressumComponent
   ],
   imports: [
     BrowserModule,

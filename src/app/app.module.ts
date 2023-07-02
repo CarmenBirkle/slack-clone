@@ -27,6 +27,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatCardModule } from '@angular/material/card';
+import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-picker.component';
+
 
 import { UsersComponent } from './users/users.component';
 import { ChatComponent } from './chat/chat.component';
@@ -35,11 +39,11 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import {MatCardModule} from '@angular/material/card';
 import { HomeComponent } from './home/home.component';
 import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
 import { DialogDeleteChannelComponent } from './dialog-delete-channel/dialog-delete-channel.component';
 import { PostComponent } from './post/post.component';
+
 import 'emoji-picker-element';
 import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-picker.component';
 import { EmailVerificationComponent } from './component/email-verification/email-verification.component';
@@ -102,9 +106,7 @@ import { InfoUserComponent } from './info-user/info-user.component';
     ReactiveFormsModule,
     MatRadioModule,
     MatProgressBarModule,
-    MatCardModule,  
- 
-   
+    MatBadgeModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

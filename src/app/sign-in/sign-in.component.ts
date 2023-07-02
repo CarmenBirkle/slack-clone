@@ -57,7 +57,7 @@ export class SignInComponent {
 
       if(await this.authentication.checkEmailVerification()) {
         // go back
-        //this.navigation.navigateToPreviousPage();
+        this.navigation.navigateToPreviousPage();
       }
     } // else nobody signed in
   }

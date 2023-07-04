@@ -49,6 +49,9 @@ import { InfoComponent } from './info/info.component';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import { InfoDirektnachrichtenComponent } from './info-direktnachrichten/info-direktnachrichten.component';
 import { InfoImpressumComponent } from './info-impressum/info-impressum.component';
+import { InfoBenachrichtigungenComponent } from './info-benachrichtigungen/info-benachrichtigungen.component';
+import { InfoStatusComponent } from './info-status/info-status.component';
+import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +74,9 @@ import { InfoImpressumComponent } from './info-impressum/info-impressum.componen
     InfoImpressumComponent,
     EmailVerificationComponent,
     ForgotPasswordComponent,
+    InfoBenachrichtigungenComponent,
+    InfoStatusComponent,
+    InfoErinnerungenComponent,
   ],
   imports: [
     BrowserModule,

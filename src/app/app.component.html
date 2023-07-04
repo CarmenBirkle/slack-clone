@@ -1,12 +1,14 @@
-
-<div class="relative" *ngIf="authentication.user">
+<div class="relative">
+  <!-- <div class="relative" *ngIf="authentication.user"> -->
   <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
   <header>
     <mat-toolbar>
       <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
       <img src="assets/img/LogoName.png" alt="Slack">
       <button class="infoButten" (click)="switchVisible()">?</button>
-      <img class="loginAvartar" src="{{ authentication.user?.photoURL }}" alt=""> <!-- ../assets/img/carmen.png -->
+      <img class="loginAvartar" src="../assets\img/carmen.png" alt="">
+      <!-- <img (click)="onTogglUser()" class="loginAvartar" src="../assets\img/carmen.png" alt=""> -->
+      <!-- <img class="loginAvartar" src="{{ authentication.user?.photoURL }}" alt=""> ../assets/img/carmen.png -->
     </mat-toolbar>
   </header>
 
@@ -17,7 +19,8 @@
         <li class="nav-link" routerLink="/chat" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}"
           (click)="onLinkClicked()"><mat-icon>forum</mat-icon> Threads</li>
         <li class="nav-link" routerLink="/users" [routerLinkActive]="'active'" (click)="onLinkClicked()">
-          <mat-icon>group</mat-icon>Users</li>
+          <mat-icon>group</mat-icon>Users
+        </li>
         <mat-divider></mat-divider>
 
         <mat-accordion *ngIf="dataLoaded">
@@ -81,6 +84,6 @@
 
 </div>
 
-<div class="relative" *ngIf="!authentication.user">
+<!-- <div class="relative" *ngIf="!authentication.user">
   <app-sign-in></app-sign-in>
-</div>
+</div> -->

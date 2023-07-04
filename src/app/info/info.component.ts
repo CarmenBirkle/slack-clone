@@ -3,6 +3,9 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { InfoDirektnachrichtenComponent } from '../info-direktnachrichten/info-direktnachrichten.component';
 import { InfoImpressumComponent } from '../info-impressum/info-impressum.component';
+import { InfoBenachrichtigungenComponent } from '../info-benachrichtigungen/info-benachrichtigungen.component';
+import { InfoStatusComponent } from '../info-status/info-status.component';
+import { InfoErinnerungenComponent } from '../info-erinnerungen/info-erinnerungen.component';
 
 @Component({
   selector: 'app-info',
@@ -25,25 +28,24 @@ export class InfoComponent {
 
   openDirektnachrichten() {
     this.dialog.open(InfoDirektnachrichtenComponent, {
-      height: '80%',
+      height: '85%',
       width: '50%',
     });
   }
   openBenachrichtigungen() {
-    this.dialog.open(InfoImpressumComponent, {
-      height: '95%',
-      width: '56%',
-    
+    this.dialog.open(InfoBenachrichtigungenComponent, {
+      height: '82%',
+      width: '50%',
     });
   }
   openStatus() {
-    this.dialog.open(InfoComponent, {
+    this.dialog.open(InfoStatusComponent, {
       height: '82%',
       width: '50%',
     });
   }
   openErinnerungen() {
-    this.dialog.open(InfoComponent, {
+    this.dialog.open(InfoErinnerungenComponent, {
       height: '82%',
       width: '50%',
     });

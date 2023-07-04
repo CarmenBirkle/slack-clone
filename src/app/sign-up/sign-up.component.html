@@ -11,7 +11,7 @@
                 
                 <div class="input-container">
                     <div class="input" [class.errorBorder]="errorUsername">
-                        <input type="text" #usernameSignUp required [disabled]="signUpSucc"
+                        <input type="text" #usernameSignUp required [disabled]="loading"
                             [(ngModel)]="firestoreUser.user.username"
                             (keydown)="signUpKey($event)" maxlength="30">
                         <span>Username</span>
@@ -19,7 +19,7 @@
                     <span class="errorTxt">{{ errorNameTxt }}</span>
                     
                     <div class="input" [class.errorBorder]="errorEmail">
-                        <input type="string" #emailSignUp required [disabled]="signUpSucc"
+                        <input type="string" #emailSignUp required [disabled]="loading"
                         (keydown)="signUpKey($event)"
                              maxlength="256"> <!-- [(ngModel)]="user.email" -->
                         <span>Email</span>
@@ -27,26 +27,26 @@
                     <span class="errorTxt">{{ errorEmailTxt }}</span>
 
                     <div class="input input-pwd" [class.errorBorder]="errorPwd">
-                        <input type="password" #passwordSignUp required maxlength="30" [disabled]="signUpSucc"
+                        <input type="password" #passwordSignUp required maxlength="30" [disabled]="loading"
                             (keydown)="signUpKey($event)" (select)="onSelect($event)">
                         <span>Password</span>
-                        <img class="noselect" [class.show-pwd]="!signUpSucc"
-                            (click)="!signUpSucc ? toggleShowPwd(false) : false" [src]="pwdImg">
+                        <img class="noselect" [class.show-pwd]="!loading"
+                            (click)="!loading ? toggleShowPwd(false) : false" [src]="pwdImg">
                     </div>
                     <span class="errorTxt">{{ errorPwdTxt }}</span>
 
                     <div class="input input-pwd" [class.errorBorder]="errorPwdRepeat">
                         <input (focusout)="valPwdRepeat(passwordSignUp.value, passwordRepeat.value)"
-                            type="password" #passwordRepeat required maxlength="30" [disabled]="signUpSucc"
+                            type="password" #passwordRepeat required maxlength="30" [disabled]="loading"
                             (keydown)="signUpKey($event)" (select)="onSelect($event)">
                         <span>repeat Password</span>
-                        <img class="noselect" [class.show-pwd]="!signUpSucc"
-                        (click)="!signUpSucc ? toggleShowPwd(false) : false" [src]="pwdRepeatImg">
+                        <img class="noselect" [class.show-pwd]="!loading"
+                        (click)="!loading ? toggleShowPwd(false) : false" [src]="pwdRepeatImg">
                     </div>
                     <span class="errorTxt">{{ errorPwdRepeatTxt }}</span>
                 </div>
 
-                <button id="signUpBtn" [disabled]="signUpSucc"
+                <button id="signUpBtn" [disabled]="loading"
                     (click)="signUp(emailSignUp.value.toLowerCase(), passwordSignUp.value, passwordRepeat.value, usernameSignUp.value)">
                     Sign up
                 </button>
@@ -57,7 +57,7 @@
 
         </mat-card>
 
-        <div class="overlay-msg" [class.d-none]="!signUpSucc">
+        <div class="overlay-msg noselect" [class.d-none]="!signUpSucc">
             Account created successfully
         </div>
     

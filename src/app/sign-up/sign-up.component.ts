@@ -3,6 +3,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { FormValidationService } from '../service/form-validation.service';
 import { NavigationService } from '../service/navigation.service';
 import { FirestoreUserService } from '../service/firestore-user.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -39,7 +40,7 @@ export class SignUpComponent {
 
   constructor(public authentication: AuthenticationService, 
       private formValidation: FormValidationService, private navigation: NavigationService,
-      public firestoreUser: FirestoreUserService) {
+      public firestoreUser: FirestoreUserService, public appComponent: AppComponent) {
     this.pwdField = {} as ElementRef<HTMLInputElement>;
     this.pwdRepeatField = {} as ElementRef<HTMLInputElement>;
 

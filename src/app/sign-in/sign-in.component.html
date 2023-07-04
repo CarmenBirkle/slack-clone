@@ -1,6 +1,6 @@
 <div class="signin-main">
     <div class="logo">
-        <img src="assets/img/slack-logo-brand.png" alt="Slack Clon Logo">
+        <img src="{{ appComponent.logoName }}" alt="{{ appComponent.title }} Logo">
     </div>
 
     <div class="signin-container" [class.d-none]="userSignedIn || forgotPassword">
@@ -34,14 +34,14 @@
                         Sign in
                     </button>
 
-                    <span class="signin-test">Test Slack-Clone with 
+                    <span class="signin-test">Test {{ appComponent.title }} with 
                         <a (click)="signInAnonymously()">Guest account</a>
                     </span>
               </form>
         </mat-card>
     
         <span class="sign-up">
-            New to Slack-Clone? <a href="sign-up">Sign up</a>
+            New to {{ appComponent.title }}? <a href="sign-up">Sign up</a>
         </span>
     </div>
 

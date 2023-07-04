@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
 import { NavigationService } from '../service/navigation.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-sign-in',
@@ -24,7 +25,7 @@ export class SignInComponent {
   forgotPassword: boolean = false;
 
   constructor(public authentication: AuthenticationService, 
-    public navigation: NavigationService) { 
+    public navigation: NavigationService, public appComponent: AppComponent) { 
     this.pwdField = {} as ElementRef<HTMLInputElement>;
 
     this.checkSignedInUser();

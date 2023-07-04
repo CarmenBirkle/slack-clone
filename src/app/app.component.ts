@@ -15,6 +15,10 @@ import { InfoComponent } from './info/info.component';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
+  title = 'EchoSphere';
+  logo = 'assets/img/Logo.png';
+  logoName = 'assets/img/LogoName.png';
+
   panelOpenState1 = false;
   panelOpenState2 = false;
   dataLoaded = false;

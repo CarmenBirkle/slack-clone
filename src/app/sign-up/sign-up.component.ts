@@ -31,6 +31,7 @@ export class SignUpComponent {
   errorPwdTxt: string = '';
   errorPwdRepeatTxt: string = '';
 
+  loading: boolean = false;
   signUpSucc: boolean = false;
 
   errorUsername: boolean = false;
@@ -114,6 +115,7 @@ export class SignUpComponent {
   }
 
   async signUp(email: string, password: string, passwordRepeat: string, username: string) {
+    this.loading = true;
     const usernameOk = await this.valUsername(username);
     const emailOk = await this.valEmail(email);
     const pwdOk = await this.valPwd(password);
@@ -127,6 +129,8 @@ export class SignUpComponent {
         this.signUpSucc = true;
         setTimeout(() => {
           this.signUpSucc = false;
+          this.loading = false;
+          this.authentication.signin(email, password);
           this.navigation.navigateToSignIn();
         }, 3000);
       } catch (error) {

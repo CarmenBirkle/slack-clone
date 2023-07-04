@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { EmailAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, 
   reauthenticateWithCredential, signOut, sendEmailVerification, sendPasswordResetEmail, 
-  signInWithEmailAndPassword, updateEmail, updatePassword} from '@angular/fire/auth';
+  signInWithEmailAndPassword, updateEmail, updatePassword, updateProfile, User} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +9,25 @@ import { EmailAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthState
 export class AuthenticationService {
   errorMsg = null;
   @Output() isLogout = new EventEmitter<void>();
+  user: User | null = null;
 
   constructor() { }
 
   async sigup(email: string, password: string): Promise<string | null> {
     const auth = getAuth();
+    const avatarNr = Math.floor(Math.random() * 24)+1;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      //const user = userCredential.user;
+      this.user = userCredential.user;
+      updateProfile(this.user, {
+        photoURL: `assets/img/avatar/avatar${avatarNr}.png`,
+      });
+      console.log(this.user);
+      
       this.emailVerification();
-      return user.uid;
+      return this.user.uid;
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -33,7 +41,7 @@ export class AuthenticationService {
     const auth = getAuth();
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        this.user = userCredential.user;
         //console.log('user signed in:', user);
       })
       .catch((error) => {
@@ -65,10 +73,10 @@ export class AuthenticationService {
   async checkAuthUser(): Promise<boolean> {
     await this.subAuthState();
 
-    const auth = getAuth();
-    const user = auth.currentUser;
+    /* const auth = getAuth();
+    const user = auth.currentUser; */
     
-    if (user) {
+    if (this.user) {
       //console.log('User', user);
       
       // User is signed in.
@@ -82,18 +90,18 @@ export class AuthenticationService {
   async checkEmailVerification(): Promise<boolean> {
     await this.subAuthState();
 
-    const auth = getAuth();
-    const user = auth.currentUser;
+    /* const auth = getAuth();
+    const user = auth.currentUser; */
 
-    return user?.emailVerified || false;
+    return this.user?.emailVerified || false;
   }
 
   emailVerification() {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    /* const auth = getAuth();
+    const user = auth.currentUser; */
 
-    if(user) {
-      sendEmailVerification(user)
+    if(this.user) {
+      sendEmailVerification(this.user)
         .then(() => {
           // Email verification sent!
         })
@@ -104,10 +112,10 @@ export class AuthenticationService {
   }
 
   getEmail() {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    /* const auth = getAuth();
+    const user = auth.currentUser; */
 
-    return user?.email;
+    return this.user?.email;
   }
 
   sendPasswordResetEmail(email: string) {
@@ -122,15 +130,16 @@ export class AuthenticationService {
   }
 
   getUserId() {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    /* const auth = getAuth();
+    const user = auth.currentUser; */
 
-    return user?.uid;
+    return this.user?.uid;
   }
 
   async changeEmail(newEmail: string, password: string) {
-    const auth = getAuth();
-    const user: any = auth.currentUser;
+    /* const auth = getAuth();
+    const user: any = auth.currentUser; */
+    const user: any = this.user;
 
     if (user) {
       try {
@@ -157,8 +166,9 @@ export class AuthenticationService {
   }
 
   async changePassword(oldPassword: string, newPassword: string) {
-    const auth = getAuth();
-    const user: any = auth.currentUser;
+    /* const auth = getAuth();
+    const user: any = auth.currentUser; */
+    const user: any = this.user;
 
     if (user) {
       try {

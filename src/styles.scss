@@ -34,6 +34,11 @@ body {
     display: none !important;
 }
 
+.in-bg {
+    opacity: 0.8;
+    filter: blur(2px);
+}
+
 .noselect {
     -moz-drag-over: none;
     -webkit-user-drag: none;

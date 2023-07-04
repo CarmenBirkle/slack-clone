@@ -6,6 +6,7 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
 import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 import { LoadingService } from './service/loading.service';
 import { InfoComponent } from './info/info.component';
+import { AuthenticationService } from './service/authentication.service';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class AppComponent {
     private dialog: MatDialog,
     private firestore: Firestore,
     public loadingService: LoadingService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public authentication: AuthenticationService
   ) {}
 
   ngOnInit(): void {

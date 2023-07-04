@@ -31,7 +31,7 @@ export class SignUpComponent {
   errorPwdTxt: string = '';
   errorPwdRepeatTxt: string = '';
 
-  loading: boolean = false;
+  signUpSucc: boolean = false;
 
   errorUsername: boolean = false;
   errorEmail: boolean = false;
@@ -122,14 +122,17 @@ export class SignUpComponent {
     if (usernameOk && emailOk && pwdOk && pwdRepeatOk) {
       try {
         const userId = await this.authentication.sigup(email, password);
-        this.loading = true;
         // create User in DB ('users')
         await this.firestoreUser.addUser(userId);
+        this.signUpSucc = true;
+        setTimeout(() => {
+          this.signUpSucc = false;
+          this.navigation.navigateToSignIn();
+        }, 3000);
       } catch (error) {
         console.log('Error during sign up:', error);
       }
     }
-    this.loading = false;
   }
 
   toggleShowPwd(pwdRepeatInput: boolean) {

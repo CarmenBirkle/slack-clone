@@ -24,4 +24,8 @@ export class NavigationService {
       this.router.navigateByUrl("/");
     }
   }
+
+  navigateToSignIn(): void {
+    this.router.navigateByUrl("/sign-in");
+  }
 }

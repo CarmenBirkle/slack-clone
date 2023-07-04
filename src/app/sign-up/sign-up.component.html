@@ -4,47 +4,49 @@
     </div>
 
     <div class="signup-container">
-        <mat-card>
+        <mat-card [class.in-bg]="signUpSucc">
             <h1>Sign up</h1>
             <!-- <span>Stay connected with your friends and colleagues</span> -->
             <div class="signup-form">
                 
                 <div class="input-container">
                     <div class="input" [class.errorBorder]="errorUsername">
-                        <input type="text" #usernameSignUp required [(ngModel)]="firestoreUser.user.username"
+                        <input type="text" #usernameSignUp required [disabled]="signUpSucc"
+                            [(ngModel)]="firestoreUser.user.username"
                             (keydown)="signUpKey($event)" maxlength="30">
                         <span>Username</span>
                     </div>
                     <span class="errorTxt">{{ errorNameTxt }}</span>
                     
                     <div class="input" [class.errorBorder]="errorEmail">
-                        <input type="string" #emailSignUp required (keydown)="signUpKey($event)"
+                        <input type="string" #emailSignUp required [disabled]="signUpSucc"
+                        (keydown)="signUpKey($event)"
                              maxlength="256"> <!-- [(ngModel)]="user.email" -->
                         <span>Email</span>
                     </div>
                     <span class="errorTxt">{{ errorEmailTxt }}</span>
 
                     <div class="input input-pwd" [class.errorBorder]="errorPwd">
-                        <input type="password" #passwordSignUp required maxlength="30"
+                        <input type="password" #passwordSignUp required maxlength="30" [disabled]="signUpSucc"
                             (keydown)="signUpKey($event)" (select)="onSelect($event)">
                         <span>Password</span>
-                        <img class="show-pwd noselect" (click)="toggleShowPwd(false)"
-                            [src]="pwdImg">
+                        <img class="noselect" [class.show-pwd]="!signUpSucc"
+                            (click)="!signUpSucc ? toggleShowPwd(false) : false" [src]="pwdImg">
                     </div>
                     <span class="errorTxt">{{ errorPwdTxt }}</span>
 
                     <div class="input input-pwd" [class.errorBorder]="errorPwdRepeat">
                         <input (focusout)="valPwdRepeat(passwordSignUp.value, passwordRepeat.value)"
-                            type="password" #passwordRepeat required maxlength="30"
+                            type="password" #passwordRepeat required maxlength="30" [disabled]="signUpSucc"
                             (keydown)="signUpKey($event)" (select)="onSelect($event)">
                         <span>repeat Password</span>
-                        <img class="show-pwd noselect" (click)="toggleShowPwd(true)"
-                            [src]="pwdRepeatImg">
+                        <img class="noselect" [class.show-pwd]="!signUpSucc"
+                        (click)="!signUpSucc ? toggleShowPwd(false) : false" [src]="pwdRepeatImg">
                     </div>
                     <span class="errorTxt">{{ errorPwdRepeatTxt }}</span>
                 </div>
 
-                <button id="signUpBtn"
+                <button id="signUpBtn" [disabled]="signUpSucc"
                     (click)="signUp(emailSignUp.value.toLowerCase(), passwordSignUp.value, passwordRepeat.value, usernameSignUp.value)">
                     Sign up
                 </button>
@@ -54,9 +56,14 @@
                  (click)="firestoreUser.getFirestoreUser()">get db users in console</button>
 
         </mat-card>
+
+        <div class="overlay-msg" [class.d-none]="!signUpSucc">
+            Account created successfully
+        </div>
     
         <span class="sign-up">
-            Already a {{ appComponent.title }} account? <a href="sign-in">Sign in</a>
+            Already a {{ appComponent.title }} account? 
+            <a href="sign-in">Sign in</a>
         </span>
     </div>
 </div>

@@ -1,78 +1,86 @@
 
-   <div class="relative">
-   <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
-    <header>
-      <mat-toolbar>
-        <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
-        <img src="assets/img/slack-logo-brand.png" alt="Slack"> 
-          <button class="infoButten" (click)="switchVisible()">?</button>
-          <img class="loginAvartar" src="{{ authentication.user?.photoURL }}" alt=""> <!-- ../assets/img/carmen.png -->
-      </mat-toolbar>
-    </header>
+<div class="relative" *ngIf="authentication.user">
+  <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
+  <header>
+    <mat-toolbar>
+      <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
+      <img src="assets/img/LogoName.png" alt="Slack">
+      <button class="infoButten" (click)="switchVisible()">?</button>
+      <img class="loginAvartar" src="{{ authentication.user?.photoURL }}" alt=""> <!-- ../assets/img/carmen.png -->
+    </mat-toolbar>
+  </header>
 
+  <mat-drawer-container class="mat-drawer-container " autosize>
+    <mat-drawer #drawer class="sidenav" [opened]="!isMobileView" [mode]="isMobileView ? 'over' : 'side'">
+      <div class="logo-container"> </div>
+      <ul class="icon-menu">
+        <li class="nav-link" routerLink="/chat" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}"
+          (click)="onLinkClicked()"><mat-icon>forum</mat-icon> Threads</li>
+        <li class="nav-link" routerLink="/users" [routerLinkActive]="'active'" (click)="onLinkClicked()">
+          <mat-icon>group</mat-icon>Users</li>
+        <mat-divider></mat-divider>
 
-<mat-drawer-container class="mat-drawer-container" autosize>
-  <mat-drawer #drawer class="sidenav" [opened]="!isMobileView" [mode]="isMobileView ? 'over' : 'side'">
-    <div class="logo-container"> </div>
-    <ul class="icon-menu">
-      <li class="nav-link" routerLink="/chat" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}" (click)="onLinkClicked()"><mat-icon>forum</mat-icon> Threads</li>
-      <li class="nav-link" routerLink="/users" [routerLinkActive]="'active'" (click)="onLinkClicked()"> <mat-icon>group</mat-icon>Users</li>
-      <mat-divider></mat-divider>
+        <mat-accordion *ngIf="dataLoaded">
+          <mat-expansion-panel [expanded]="panelOpenState1" (opened)="panelOpenState1 = true"
+            (closed)="panelOpenState1 = false" hideToggle>
+            <mat-expansion-panel-header class="expansion-header">
+              <mat-panel-title class="expansion-panel">
+                <mat-icon>{{ panelOpenState1 ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
+                Channels
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Render all channels -->
 
-    <mat-accordion *ngIf="dataLoaded" >
-        <mat-expansion-panel [expanded]="panelOpenState1" (opened)="panelOpenState1 = true"  (closed)="panelOpenState1 = false" hideToggle>
-          <mat-expansion-panel-header class="expansion-header">
-            <mat-panel-title class="expansion-panel">
-              <mat-icon>{{ panelOpenState1 ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
-              Channels
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- Render all channels -->
-          
-            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/chat', channel.id]" (click)="onLinkClicked()">
-              <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
+            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels"
+              [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/chat', channel.id]" (click)="onLinkClicked()">
+              <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon>
               <div>{{channel.channelName}}</div>
-          </div>
-         
-          
-          <div class="channel-item" (click)="openDialog('400ms', '400ms')"><mat-icon>add</mat-icon> Create new channel</div>
-          
-        </mat-expansion-panel>
-              <mat-expansion-panel [expanded]="panelOpenState2" (opened)="panelOpenState2 = true"  (closed)="panelOpenState2 = false"  hideToggle>
-          <mat-expansion-panel-header class="expansion-header">
-            <mat-panel-title class="expansion-panel">
-              <mat-icon>{{ panelOpenState2 ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
-              Direct Messages
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- TODO: add direct messages - currently not working only placeholder   -->
-            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels" [routerLink]="['/chat', channel.id]">
-                <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
-                <div>{{channel.channelName}}</div>
             </div>
-        </mat-expansion-panel>
-    </mat-accordion>
 
-    </ul>
 
-  </mat-drawer>
+            <div class="channel-item" (click)="openDialog('400ms', '400ms')"><mat-icon>add</mat-icon> Create new channel
+            </div>
 
-  <div class="content">
-    <main>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="panelOpenState2" (opened)="panelOpenState2 = true"
+            (closed)="panelOpenState2 = false" hideToggle>
+            <mat-expansion-panel-header class="expansion-header">
+              <mat-panel-title class="expansion-panel">
+                <mat-icon>{{ panelOpenState2 ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
+                Direct Messages
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- TODO: add direct messages - currently not working only placeholder   -->
+            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels"
+              [routerLink]="['/chat', channel.id]">
+              <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon>
+              <div>{{channel.channelName}}</div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
 
-      <div style="display: flex;flex-direction: row;">
+      </ul>
 
-  
-        <router-outlet></router-outlet>
-    
-      <app-info></app-info>
-    
+    </mat-drawer>
+
+    <div class="content">
+      <main>
+
+        <div style="display: flex;flex-direction: row;">
+
+
+          <router-outlet></router-outlet>
+
+          <app-info></app-info>
+
+        </div>
+      </main>
     </div>
-    </main>
-  </div>
 
-</mat-drawer-container>
+  </mat-drawer-container>
 
 </div>
 
-
+<div class="relative" *ngIf="!authentication.user">
+  <app-sign-in></app-sign-in>
+</div>

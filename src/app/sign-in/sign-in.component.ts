@@ -25,9 +25,10 @@ export class SignInComponent {
   forgotPassword: boolean = false;
 
   constructor(public authentication: AuthenticationService, 
-    public navigation: NavigationService, public appComponent: AppComponent) { 
-    this.pwdField = {} as ElementRef<HTMLInputElement>;
+              public navigation: NavigationService, 
+              public appComponent: AppComponent) {
 
+    this.pwdField = {} as ElementRef<HTMLInputElement>;
     this.checkSignedInUser();
   }
 
@@ -52,14 +53,14 @@ export class SignInComponent {
     this.pwdImg = this.pwdVisible ? this.pwdHide : this.pwdShow;
   }
 
-  async checkSignedInUser() { 
-    if(await this.authentication.checkAuthUser()) {
+  async checkSignedInUser() {
+    if (await this.authentication.checkAuthUser()) {
       this.userSignedIn = true;
 
-      if(await this.authentication.checkEmailVerification()) {
+      if (await this.authentication.checkEmailVerification()) {
         // go back
         this.navigation.navigateToPreviousPage();
       }
-    } // else nobody signed in
+    }
   }
 }

@@ -25,14 +25,15 @@ export class InfoComponent {
 
   openDirektnachrichten() {
     this.dialog.open(InfoDirektnachrichtenComponent, {
-      height: '82%',
+      height: '80%',
       width: '50%',
     });
   }
   openBenachrichtigungen() {
     this.dialog.open(InfoImpressumComponent, {
-      height: '82%',
-      width: '50%',
+      height: '95%',
+      width: '56%',
+    
     });
   }
   openStatus() {

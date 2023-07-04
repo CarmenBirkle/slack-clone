@@ -1,16 +1,16 @@
-.wholeDiv{
-    color: rgb(168, 21, 21);
-    margin: 8%;
-  
-}
+.wholeDiv {
+    color: white;
+    background-color: #282A2D;
+    padding: 8%;
 
-.box{
-    padding: 5%;
-    border: 1px solid black;
-   box-shadow: 10px 5px 5px rgb(196, 91, 6);
-}
-h1{
-    font-weight:bolder;
-    margin: 0;
-}
+    .box {
+        padding: 5%;
+        border: 1px solid black;
+        box-shadow: 10px 5px 5px rgb(196, 91, 6);
+    }
 
+    h1 {
+        font-weight: bolder;
+        margin: 0;
+    }
+}

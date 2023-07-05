@@ -6,8 +6,8 @@
       <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
       <img src="assets/img/LogoName.png" alt="Slack">
       <button class="infoButten" (click)="switchVisible()">?</button>
-      <img class="loginAvartar" src="../assets\img/carmen.png" alt="">
-      <!-- <img (click)="onTogglUser()" class="loginAvartar" src="../assets\img/carmen.png" alt=""> -->
+
+      <img (click)="setStatus()" class="setStatus" src="../assets\img/carmen.png" alt="">
       <!-- <img class="loginAvartar" src="{{ authentication.user?.photoURL }}" alt=""> ../assets/img/carmen.png -->
     </mat-toolbar>
   </header>

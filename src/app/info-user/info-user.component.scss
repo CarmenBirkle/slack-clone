@@ -1,0 +1,36 @@
+// import globale style
+@import "src/_globals.scss";
+
+.setUser {
+    color: $color-text;
+    background-color: $background-second;
+    padding: 8%;
+    line-height: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-weight: bolder;
+}
+
+.img {
+    width: 45%;
+    border-radius: 5px;
+    margin: 5%;
+}
+
+button {
+    
+    color: white;
+    border: none;
+    background-color: #282A2D;
+    &:hover{
+        text-decoration: 2px underline;
+    }
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+}

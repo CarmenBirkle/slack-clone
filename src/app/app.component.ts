@@ -7,6 +7,7 @@ import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 import { LoadingService } from './service/loading.service';
 import { InfoComponent } from './info/info.component';
 import { AuthenticationService } from './service/authentication.service';
+import { InfoUserComponent } from './info-user/info-user.component';
 
 
 @Component({
@@ -147,5 +148,13 @@ export class AppComponent {
     });
   }
 
-  
+  setStatus(){
+    this.dialog.open(InfoUserComponent, {
+      height: '82%',
+      width: '50%',
+    });
+
 }
+}
+
+

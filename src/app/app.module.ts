@@ -52,6 +52,7 @@ import { InfoImpressumComponent } from './info-impressum/info-impressum.componen
 import { InfoBenachrichtigungenComponent } from './info-benachrichtigungen/info-benachrichtigungen.component';
 import { InfoStatusComponent } from './info-status/info-status.component';
 import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen.component';
+import { InfoUserComponent } from './info-user/info-user.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen
     InfoBenachrichtigungenComponent,
     InfoStatusComponent,
     InfoErinnerungenComponent,
+    InfoUserComponent,
   ],
   imports: [
     BrowserModule,

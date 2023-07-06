@@ -13,7 +13,8 @@ $slack-blue: #36c5f0;
 $btn-background: #0086ce;
 
 a {
-    color: $color-info;
+    //color: $color-info;
+    color: blue;
     cursor: pointer;
 
     &:hover {
@@ -111,7 +112,8 @@ button {
 
         background-color: white;
         //background-color: $accent-darkgrey;
-        color: $color-text;
+        //color: $color-text;
+        color: black;
         font-size: $input-font-size;
         border-radius: 5px;
         border: $input-border;

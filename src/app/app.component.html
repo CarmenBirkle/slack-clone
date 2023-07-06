@@ -1,5 +1,5 @@
-<div class="relative">
-  <!-- <div class="relative" *ngIf="authentication.user"> -->
+<!-- <div class="relative"> -->
+  <div class="relative" *ngIf="authentication.user">
   <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
   <header>
     <mat-toolbar>
@@ -84,6 +84,6 @@
 
 </div>
 
-<!-- <div class="relative" *ngIf="!authentication.user">
+<div class="relative" *ngIf="!authentication.user">
   <app-sign-in></app-sign-in>
-</div> -->
+</div>

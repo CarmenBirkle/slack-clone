@@ -8,8 +8,8 @@ $input-border: 1px solid rgba(255,255,255,0.25);
 $card-box-shadow: 0px 4px 6px rgba(255,255,255,0.15), 0px 0px 2px rgba(255,255,255,0.15);
 //$card-background: #1d2b3a;
 $card-background: $color-logo-blue;
-$slack-green: #2eb67d;
-$slack-blue: #36c5f0;
+//$hover-blue: #36c5f0;
+$hover-blue: #355B7D;
 $btn-background: #0086ce;
 
 a {
@@ -18,7 +18,8 @@ a {
     cursor: pointer;
 
     &:hover {
-        color: #d3d3d3;
+        //color: #d3d3d3;
+        color: $hover-blue;
     }
 }
 
@@ -89,7 +90,7 @@ button {
     cursor: pointer;
 
     &:hover {
-        background: $slack-blue;
+        background: $hover-blue;
     }
 }
 
@@ -110,7 +111,7 @@ button {
         width: calc(100% - $input-padding - $input-padding);
         padding: 20px 12px 4px;
 
-        background-color: white;
+        background-color: #BCBBBA;
         //background-color: $accent-darkgrey;
         //color: $color-text;
         color: black;
@@ -137,7 +138,7 @@ button {
         left: 0;
         padding: calc($input-padding + 2px);
         //color: #9999;
-        color: #6d6d6d99;
+        color: #3f3f3f99;
         font-size: $input-font-size;
         pointer-events: none;
         transition: 150ms;

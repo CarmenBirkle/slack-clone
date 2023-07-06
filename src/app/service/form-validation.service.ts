@@ -92,7 +92,7 @@ export class FormValidationService {
 
     collectionData(collectionInstance, {idField: 'id'})
       .subscribe(changes => {
-        console.log('Received changes from DB', changes);
+        //console.log('Received changes from DB', changes);
         this.userData = changes;
     });
   }

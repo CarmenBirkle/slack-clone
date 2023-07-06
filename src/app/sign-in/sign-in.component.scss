@@ -6,7 +6,8 @@ $input-padding: 12px;
 $input-focus-border: 0 0 0 1px #0073b1;
 $input-border: 1px solid rgba(255,255,255,0.25);
 $card-box-shadow: 0px 4px 6px rgba(255,255,255,0.15), 0px 0px 2px rgba(255,255,255,0.15);
-$card-background: #1d2b3a;
+//$card-background: #1d2b3a;
+$card-background: $color-logo-blue;
 $slack-green: #2eb67d;
 $slack-blue: #36c5f0;
 $btn-background: #0086ce;
@@ -80,8 +81,9 @@ button {
     //margin-top: 55px;
     font-size: 1.7rem;
     border-radius: 12px;
-    //color: $color-text;
-    background: $btn-background;
+    color: $color-text;
+    //background: $btn-background;
+    background: #3A62A7;
     border: 0;
     cursor: pointer;
 
@@ -107,7 +109,8 @@ button {
         width: calc(100% - $input-padding - $input-padding);
         padding: 20px 12px 4px;
 
-        background-color: $accent-darkgrey;
+        background-color: white;
+        //background-color: $accent-darkgrey;
         color: $color-text;
         font-size: $input-font-size;
         border-radius: 5px;
@@ -131,7 +134,8 @@ button {
         top: 0;
         left: 0;
         padding: calc($input-padding + 2px);
-        color: #9999;
+        //color: #9999;
+        color: #6d6d6d99;
         font-size: $input-font-size;
         pointer-events: none;
         transition: 150ms;

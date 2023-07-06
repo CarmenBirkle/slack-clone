@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { FormValidationService } from 'src/app/service/form-validation.service';
 import { SignInComponent } from 'src/app/sign-in/sign-in.component';
@@ -9,6 +9,8 @@ import { SignInComponent } from 'src/app/sign-in/sign-in.component';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent {
+  @ViewChild('emailSignIn') emailSignIn!: ElementRef;
+
   errorMsg = null;
   errorEmailTxt: string = '';
   resetPwdSent: boolean = false;
@@ -21,6 +23,8 @@ export class ForgotPasswordComponent {
       this.authentication.sendPasswordResetEmail(email);
       this.resetPwdSent = true;
       setTimeout(() => {
+        this.emailSignIn.nativeElement.value = '';
+        this.resetPwdSent = false;
         this.signIn.forgotPassword = false;
       }, 5000);
     }

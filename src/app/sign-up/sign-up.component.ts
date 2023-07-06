@@ -128,8 +128,8 @@ export class SignUpComponent {
         await this.firestoreUser.addUser(userId);
         this.signUpSucc = true;
         setTimeout(() => {
-          this.signUpSucc = false;
-          this.loading = false;
+          // this.signUpSucc = false;
+          // this.loading = false;
           this.authentication.signin(email, password);
           this.navigation.navigateToSignIn();
         }, 3000);
@@ -137,6 +137,8 @@ export class SignUpComponent {
         console.log('Error during sign up:', error);
       }
     }
+    this.signUpSucc = false;
+    this.loading = false;
   }
 
   toggleShowPwd(pwdRepeatInput: boolean) {

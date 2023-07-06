@@ -21,41 +21,10 @@ export class InfoComponent {
   constructor(public dialog: MatDialog) {}
 
   switchVisible() {
-    
     this.visible = !this.visible
-    console.log(this.visible);
   }
 
-  openDirektnachrichten() {
-    this.dialog.open(InfoDirektnachrichtenComponent, {
-      height: '85%',
-      width: '50%',
-    });
-  }
-  openBenachrichtigungen() {
-    this.dialog.open(InfoBenachrichtigungenComponent, {
-      height: '82%',
-      width: '50%',
-    });
-  }
-  openStatus() {
-    this.dialog.open(InfoStatusComponent, {
-      height: '82%',
-      width: '50%',
-    });
-  }
-  openErinnerungen() {
-    this.dialog.open(InfoErinnerungenComponent, {
-      height: '82%',
-      width: '50%',
-    });
-  }
-  openImpressum() {
-    this.dialog.open(InfoImpressumComponent, {
-      height: '82%',
-      width: '50%',
-    });
-  }
+  
   closeDialog() {
     this.switchVisible()
   }

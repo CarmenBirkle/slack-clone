@@ -23,6 +23,14 @@ header{
 .setStatus{
     border-radius: 50%;
 }
+
+.box {
+    margin-left: auto 
+}
+.content {
+    display: flex;
+    flex-direction: row;
+}
 //---------------------------
 mat-expansion-panel-header:hover {
     background-color:unset !important;
@@ -188,11 +196,12 @@ main{
 }
 
 
-// @media (max-width: 1100px){
-//     .none{
-//         display: none !important;
-//     }
-// }
+@media(max-width: 1100px){
+    .content {
+         display: flex !important;
+         flex-direction: column !important;
+    }
+}
 
 // @media (max-width: 1101px){
 //     .none{

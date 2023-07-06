@@ -1,18 +1,24 @@
 <div class="setUser">
     <h1>Profil</h1>
     <!-- <img src="{{ authentication.user?.photoURL }}"> -->
-    <div>
-        <div class="box">
+    <div class="box">
+        <form class="flexdown" [formGroup]="profileForm">
+
+            <label for="name">Name: </label>
+            <input id="name" type="text" formControlName="name">
+          
+            <label for="email">Email:</label>
+            <input id="email" type="text" formControlName="email">
+
+            <label for="pin">Pin: </label>
+            <input id="pin" type="text" formControlName="pin">
+            
+          
+        </form>
+
+
+        <div >
             <img class="img" src="../assets\img/carmen.png" alt="">
         </div>
-
-     
-            <div>
-                <h2>Usernamezsjzsjzusjuskj <br> <button>Bearbeiten</button></h2>
-                <!-- <h2>{{}} <br> <button (click)="xy">Bearbeiten</button></h2> -->
-                <h2>mail@EchoSphere.de<br><button>Bearbeiten</button></h2>
-                <h2>Pinn <br> <button>Bearbeiten</button></h2>
-            </div>
-    
     </div>
 </div>

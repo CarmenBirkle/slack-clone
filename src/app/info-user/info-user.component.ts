@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-info-user',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./info-user.component.scss']
 })
 export class InfoUserComponent {
+  profileForm = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl(''),
+    pin: new FormControl(''),
+  });
 
 }

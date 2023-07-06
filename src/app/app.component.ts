@@ -147,7 +147,6 @@ export class AppComponent {
       exitAnimationDuration,
     });
   }
-
   setStatus(){
     this.dialog.open(InfoUserComponent, {
       height: '82%',
@@ -155,6 +154,7 @@ export class AppComponent {
     });
 
 }
+  
 }
 
 

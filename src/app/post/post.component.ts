@@ -78,57 +78,13 @@ export class PostComponent {
     });
   }
 
-  // async getReactions() {
-  //   const q = query(
-  //     collection(this.firestore, 'reactions'),
-  //     where('postId', '==', this.post.id)
-  //   );
-  //   const querySnapshot = await getDocs(q);
-  //   querySnapshot.forEach((doc) => {
-  //     const data = doc.data() as any;
-  //     if (data['emoji']) {
-  //       if (this.emojiCounts.has(data['emoji'])) {
-  //         this.emojiCounts.set(
-  //           data['emoji'],
-  //           this.emojiCounts.get(data['emoji'])! + 1
-  //         );
-  //       } else {
-  //         this.emojiCounts.set(data['emoji'], 1);
-  //       }
-  //     }
-  //   });
-
-  // }
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['post'] && this.post) {
-  //     console.log('Post ID: ', this.post.id);
-
-  //     if (this.post.reaction && this.post.reaction.length > 0) {
-  //       this.post.reaction.forEach((reactionId) => {
-  //         console.log('Reaction ID: ', reactionId);
-  //         this.getReactionData(reactionId);
-  //       });
-  //     }
-  //   }
-  // }
-
-  // async getReactionData(reactionId: string) {
-  //   const docRef = doc(this.firestore, 'reactions', reactionId);
-  //   const docSnap = await getDoc(docRef);
-
-  //   if (docSnap.exists()) {
-  //     console.log(`Reaction data for ID ${reactionId}: `, docSnap.data());
-  //   } else {
-  //     console.log(`No document found for reaction ID ${reactionId}`);
-  //   }
-  // }
+  
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['post'] && this.post) {
       console.log('Post ID: ', this.post.id);
-      this.reactions = []; // Reset reaction data for new post
-      this.emojiCounts = new Map(); // Initialize emoji counts map
-
+      this.reactions = []; 
+      this.emojiCounts = new Map(); 
       if (this.post.reaction && this.post.reaction.length > 0) {
         const reactionsPromises = this.post.reaction.map((reactionId) =>
           this.getReactionData(reactionId)
@@ -140,45 +96,25 @@ export class PostComponent {
     }
   }
 
-  // async getReactionData(reactionId: string) {
-  //   const docRef = doc(this.firestore, 'reactions', reactionId);
-  //   const docSnap = await getDoc(docRef);
-
-  //   if (docSnap.exists()) {
-  //     const data = docSnap.data();
-  //     this.reactions.push({
-  //       id: reactionId,
-  //       emoji: data ? data['emoji'] : null, // Hier verwenden wir den Index-Zugriffsoperator
-  //     });
-  //   } else {
-  //     console.log(`No document found for reaction ID ${reactionId}`);
-  //   }
-  // }
   async getReactionData(reactionId: string) {
     const docRef = doc(this.firestore, 'reactions', reactionId);
     const docSnap = await getDoc(docRef);
-
     if (docSnap.exists()) {
       const data = docSnap.data();
       const emoji = data ? data['emoji'] : null;
-
       this.reactions.push({
         id: reactionId,
         emoji: emoji,
       });
-
-      // Update the count of emoji in the map
       if (emoji) {
-        // Ensure that emoji is not null or undefined
         if (this.emojiCounts.has(emoji)) {
           this.emojiCounts.set(emoji, this.emojiCounts.get(emoji)! + 1);
         } else {
           this.emojiCounts.set(emoji, 1);
         }
       }
-    } else {
-      console.log(`No document found for reaction ID ${reactionId}`);
-    }
+       this.changeDetectorRef.detectChanges();
+    } else {}
   }
 
   removeDuplicates(originalArray: any[], key: string): any[] {
@@ -187,3 +123,5 @@ export class PostComponent {
     ];
   }
 }
+
+//TODO: Wenn der User auf das Emoji klickt und es "seins" ist, dann soll es entfernt werden

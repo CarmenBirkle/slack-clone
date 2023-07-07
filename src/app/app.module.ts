@@ -29,7 +29,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCardModule } from '@angular/material/card';
-import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-picker.component';
 
 
 import { UsersComponent } from './users/users.component';

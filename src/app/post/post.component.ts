@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { Post } from './../../models/post.class';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogEmojiPickerComponent } from '../dialog-emoji-picker/dialog-emoji-picker.component';
@@ -16,13 +16,14 @@ export class PostComponent {
   showHeader: boolean = false;
   emojiCounts: Map<string, number> = new Map();
   private firestore: Firestore;
+  reactions: any[] = [];
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     public dialog: MatDialog
   ) {
     this.firestore = getFirestore();
-    this.getReactions();
+    // this.getReactions();
   }
 
   get dateString(): string {
@@ -98,38 +99,91 @@ export class PostComponent {
   //   });
 
   // }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['post'] && this.post) {
+  //     console.log('Post ID: ', this.post.id);
 
-  async getReactions() {
-    try {
-      if (!this.post || !this.post.reaction) {
-        console.log('No post or reaction data available');
-        return;
+  //     if (this.post.reaction && this.post.reaction.length > 0) {
+  //       this.post.reaction.forEach((reactionId) => {
+  //         console.log('Reaction ID: ', reactionId);
+  //         this.getReactionData(reactionId);
+  //       });
+  //     }
+  //   }
+  // }
+
+  // async getReactionData(reactionId: string) {
+  //   const docRef = doc(this.firestore, 'reactions', reactionId);
+  //   const docSnap = await getDoc(docRef);
+
+  //   if (docSnap.exists()) {
+  //     console.log(`Reaction data for ID ${reactionId}: `, docSnap.data());
+  //   } else {
+  //     console.log(`No document found for reaction ID ${reactionId}`);
+  //   }
+  // }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['post'] && this.post) {
+      console.log('Post ID: ', this.post.id);
+      this.reactions = []; // Reset reaction data for new post
+      this.emojiCounts = new Map(); // Initialize emoji counts map
+
+      if (this.post.reaction && this.post.reaction.length > 0) {
+        const reactionsPromises = this.post.reaction.map((reactionId) =>
+          this.getReactionData(reactionId)
+        );
+        Promise.all(reactionsPromises).then(() => {
+          console.log('Emoji Counts: ', Array.from(this.emojiCounts.entries()));
+        });
       }
+    }
+  }
 
-      console.log('Fetching reactions...');
+  // async getReactionData(reactionId: string) {
+  //   const docRef = doc(this.firestore, 'reactions', reactionId);
+  //   const docSnap = await getDoc(docRef);
 
-      for (const reactionId of this.post.reaction) {
-        const reactionDoc = doc(this.firestore, 'reactions', reactionId);
-        const reactionDocSnap = await getDoc(reactionDoc);
+  //   if (docSnap.exists()) {
+  //     const data = docSnap.data();
+  //     this.reactions.push({
+  //       id: reactionId,
+  //       emoji: data ? data['emoji'] : null, // Hier verwenden wir den Index-Zugriffsoperator
+  //     });
+  //   } else {
+  //     console.log(`No document found for reaction ID ${reactionId}`);
+  //   }
+  // }
+  async getReactionData(reactionId: string) {
+    const docRef = doc(this.firestore, 'reactions', reactionId);
+    const docSnap = await getDoc(docRef);
 
-        if (reactionDocSnap.exists()) {
-          const reactionData = reactionDocSnap.data() as any;
-          const emoji = reactionData?.emoji as string;
-          if (emoji) {
-            if (this.emojiCounts.has(emoji)) {
-              this.emojiCounts.set(emoji, this.emojiCounts.get(emoji)! + 1);
-            } else {
-              this.emojiCounts.set(emoji, 1);
-            }
-          }
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const emoji = data ? data['emoji'] : null;
+
+      this.reactions.push({
+        id: reactionId,
+        emoji: emoji,
+      });
+
+      // Update the count of emoji in the map
+      if (emoji) {
+        // Ensure that emoji is not null or undefined
+        if (this.emojiCounts.has(emoji)) {
+          this.emojiCounts.set(emoji, this.emojiCounts.get(emoji)! + 1);
         } else {
-          console.log(`Reaction document with ID ${reactionId} does not exist`);
+          this.emojiCounts.set(emoji, 1);
         }
       }
-
-      console.log('Reactions fetched successfully');
-    } catch (error) {
-      console.error('Error retrieving reactions: ', error);
+    } else {
+      console.log(`No document found for reaction ID ${reactionId}`);
     }
+  }
+
+  removeDuplicates(originalArray: any[], key: string): any[] {
+    return [
+      ...new Map(originalArray.map((item) => [item[key], item])).values(),
+    ];
   }
 }

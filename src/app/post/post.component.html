@@ -16,9 +16,18 @@
         <div  class="text-small">{{ timeString }} Uhr </div>
     </div>
     <div class="post-message" [innerHTML]="post.message"></div>
-    <div class="emojis"><div *ngFor="let emoji of emojiCounts.keys()" matBadge="{{emojiCounts.get(emoji)}}" matBadgeOverlap="false">
+    <div class="emojis">
+      
+      <!-- <div *ngFor="let emoji of emojiCounts.keys()" >
+      
+
   {{emoji}}
+</div> -->
+<!-- <div *ngFor="let reaction of reactions"> {{reaction.emoji}} </div> -->
+<div *ngFor="let emoji of emojiCounts | keyvalue">
+  {{emoji.key}} {{emoji.value}}
 </div>
+
  <mat-icon (click)="openIconDialog('400ms', '400ms')">add_reaction</mat-icon></div>
     <div class="reaction" (mouseenter)="showThread()" (mouseleave)="hideThread()">
       <div class="reaction-left">

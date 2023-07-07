@@ -2,7 +2,7 @@
 @import "src/_globals.scss";
 
 section{
-        background: $accent-lightgrey;
+        background: $background-second
 }
 
 h1{
@@ -15,6 +15,10 @@ h1{
 
 button{
     color: white!important;
+    &:hover{
+        color: black!important;
+        background: $accent-lightgrey;
+    }
 }
 
 

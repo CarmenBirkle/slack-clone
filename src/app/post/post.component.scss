@@ -118,3 +118,11 @@
   margin-right: 0.5rem;
   background-color: $background;
 }
+
+.pinned {
+  color: $color-logo-blue !important;
+}
+
+.unpinned {
+  color: unset;
+}

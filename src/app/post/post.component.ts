@@ -29,6 +29,7 @@ export class PostComponent {
   private firestore: Firestore;
   reactions: any[] = [];
   isBookmarked: boolean = false;
+  isPinned: boolean = false;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -42,6 +43,7 @@ export class PostComponent {
   ngOnInit() {
     const currentUser = this.authentication.getUserId();
     console.log('Aktuell angemeldeter Benutzer aus post:', currentUser);
+    this.checkPinnedStatus();
   }
 
   get dateString(): string {
@@ -112,6 +114,8 @@ export class PostComponent {
     }
   }
 
+ 
+
   async getReactionData(reactionId: string) {
     const docRef = doc(this.firestore, 'reactions', reactionId);
     const docSnap = await getDoc(docRef);
@@ -173,6 +177,11 @@ export class PostComponent {
     }
   }
 
+  checkPinnedStatus() {
+    this.isPinned = this.post.pinned;
+    this.changeDetectorRef.detectChanges();
+  }
+
   updatePinnedStatus() {
     const postRef = doc(this.firestore, 'posts', this.post.id);
     updateDoc(postRef, { pinned: this.post.pinned });
@@ -181,6 +190,9 @@ export class PostComponent {
   togglePinnedStatus() {
     this.post.pinned = !this.post.pinned;
     this.updatePinnedStatus();
+  }
+  getPinIconClass() {
+    return this.post.pinned ? 'pinned' : 'unpinned';
   }
 }
 

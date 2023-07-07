@@ -47,6 +47,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.readData();
+    this.printCurrentUser();
   }
   /**
    * Start the loading animation, from the loadingService
@@ -55,7 +56,12 @@ export class AppComponent {
     this.loadingService.setLoadingState(true);
   }
 
-  switchVisible(){
+  printCurrentUser() {
+    const currentUser = this.authentication.user?.uid;
+    console.log('Aktuell angemeldeter Benutzer:', currentUser);
+  }
+
+  switchVisible() {
     this.infoComponent.switchVisible();
   }
   /**
@@ -147,14 +153,12 @@ export class AppComponent {
       exitAnimationDuration,
     });
   }
-  setStatus(){
+  setStatus() {
     this.dialog.open(InfoUserComponent, {
       height: '82%',
       width: '50%',
     });
-
-}
-  
+  }
 }
 
 

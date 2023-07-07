@@ -1,7 +1,8 @@
-import { Component, Input, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, SimpleChanges, NgModule } from '@angular/core';
 import { Post } from './../../models/post.class';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogEmojiPickerComponent } from '../dialog-emoji-picker/dialog-emoji-picker.component';
+import { AuthenticationService } from '../service/authentication.service';
 import {
   getDoc,
   doc,
@@ -12,6 +13,8 @@ import {
   arrayRemove,
 } from 'firebase/firestore';
 import { Firestore, getFirestore, collection } from 'firebase/firestore';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-post',
@@ -29,10 +32,16 @@ export class PostComponent {
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public authentication: AuthenticationService
   ) {
     this.firestore = getFirestore();
     // this.getReactions();
+  }
+
+  ngOnInit() {
+    const currentUser = this.authentication.getUserId();
+    console.log('Aktuell angemeldeter Benutzer aus post:', currentUser);
   }
 
   get dateString(): string {
@@ -131,7 +140,6 @@ export class PostComponent {
     ];
   }
 
-
   //TODO hardcoded user entfernen und dynamisch machen
   async bookmarkPost() {
     const userRef = doc(
@@ -163,6 +171,16 @@ export class PostComponent {
       }
       this.changeDetectorRef.detectChanges();
     }
+  }
+
+  updatePinnedStatus() {
+    const postRef = doc(this.firestore, 'posts', this.post.id);
+    updateDoc(postRef, { pinned: this.post.pinned });
+  }
+
+  togglePinnedStatus() {
+    this.post.pinned = !this.post.pinned;
+    this.updatePinnedStatus();
   }
 }
 

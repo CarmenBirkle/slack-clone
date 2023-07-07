@@ -42,7 +42,7 @@ export class AuthenticationService {
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         this.user = userCredential.user;
-        //console.log('user signed in:', user);
+        console.log('user signed in:', this.user);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -194,6 +194,7 @@ export class AuthenticationService {
     }
   }
 
+  
   
 
 }

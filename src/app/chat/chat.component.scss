@@ -79,4 +79,8 @@ section::after {
     transform: translateY(-50%);
 }
 
+:host ::ng-deep .mat-badge-content {
+    background-color: $color-logo-blue;
+}
+
 

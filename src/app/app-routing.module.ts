@@ -10,11 +10,12 @@ import { InfoBenachrichtigungenComponent } from './info-benachrichtigungen/info-
 import { InfoStatusComponent } from './info-status/info-status.component';
 import { InfoImpressumComponent } from './info-impressum/info-impressum.component';
 import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen.component';
+import { BookmarkComponent } from './bookmark/bookmark.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'users', component: UsersComponent },
-  { path: 'chat',component: WelcomeComponent},
+  { path: 'chat',component: BookmarkComponent},
   { path: 'chat/:id', component: ChatComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },

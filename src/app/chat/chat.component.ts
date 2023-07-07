@@ -9,6 +9,7 @@ import { Post } from 'src/models/post.class';
 import { DialogEditChannelComponent } from '../dialog-edit-channel/dialog-edit-channel.component';
 import { DialogDeleteChannelComponent } from '../dialog-delete-channel/dialog-delete-channel.component';
 import { get } from '@angular/fire/database';
+import { AuthenticationService } from '../service/authentication.service';
 import {
   collection,
   query,
@@ -34,21 +35,27 @@ export class ChatComponent implements OnInit, OnDestroy {
   hasData: boolean = false;
   private unsubscribeChannel!: () => void;
   private unsubscribePosts!: () => void;
+  pinCount: number = 9;
 
   constructor(
     private route: ActivatedRoute,
     private firestore: Firestore,
     public dialog: MatDialog,
     public loadingService: LoadingService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public authentication: AuthenticationService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
       this.getChannel();
+      const currentUser = this.authentication.getUserId();
+      console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
+      this.getPinnedPostCount();
     });
   }
+
   ngOnDestroy() {
     this.unsubscribeChannel && this.unsubscribeChannel();
     this.unsubscribePosts && this.unsubscribePosts();
@@ -77,6 +84,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.channel = new Channel(docSnap.data());
       console.log(this.channel);
       this.getPosts();
+      
     });
   }
 
@@ -181,7 +189,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   shouldShowDate(previousPost: Post | undefined, currentPost: Post): boolean {
-      if (previousPost && currentPost) {
+    if (previousPost && currentPost) {
       const previousDate = new Date(
         previousPost.timestamp
       ).toLocaleDateString();
@@ -190,5 +198,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
     return false;
   }
+  getPinnedPostCount(): number {
+    this.pinCount = this.allPosts.filter((post) => post.pinned).length;
+    return this.pinCount
+  }
+
 }
 

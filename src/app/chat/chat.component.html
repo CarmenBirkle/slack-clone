@@ -3,7 +3,11 @@
         <div class="header">
             <div class="left-items">
                     <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
-                    <h2>{{channel.channelName}}</h2>
+                    <h2>{{channel.channelName}}</h2>  
+                    <p class="d-none">{{ getPinnedPostCount() }}</p>
+                    <mat-icon [matBadge]="pinCount" [matBadgeHidden]="pinCount === 0">push_pin</mat-icon>
+
+
                 </div>
                 <div class="right-items">
                         <button (click)="openEditDialog('400ms', '400ms')" mat-icon-button>
@@ -26,11 +30,6 @@
 
              </div>
 
-
-            <!-- <div class="post-item" *ngFor="let post of allPosts">
-                <div [innerHTML]="post.message"></div>
-            </div> -->
-            <!-- <app-post *ngFor="let post of allPosts" [post]="post"></app-post> -->
 
         </div>
 

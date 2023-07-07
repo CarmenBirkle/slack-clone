@@ -56,6 +56,7 @@ import { InfoBenachrichtigungenComponent } from './info-benachrichtigungen/info-
 import { InfoStatusComponent } from './info-status/info-status.component';
 import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen.component';
 import { InfoUserComponent } from './info-user/info-user.component';
+import { DialogPinnedPostsComponent } from './dialog-pinned-posts/dialog-pinned-posts.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { InfoUserComponent } from './info-user/info-user.component';
     InfoStatusComponent,
     InfoErinnerungenComponent,
     InfoUserComponent,
+    DialogPinnedPostsComponent,
   ],
   imports: [
     BrowserModule,

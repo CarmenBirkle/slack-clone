@@ -1,7 +1,7 @@
 <div class="post">
   <div class="getActiveContainer">
-    <mat-icon (click)="openIconDialog('400ms', '400ms')">add_reaction</mat-icon>
-    <mat-icon>bookmark</mat-icon>
+    <mat-icon  (click)="openIconDialog('400ms', '400ms')">add_reaction</mat-icon>
+    <mat-icon (click)="bookmarkPost()">{{isBookmarked ? 'book' : 'bookmark_add'}}</mat-icon>
     <mat-icon>chat</mat-icon>
     <mat-icon>forward</mat-icon>
   </div>

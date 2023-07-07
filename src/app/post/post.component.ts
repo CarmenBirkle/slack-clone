@@ -2,7 +2,15 @@ import { Component, Input, ChangeDetectorRef, SimpleChanges } from '@angular/cor
 import { Post } from './../../models/post.class';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogEmojiPickerComponent } from '../dialog-emoji-picker/dialog-emoji-picker.component';
-import {  getDoc, doc, query, where } from 'firebase/firestore';
+import {
+  getDoc,
+  doc,
+  query,
+  where,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore';
 import { Firestore, getFirestore, collection } from 'firebase/firestore';
 
 @Component({
@@ -17,6 +25,7 @@ export class PostComponent {
   emojiCounts: Map<string, number> = new Map();
   private firestore: Firestore;
   reactions: any[] = [];
+  isBookmarked: boolean = false;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -78,13 +87,11 @@ export class PostComponent {
     });
   }
 
-  
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['post'] && this.post) {
       console.log('Post ID: ', this.post.id);
-      this.reactions = []; 
-      this.emojiCounts = new Map(); 
+      this.reactions = [];
+      this.emojiCounts = new Map();
       if (this.post.reaction && this.post.reaction.length > 0) {
         const reactionsPromises = this.post.reaction.map((reactionId) =>
           this.getReactionData(reactionId)
@@ -113,8 +120,9 @@ export class PostComponent {
           this.emojiCounts.set(emoji, 1);
         }
       }
-       this.changeDetectorRef.detectChanges();
-    } else {}
+      this.changeDetectorRef.detectChanges();
+    } else {
+    }
   }
 
   removeDuplicates(originalArray: any[], key: string): any[] {
@@ -122,6 +130,45 @@ export class PostComponent {
       ...new Map(originalArray.map((item) => [item[key], item])).values(),
     ];
   }
+
+
+  //TODO hardcoded user entfernen und dynamisch machen
+  async bookmarkPost() {
+    const userRef = doc(
+      this.firestore,
+      'users',
+      'DcMndLPXmVM2HWVyrKYteG6b2Lg1'
+    ); // Hardcoded user ID
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+
+      if (
+        userData &&
+        'bookmarked-posts' in userData &&
+        userData['bookmarked-posts'].includes(this.post.id)
+      ) {
+        // Post is already bookmarked, remove it
+        await updateDoc(userRef, {
+          'bookmarked-posts': arrayRemove(this.post.id),
+        });
+        this.isBookmarked = false;
+      } else {
+        // Post is not bookmarked, add it
+        await updateDoc(userRef, {
+          'bookmarked-posts': arrayUnion(this.post.id),
+        });
+        this.isBookmarked = true;
+      }
+      this.changeDetectorRef.detectChanges();
+    }
+  }
 }
 
+
+
 //TODO: Wenn der User auf das Emoji klickt und es "seins" ist, dann soll es entfernt werden
+
+
+// User-ID Carmen DcMndLPXmVM2HWVyrKYteG6b2Lg1;

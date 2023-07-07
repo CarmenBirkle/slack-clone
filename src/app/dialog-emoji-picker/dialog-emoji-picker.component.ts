@@ -18,8 +18,8 @@ import {
 })
 export class DialogEmojiPickerComponent {
   private firestore: Firestore;
-  userId: string = 'hKhYyf1A2qOwLSyxTymq';
-
+  userId: string = 'DcMndLPXmVM2HWVyrKYteG6b2Lg1';
+  //TODO Fester user entfernen und variable userId mitgeben
   constructor(
     public dialogRef: MatDialogRef<DialogEmojiPickerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { postId: string }
@@ -38,6 +38,7 @@ export class DialogEmojiPickerComponent {
         emoji: emoji,
         userId: this.userId,
       });
+      //TODO: delete console log
       console.log(`New reaction created with ID: ${reactionDocRef.id}`);
 
       const postDoc = doc(this.firestore, 'posts', this.data.postId);

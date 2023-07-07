@@ -114,8 +114,6 @@ export class PostComponent {
     }
   }
 
- 
-
   async getReactionData(reactionId: string) {
     const docRef = doc(this.firestore, 'reactions', reactionId);
     const docSnap = await getDoc(docRef);

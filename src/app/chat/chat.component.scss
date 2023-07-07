@@ -31,6 +31,12 @@
     }
 }
 
+.left-items button{
+    &:hover{
+        background-color: $accent-lightgrey;
+    }
+}
+
 section::after {
   content: "";
   display: block;

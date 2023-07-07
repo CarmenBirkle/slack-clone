@@ -20,6 +20,7 @@ import {
 } from 'firebase/firestore';
 import { LoadingService } from './../service/loading.service';
   import { ChangeDetectorRef } from '@angular/core';
+import { DialogPinnedPostsComponent } from '../dialog-pinned-posts/dialog-pinned-posts.component';
 
 @Component({
   selector: 'app-chat',
@@ -84,7 +85,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.channel = new Channel(docSnap.data());
       console.log(this.channel);
       this.getPosts();
-      
     });
   }
 
@@ -180,6 +180,18 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
+  openPinnedPostDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): MatDialogRef<DialogPinnedPostsComponent> {
+    return this.dialog.open(DialogPinnedPostsComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: { channelId: this.channelId },
+    });
+  }
+
   getPreviousPost(currentPost: Post): Post | undefined {
     const currentIndex = this.allPosts.indexOf(currentPost);
     if (currentIndex > 0) {
@@ -200,8 +212,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
   getPinnedPostCount(): number {
     this.pinCount = this.allPosts.filter((post) => post.pinned).length;
-    return this.pinCount
+    return this.pinCount;
   }
-
 }
 

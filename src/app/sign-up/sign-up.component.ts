@@ -172,4 +172,5 @@ export class SignUpComponent {
       this.navigation.navigateToPreviousPage();
     } // else nobody signed in
   }
+
 }

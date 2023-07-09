@@ -41,5 +41,15 @@ export class FirestoreUserService {
     });
   }
 
-  
+  async getUser(uid: string): Promise<any> {
+    const docRef = doc(this.firestore, 'users', `${uid}`);
+    const docSnap = await getDoc(docRef);
+
+    if(docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log('User not exist');
+      return null;
+    }
+  }
 }

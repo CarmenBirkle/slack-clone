@@ -41,7 +41,7 @@
                             (keydown)="signUpKey($event)" (select)="onSelect($event)">
                         <span>repeat Password</span>
                         <img class="noselect" [class.show-pwd]="!loading"
-                        (click)="!loading ? toggleShowPwd(false) : false" [src]="pwdRepeatImg">
+                        (click)="!loading ? toggleShowPwd(true) : false" [src]="pwdRepeatImg">
                     </div>
                     <span class="errorTxt">{{ errorPwdRepeatTxt }}</span>
                 </div>

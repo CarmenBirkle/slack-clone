@@ -20,8 +20,8 @@
                     
                     <div class="input" [class.errorBorder]="errorEmail">
                         <input type="string" #emailSignUp required [disabled]="loading"
-                        (keydown)="signUpKey($event)"
-                             maxlength="256"> <!-- [(ngModel)]="user.email" -->
+                        (keydown)="signUpKey($event)" [(ngModel)]="firestoreUser.user.email"
+                             maxlength="256">
                         <span>Email</span>
                     </div>
                     <span class="errorTxt">{{ errorEmailTxt }}</span>

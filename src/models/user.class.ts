@@ -2,7 +2,7 @@ export class User {
     username: string;
     email: string;
     //phone: string;
-    picture: string;
+    photo: string;
     guest: boolean;
     "bookmarked-posts": Array<string>;
     
@@ -10,7 +10,7 @@ export class User {
         this.username = obj ? obj.username : '';
         this.email = obj ? obj.email : '';
         //this.phone = obj ? obj.phone : '';
-        this.picture = obj ? obj.picture : '';
+        this.photo = obj ? obj.photo : '';
         this.guest = obj ? obj.guest : '';
         this["bookmarked-posts"] = obj ? obj["bookmarked-posts"] : [];
     }
@@ -20,7 +20,7 @@ export class User {
             username: this.username,
             email: this.email,
             //phone: this.phone,
-            picture: this.picture,
+            photo: this.photo,
             guest: this.guest,
             "bookmarked-posts": this["bookmarked-posts"]
         }

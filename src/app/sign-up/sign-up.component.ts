@@ -49,12 +49,15 @@ export class SignUpComponent {
   }
 
   async valUsername(username: string) {
-    if(!this.formValidation.testInputLengthLt(username, 3)) {
-      this.errorNameTxt = 'Username is to short. Min. 3 characters required.'
-    } else if(!this.formValidation.testInputLengthGt(username, 30)) {
-      this.errorNameTxt = 'Username is to long. Max. 30 characters allowed.'
+    const maxUsernameLength = 30;
+    const minUsernameLength = 3;
+
+    if(!this.formValidation.testInputLengthLt(username, minUsernameLength)) {
+      this.errorNameTxt = `Username is to short. Min. ${minUsernameLength} characters required.`;
+    } else if(!this.formValidation.testInputLengthGt(username, maxUsernameLength)) {
+      this.errorNameTxt = `Username is to long. Max. ${maxUsernameLength} characters allowed.`;
     } else if(await this.formValidation.testExistUsername(username)) {
-      this.errorNameTxt = 'Username already exist.'
+      this.errorNameTxt = 'Username already exist.';
     } else {
       this.errorNameTxt = '';
       this.errorUsername = false;
@@ -126,10 +129,9 @@ export class SignUpComponent {
         const userId = await this.authentication.sigup(email, password);
         // create User in DB ('users')
         await this.firestoreUser.addUser(userId);
+        
         this.signUpSucc = true;
         setTimeout(() => {
-          // this.signUpSucc = false;
-          // this.loading = false;
           this.authentication.signin(email, password);
           this.navigation.navigateToSignIn();
         }, 3000);

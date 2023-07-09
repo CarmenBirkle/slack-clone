@@ -12,7 +12,9 @@ export class FirestoreUserService {
   constructor(private firestore: Firestore, private authentication: AuthenticationService) { }
 
   addUser(userId: any) {
+    const avatarNr = Math.floor(Math.random() * 24)+1;
     this.user.guest = false;
+    this.user.photo = `assets/img/avatar/avatar${avatarNr}.png`;
     
     const collectionInstance = collection(this.firestore, 'users');
     const documentRef = doc(collectionInstance, userId);
@@ -27,6 +29,28 @@ export class FirestoreUserService {
     const docRef = doc(this.firestore, 'users', `${userId}`);
 
     await updateDoc(docRef, {username: input})
+      .then((e) => { })
+      .catch((err) => {
+        console.log('Error while changing Username', err);
+    });
+  }
+
+  async changeEmail(newEmail: string) {
+    const userId = await this.authentication.getUserId();
+    const docRef = doc(this.firestore, 'users', `${userId}`);
+
+    await updateDoc(docRef, {email: newEmail})
+      .then((e) => { })
+      .catch((err) => {
+        console.log('Error while changing Username', err);
+    });
+  }
+
+  async changePhoto(newPhotoUrl: string) {
+    const userId = await this.authentication.getUserId();
+    const docRef = doc(this.firestore, 'users', `${userId}`);
+
+    await updateDoc(docRef, {photo: newPhotoUrl})
       .then((e) => { })
       .catch((err) => {
         console.log('Error while changing Username', err);
@@ -52,4 +76,5 @@ export class FirestoreUserService {
       return null;
     }
   }
+
 }

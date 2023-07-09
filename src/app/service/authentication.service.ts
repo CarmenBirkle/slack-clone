@@ -15,15 +15,12 @@ export class AuthenticationService {
 
   async sigup(email: string, password: string): Promise<string | null> {
     const auth = getAuth();
-    const avatarNr = Math.floor(Math.random() * 24)+1;
+    
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      //const user = userCredential.user;
       this.user = userCredential.user;
-      updateProfile(this.user, {
-        photoURL: `assets/img/avatar/avatar${avatarNr}.png`,
-      });
+
       console.log(this.user);
       
       this.emailVerification();
@@ -144,6 +141,7 @@ export class AuthenticationService {
     if (user) {
       try {
         await updateEmail(user, newEmail);
+        return true;
       } catch (error: any) {
         if (error.code === 'auth/requires-recent-login') {
           try {
@@ -151,17 +149,27 @@ export class AuthenticationService {
             const emailCredential = EmailAuthProvider.credential(user.email, password);
             await reauthenticateWithCredential(user, emailCredential);
             
-            // Update the email address again
-            await updateEmail(user, newEmail);
+            try {
+              // Update the email address again
+              await updateEmail(user, newEmail);
+              return true;
+            } catch (error) {
+              console.log('Error changing email');
+              return false;
+            }
+              
           } catch (error) {
             console.log('Error updating email:', error);
+            return false;
           }
         } else {
           console.log('Error updating email:', error);
+          return false;
         }
       }
     } else {
       console.log('User is not signed in');
+      return false;
     }
   }
 

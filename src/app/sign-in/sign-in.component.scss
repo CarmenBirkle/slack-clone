@@ -7,19 +7,20 @@ $input-focus-border: 0 0 0 1px #0073b1;
 $input-border: 1px solid rgba(255,255,255,0.25);
 $card-box-shadow: 0px 4px 6px rgba(255,255,255,0.15), 0px 0px 2px rgba(255,255,255,0.15);
 //$card-background: #1d2b3a;
-$card-background: $color-logo-blue;
+$card-background: #3A62A7;
 //$hover-blue: #36c5f0;
-$hover-blue: #355B7D;
-$btn-background: #0086ce;
+$hover-blue: #c8dbff; // #355B7D
+$btn-background: $color-logo-blue; // #0086ce
 
 a {
     //color: $color-info;
-    color: blue;
+    color: #8bc8ff;
     cursor: pointer;
+    text-decoration: underline;
 
     &:hover {
         //color: #d3d3d3;
-        color: $hover-blue;
+        color: #c8dbff;
     }
 }
 
@@ -84,13 +85,14 @@ button {
     font-size: 1.7rem;
     border-radius: 12px;
     color: $color-text;
-    //background: $btn-background;
-    background: #3A62A7;
+    background: $btn-background;
     border: 0;
     cursor: pointer;
 
     &:hover {
         background: $hover-blue;
+        color: #355B7D;
+        font-weight: 600;
     }
 }
 

@@ -15,7 +15,9 @@ import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen
 import { BookmarkComponent } from './bookmark/bookmark.component';
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
+  { path: '',
+    canActivate: [AuthGuard],
+    component: WelcomeComponent },
   {
     path: 'users',
     canActivate: [AuthGuard], 

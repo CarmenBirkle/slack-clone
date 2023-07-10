@@ -97,4 +97,30 @@ export class FormValidationService {
     });
   }
 
+  photo(file: File): boolean {
+    const allowedFormats = ['.jpg', '.jpeg', '.png', '.gif', '.tiff', '.bmp'];
+    const maxFileSize = 5 * 1024 * 1024; // 5 MB
+    const minFileSize = 10 * 1024; // 10 KB
+  
+    const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+    const fileSize = file.size;
+  
+    if (!allowedFormats.includes(fileExtension)) {
+      console.log('Ungültiges Dateiformat');
+      return false;
+    }
+  
+    if (fileSize > maxFileSize) {
+      console.log('Datei ist zu groß');
+      return false;
+    }
+  
+    if (fileSize < minFileSize) {
+      console.log('Datei ist zu klein');
+      return false;
+    }
+  
+    return true;
+  }
+
 }

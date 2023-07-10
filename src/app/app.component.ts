@@ -1,5 +1,8 @@
 import { Component, ViewChild,ChangeDetectorRef } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Event as NavigationEvent, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
 import { ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
@@ -25,6 +28,7 @@ export class AppComponent {
   panelOpenState2 = false;
   dataLoaded = false;
   isSidebarOpened: boolean = true;
+  logSide:boolean = false;
 
   @ViewChild('drawer') drawer!: MatDrawer;
 
@@ -42,13 +46,48 @@ export class AppComponent {
     private firestore: Firestore,
     public loadingService: LoadingService,
     private cd: ChangeDetectorRef,
-    public authentication: AuthenticationService
+    public authentication: AuthenticationService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.readData();
     this.printCurrentUser();
+    this.pathCheck();
   }
+
+  pathCheck(){
+  this.router.events
+    .pipe(
+      filter(
+        (event: NavigationEvent): event is NavigationEnd =>
+          event instanceof NavigationEnd
+      )
+    )
+    .subscribe((event: NavigationEnd) => {
+      console.log(event.urlAfterRedirects); 
+      if (
+        event.urlAfterRedirects === '/sign-in' ||
+        event.urlAfterRedirects === '/sign-up'
+      ) {
+        console.log('drawer closed pfad');
+        this.logSide = true;
+        console.log(this.logSide);
+        this.drawer.close();
+        this.isSidebarOpened = false;
+       
+      } else {
+        this.logSide = false;
+        console.log("nicht auf login/up: ", this.logSide)
+        if(window.innerWidth >= 768){
+        this.drawer.open();
+        this.isSidebarOpened = true;
+        }
+      }
+    });
+  }
+  
+
   /**
    * Start the loading animation, from the loadingService
    */
@@ -121,11 +160,15 @@ export class AppComponent {
    * If the width is less than or equal to 768px, it assumes that the user is in mobile view and sets the drawer mode accordingly.
    */
   checkViewport() {
+    if (this.logSide){
+      console.log('return from checkviewport')
+      return;
+    } 
     this.isMobileView = window.innerWidth <= 768; // TODO Adjust the breakpoint as needed
     this.drawer.opened = !this.isMobileView;
     this.isSidebarOpened = !this.isMobileView;
     this.drawer.mode = this.isMobileView ? 'over' : 'side';
-    console.log('isSidebarOpened', this.isSidebarOpened);
+    console.log('isSidebarOpenedFromCheckViewpoart', this.isSidebarOpened);
   }
 
   /**

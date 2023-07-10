@@ -1,7 +1,7 @@
 <div class="relative">
   <!-- <div class="relative" *ngIf="authentication.user"> -->
   <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
-  <header>
+  <header *ngIf="!logSide">
     <mat-toolbar>
       <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
       <img src="assets/img/LogoName.png" alt="Slack">

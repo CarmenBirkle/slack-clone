@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard'; 
+
 import { ChatComponent } from './chat/chat.component';
 import { UsersComponent } from './users/users.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -14,11 +16,24 @@ import { BookmarkComponent } from './bookmark/bookmark.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'chat',component: BookmarkComponent},
-  { path: 'chat/:id', component: ChatComponent },
+  {
+    path: 'users',
+    canActivate: [AuthGuard], // Verwenden Sie den AuthGuard hier
+    component: UsersComponent,
+  },
+  {
+    path: 'chat',
+    canActivate: [AuthGuard], // Verwenden Sie den AuthGuard hier
+    component: ChatComponent,
+  },
+  {
+    path: 'chat/:id',
+    canActivate: [AuthGuard], // Verwenden Sie den AuthGuard hier
+    component: ChatComponent,
+  },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
+  //TODO: Add routes for the new components when they are changed to english 
   { path: 'direktnachrichten', component: InfoDirektnachrichtenComponent },
   { path: 'benachrichtigungen', component: InfoBenachrichtigungenComponent },
   { path: 'status', component: InfoStatusComponent },

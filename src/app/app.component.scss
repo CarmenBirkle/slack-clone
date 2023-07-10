@@ -203,10 +203,17 @@ main{
     }
 }
 
-// @media (max-width: 1101px){
-//     .none{
-//         display:contents;
-//     }
-
-
-// }
+.mat-mdc-radio-button.mat-accent {
+    --mdc-radio-disabled-selected-icon-color: #000;
+    --mdc-radio-disabled-unselected-icon-color: #000;
+    --mdc-radio-unselected-focus-icon-color: #212121;
+    --mdc-radio-unselected-hover-icon-color: #212121;
+    --mdc-radio-unselected-icon-color: rgba(0, 0, 0, 0.54);
+    --mdc-radio-unselected-pressed-icon-color: rgba(0, 0, 0, 0.54);
+    --mdc-radio-selected-focus-icon-color: #CDDC39;
+    --mdc-radio-selected-hover-icon-color: #FFEB3B;
+    --mdc-radio-selected-icon-color: #FFEB3B;
+    --mdc-radio-selected-pressed-icon-color: #FFEB3B;
+    --mat-mdc-radio-ripple-color: #000;
+    --mat-mdc-radio-checked-ripple-color: #FFEB3B;
+} 

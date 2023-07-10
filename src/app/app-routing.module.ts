@@ -18,17 +18,17 @@ const routes: Routes = [
   { path: '', component: WelcomeComponent },
   {
     path: 'users',
-    canActivate: [AuthGuard], // Verwenden Sie den AuthGuard hier
+    canActivate: [AuthGuard], 
     component: UsersComponent,
   },
   {
     path: 'chat',
-    canActivate: [AuthGuard], // Verwenden Sie den AuthGuard hier
+    canActivate: [AuthGuard],
     component: ChatComponent,
   },
   {
     path: 'chat/:id',
-    canActivate: [AuthGuard], // Verwenden Sie den AuthGuard hier
+    canActivate: [AuthGuard], 
     component: ChatComponent,
   },
   { path: 'sign-in', component: SignInComponent },

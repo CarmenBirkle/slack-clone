@@ -1,6 +1,55 @@
 // import globale style
 @import "src/_globals.scss";
 
+$margin-width: 20px;
+
 section {
-    padding: 3rem 1000% 0 10%;
+    height: calc(100vh - 4.3rem);
+    width: calc(100vw - 21.3rem);
+    //margin: 10px 20px;
+}
+
+p {
+    margin: 0;
+}
+
+.users-header {
+    height: 3rem;
+    width: 100%;
+    padding: 8px $margin-width 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #353535;
+
+    p {
+        font-size: 21px;
+        font-weight: 500;
+    }
+
+    button {
+        height: 28px;
+        min-width: 56px;
+        padding: 0px 12px 1px;
+        font-size: 15px;
+        color: white;
+        background: $background-second;
+        border: 1px solid white;
+        border-radius: 3px;
+        transition: all 80ms linear 0s;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &:hover {
+            filter: brightness(1.5);
+        }
+    }
+}
+
+.users-search {
+    width: 100%;
+    margin: 10px $margin-width;
 }

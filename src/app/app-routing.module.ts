@@ -20,7 +20,7 @@ const routes: Routes = [
     component: WelcomeComponent },
   {
     path: 'users',
-    canActivate: [AuthGuard], 
+    //canActivate: [AuthGuard], 
     component: UsersComponent,
   },
   {

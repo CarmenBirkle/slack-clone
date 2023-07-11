@@ -1,13 +1,21 @@
 <section>
   
-<h1 class="white" mat-dialog-title>Pinned Posts in Channel ##</h1>
-
-<div mat-dialog-content>
-  <form class="example-form">
-    <h3 class="white">You'll delete the Channel, are you sure? </h3>
-  </form>
-</div>
-
+  <div class="container">
+      <div class="header">
+          <h2>Gepinnte Beiträge</h2>
+          <mat-icon (click)="closeDialog()"> close </mat-icon>
+      </div>
+      <div class="main-content">
+          <div *ngFor="let post of data.pinnedPosts" class="single-post">
+              <div *ngIf="shouldShowDate(getPreviousPost(post), post)" class="date-container">
+                  <div class="show-date">
+                      <p>{{ post.timestamp | date: 'dd.MM.yyyy' }}</p>
+                  </div> 
+              </div>
+              <app-post [post]="post"></app-post>
+          </div>
+      </div>
+  </div>
 
 </section>
 

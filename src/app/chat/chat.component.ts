@@ -180,15 +180,28 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
+  // openPinnedPostDialog(
+  //   enterAnimationDuration: string,
+  //   exitAnimationDuration: string
+  // ): MatDialogRef<DialogPinnedPostsComponent> {
+  //   return this.dialog.open(DialogPinnedPostsComponent, {
+  //     width: '250px',
+  //     enterAnimationDuration,
+  //     exitAnimationDuration,
+  //     data: { channelId: this.channelId },
+  //   });
+  // }
+
   openPinnedPostDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ): MatDialogRef<DialogPinnedPostsComponent> {
+    const pinnedPosts = this.getPinnedPosts();
     return this.dialog.open(DialogPinnedPostsComponent, {
-      width: '250px',
+      width: '90vw',
       enterAnimationDuration,
       exitAnimationDuration,
-      data: { channelId: this.channelId },
+      data: { pinnedPosts },
     });
   }
 
@@ -214,5 +227,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.pinCount = this.allPosts.filter((post) => post.pinned).length;
     return this.pinCount;
   }
+
+  getPinnedPosts(): Post[] {
+    return this.allPosts.filter((post) => post.pinned);
+  }
 }
+
+
 

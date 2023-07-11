@@ -89,4 +89,38 @@ section::after {
     background-color: $color-logo-blue;
 }
 
+.single-post:first-child {
+  padding-top: 10px;
+}
+
+.disabled-pin {
+  opacity: 0.3;
+   &:hover {
+    cursor: not-allowed;
+    background-color: $accent-darkgrey !important;
+      opacity: 0.3;
+  }
+    
+  }
+
+  button.disabled-pin:hover {
+    background-color: initial !important;
+}
+.active-pin {
+  cursor: pointer;
+}
+
+.disabled-pin {
+  cursor: not-allowed;
+  opacity: 0.3;
+  &:hover {
+    background-color: none;
+  }
+}
+
+
+ 
+
+
+
 

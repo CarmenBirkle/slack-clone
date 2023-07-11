@@ -16,7 +16,7 @@ import { BookmarkComponent } from './bookmark/bookmark.component';
 
 const routes: Routes = [
   { path: '',
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     component: WelcomeComponent },
   {
     path: 'users',
@@ -25,12 +25,12 @@ const routes: Routes = [
   },
   {
     path: 'chat',
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     component: ChatComponent,
   },
   {
     path: 'chat/:id',
-    canActivate: [AuthGuard], 
+    //canActivate: [AuthGuard], 
     component: ChatComponent,
   },
   { path: 'sign-in', component: SignInComponent },

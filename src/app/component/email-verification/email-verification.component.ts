@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/service/authentication.service';
-import { FirestoreUserService } from 'src/app/service/firestore-user.service';
+import { NavigationService } from 'src/app/service/navigation.service';
 
 @Component({
   selector: 'app-email-verification',
@@ -11,15 +11,14 @@ export class EmailVerificationComponent {
   verificationSended: boolean = false;
 
 
-  constructor(public authentication: AuthenticationService,
-    private firestoreUser: FirestoreUserService) { }
+  constructor(public authentication: AuthenticationService) { }
 
   sendVerification() {
     this.verificationSended = true;
     this.authentication.emailVerification()
 
-    /* setTimeout(() => {
+    setTimeout(() => {
       this.verificationSended = false;
-    }, 3000); */
+    }, 3000);
   }
 }

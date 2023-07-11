@@ -1,16 +1,16 @@
 // import globale style
 @import "src/_globals.scss";
 
+$height-default: calc(100vh - 65px);
+$height-logo: 40px;
 $input-font-size: 1.2rem;
 $input-padding: 12px;
 $input-focus-border: 0 0 0 1px #0073b1;
 $input-border: 1px solid rgba(255,255,255,0.25);
 $card-box-shadow: 0px 4px 6px rgba(255,255,255,0.15), 0px 0px 2px rgba(255,255,255,0.15);
-//$card-background: #1d2b3a;
 $card-background: #3A62A7;
-//$hover-blue: #36c5f0;
-$hover-blue: #c8dbff; // #355B7D
-$btn-background: $color-logo-blue; // #0086ce
+$hover-blue: #c8dbff;
+$btn-background: $color-logo-blue;
 
 a {
     //color: $color-info;
@@ -25,27 +25,26 @@ a {
 }
 
 .signin-main {
-    height: 100vh;
+    height: $height-default;
     max-height: 100%;
-    width: 100vw;
+    width: calc(100vw - 17px);
     max-width: 100%;
     background-color: $background-second;
     font-size: 18px;
 }
 
 .logo {
-    width: 100%;
     max-width: 1128px;
     margin: auto;
-    padding: 12px 30px;
+    padding: 0 30px;
 
     img {
-        height: 40px;
+        height: $height-logo;
     }
 }
 
 .signin-container {
-    height: 100vh;
+    height: calc($height-default - $height-logo - 4px);
     max-height: 100%;
 
     display: flex;
@@ -56,17 +55,16 @@ a {
     color: $color-text;
 
     mat-card {
-        width: 450px;
+        width: 350px;
         padding: 32px;
         border-radius: 8px;
         box-shadow: $card-box-shadow;
         background: $card-background;
-        //background: #474E68;
     }
 
     h1 {
         margin: 0 0 12px 0;
-        font-size: 40px;
+        font-size: 36px;
         font-weight: 500;
     }
 }
@@ -80,9 +78,8 @@ a {
 }
 
 button {
-    height: 56px;
-    //margin-top: 55px;
-    font-size: 1.7rem;
+    height: 50px;
+    font-size: 26px;
     border-radius: 12px;
     color: $color-text;
     background: $btn-background;
@@ -106,7 +103,6 @@ button {
 
 .input {
     position: relative;
-    /* margin-bottom: 24px; */
 
     input {
         height: calc(48px - $input-padding - $input-padding);
@@ -114,8 +110,6 @@ button {
         padding: 20px 12px 4px;
 
         background-color: white;
-        //background-color: $accent-darkgrey;
-        //color: $color-text;
         color: black;
         font-size: $input-font-size;
         border-radius: 5px;
@@ -196,5 +190,11 @@ button {
         border-color: $color-error;
         -webkit-box-shadow: 0 0 0 1px $color-error;
         box-shadow: 0 0 0 1px $color-error;
+    }
+}
+
+@media (max-width: 1187px) {
+    .signin-main {
+        width: 100vw;
     }
 }

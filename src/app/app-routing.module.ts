@@ -28,6 +28,9 @@ const routes: Routes = [
     //canActivate: [AuthGuard],
     component: ChatComponent,
   },
+  { path: 'chat/thread', 
+  //canActivate: [AuthGuard],
+  component: ChatComponent },
   {
     path: 'chat/:id',
     //canActivate: [AuthGuard], 

@@ -36,7 +36,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   hasData: boolean = false;
   private unsubscribeChannel!: () => void;
   private unsubscribePosts!: () => void;
-  pinCount: number = 9;
+  pinCount: number = 0;
+  isThreadView: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +48,16 @@ export class ChatComponent implements OnInit, OnDestroy {
     public authentication: AuthenticationService
   ) {}
 
+  // ngOnInit() {
+  //   this.route.params.subscribe((params) => {
+  //     this.channelId = params['id'];
+  //     this.getChannel();
+  //     const currentUser = this.authentication.getUserId();
+  //     console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
+  //     this.getPinnedPostCount();
+  //   });
+  // }
+
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
@@ -54,6 +65,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       const currentUser = this.authentication.getUserId();
       console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
       this.getPinnedPostCount();
+    });
+
+    this.route.url.subscribe((segments) => {
+      this.isThreadView = segments.some((segment) => segment.path === 'thread');
     });
   }
 
@@ -87,31 +102,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.getPosts();
     });
   }
-
-  // getPosts() {
-  //   this.unsubscribePosts && this.unsubscribePosts();
-  //   const postsRef = collection(this.firestore, 'posts');
-  //   this.unsubscribePosts = onSnapshot(postsRef, (querySnapshot) => {
-  //     this.allPosts = [];
-  //     querySnapshot.forEach((doc) => {
-  //       let postData = doc.data();
-  //       postData['id'] = doc.id;
-  //       const post = new Post(postData);
-  //       if (this.channel.channelPosts.includes(post.id)) {
-  //         this.allPosts.push(post);
-  //         this.hasData = true;
-  //       }
-  //     });
-  //     if (this.hasData) {
-  //       this.sortPosts();
-  //       console.log('all posts: ', this.allPosts);
-  //       this.stopLoading();
-  //       this.cd.detectChanges();
-  //     }
-  //     //TODO console.log delete
-  //     this.stopLoading();
-  //   });
-  // }
 
   getPosts() {
     this.unsubscribePosts && this.unsubscribePosts();

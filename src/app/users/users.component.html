@@ -1,10 +1,20 @@
-
 <section>
     <div class="users-header">
         <p>People</p>
         <button>Invite People</button>
     </div>
-    <input class="users-search" type="text" placeholder="Search by name">
+
+    <div (click)="searchUser.focus()" class="users-search">
+        <i type="search-medium">O</i>
+        <input #searchUser type="text" placeholder="Search by name">
+    </div>
+
+    <div class="users-container">
+        <div class="user-container" *ngFor="let user of users">
+            <img src="{{ user.photo }}" alt="Profile Picture from {{ user.username }}">
+            <span>{{ user.username }}</span>
+        </div>
+    </div>
 </section>
 
 

@@ -2,6 +2,7 @@
 @import "src/_globals.scss";
 
 $margin-width: 20px;
+$border-default: 1px solid rgba(255,255,255,0.2);
 
 section {
     height: calc(100vh - 4.3rem);
@@ -23,7 +24,7 @@ p {
     border-bottom: 1px solid #353535;
 
     p {
-        font-size: 21px;
+        font-size: 18px;
         font-weight: 500;
     }
 
@@ -31,10 +32,10 @@ p {
         height: 28px;
         min-width: 56px;
         padding: 0px 12px 1px;
-        font-size: 15px;
+        font-size: 13px;
         color: white;
         background: $background-second;
-        border: 1px solid white;
+        border: $border-default;
         border-radius: 3px;
         transition: all 80ms linear 0s;
 
@@ -45,11 +46,63 @@ p {
 
         &:hover {
             filter: brightness(1.5);
+            //background: #353535;
         }
     }
 }
 
 .users-search {
+    $padding-site: 8px;
+
+    height: 30px;
+    width: calc(100% - ($margin-width / 2));
+    margin: 16px $margin-width;
+    padding: 0 $padding-site;
+
+    font-size: 16px;
+    border-radius: 5px;
+    border: $border-default;
+    background: $background-second;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        border: 1px solid rgba(255,255,255,0.6);;
+    }
+
+    &:focus-within {
+        //border: 1px solid $color-logo-blue;
+        border: 1px solid transparent;
+        box-shadow: 0 0 0 1px $color-logo-blue, 0 0 0 5px #1d9bd14d;
+    }
+
+    i {
+        width: 20px;
+        cursor: default;
+    }
+
+    input {
+        height: calc(100% - 4px);
+        width: calc(100% - ($padding-site * 2));
+        padding: 0 $padding-site;
+        background: transparent;
+        border: none;
+        color: white;
+        outline: none;
+
+        &::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+    }
+}
+
+.users-container {
+    height: 500px;
     width: 100%;
-    margin: 10px $margin-width;
+    margin: 0 $margin-width;
+}
+
+.user-container {
+    height: 200px;
+    width: 50px;
 }

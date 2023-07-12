@@ -108,6 +108,7 @@ p {
 
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .emulated-flex-gap > * {
@@ -159,11 +160,21 @@ p {
     span {
         width: 100%;
         font-size: 16px;
-        //line-break: auto;
         display: flex;
         justify-content: center;
         text-align: center;
-
         word-break: break-word;
+    }
+}
+
+@media (max-width: 1088px) {
+    section {
+        width: calc(100vw - 22.3rem);
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        width: calc(100vw - 3.6rem);
     }
 }

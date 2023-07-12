@@ -3,6 +3,7 @@
 
 $margin-width: 20px;
 $border-default: 1px solid rgba(255,255,255,0.2);
+$background-hover: #313337;
 
 section {
     height: calc(100vh - 4.3rem);
@@ -45,8 +46,9 @@ p {
         cursor: pointer;
 
         &:hover {
-            filter: brightness(1.5);
+            //filter: brightness(1.5);
             //background: #353535;
+            background: $background-hover;
         }
     }
 }
@@ -55,7 +57,7 @@ p {
     $padding-site: 8px;
 
     height: 30px;
-    width: calc(100% - ($margin-width / 2));
+    width: calc(100% - ($margin-width));
     margin: 16px $margin-width;
     padding: 0 $padding-site;
 
@@ -78,6 +80,9 @@ p {
 
     i {
         width: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: default;
     }
 
@@ -97,12 +102,68 @@ p {
 }
 
 .users-container {
-    height: 500px;
-    width: 100%;
+    //height: 500px;
+    //width: 100%;
     margin: 0 $margin-width;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.emulated-flex-gap > * {
+    margin: 12px 0 0 12px;
+}
+
+.emulated-flex-gap {
+    display: inline-flex;
+    flex-wrap: wrap;
+    margin: -12px 0 0 calc($margin-width / 2);
+    width: calc(100% + 12px);
 }
 
 .user-container {
-    height: 200px;
-    width: 50px;
+    position: relative;
+    height: 260px;
+    width: 176px;
+
+    background: $background-second;
+    border: $border-default;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        //filter:  brightness(1.15);
+        background: $background-hover;
+    }
+
+    img {
+        height: 176px;
+        width: 100%;
+        object-fit: contain;
+        //border-radius: 100%;
+        border-radius: 10px;
+    }
+}
+
+.username {
+    $margin: 13px;
+
+    max-height: 100%;
+    width: calc(100% - ($margin * 2));
+    margin: $margin;
+    //border-top: $border-default;
+
+    span {
+        width: 100%;
+        font-size: 16px;
+        //line-break: auto;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+
+        word-break: break-word;
+    }
 }

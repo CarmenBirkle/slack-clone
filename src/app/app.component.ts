@@ -58,17 +58,7 @@ export class AppComponent {
     private cd: ChangeDetectorRef,
     public authentication: AuthenticationService,
     private router: Router,
-    private sharedService: SharedService,
-    private chatService: ChatService,
-    public firestoreUserService: FirestoreUserService
-  ) {
-    // setup appComponent-Variable in SharedService
-    this.sharedService.appComponentContent = {
-      title: this.title,
-      logo: this.logo,
-      logoName: this.logoName,
-    };
-  }
+  ) {}
 
   ngOnInit(): void {
     this.readData();
@@ -222,6 +212,7 @@ export class AppComponent {
     this.dialog.open(InfoUserComponent, {
       height: '82%',
       width: '50%',
+     
     });
   }
 

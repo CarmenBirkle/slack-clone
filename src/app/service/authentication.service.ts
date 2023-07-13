@@ -15,7 +15,6 @@ export class AuthenticationService {
 
   async sigup(email: string, password: string): Promise<string | null> {
     const auth = getAuth();
-    
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);

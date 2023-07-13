@@ -40,3 +40,15 @@ button {
     flex-direction: column;
 }
 
+.icon{
+    color: #282A2D;
+}
+
+.name{
+    color: #282A2D;
+    border: none !important;
+}
+
+.is-invalid {
+    background-color: red;
+}

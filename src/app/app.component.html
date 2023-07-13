@@ -1,24 +1,13 @@
-<div class="relative">
-  <!-- <div class="relative" *ngIf="authentication.user"> -->
+<!--<div class="relative">-->
+<div class="relative" *ngIf="authentication.user || router.url === '/sign-up' "> 
   <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
   <header *ngIf="!logSide">
     <mat-toolbar>
-      <div class="header-left">
-        <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
-        <img class="logo" src="assets/img/LogoName.png" alt="Slack">
-      </div>
-
-      <div class="header-right">
-        <!-- <button class="infoButten" (click)="switchVisible()">?</button> -->
-        <mat-icon class="infoBtn" (click)="switchVisible()"> question_mark </mat-icon>
-       <!-- show the pic from login user if is logged-in -->
-      <img *ngIf="authentication.user?.uid" class="loginAvatar" (click)="setStatus()" [src]="authentication.user?.photoURL" alt="">
-
-      <!-- show alternative pic if user is not logged in (should not happend later) -->
-      <img *ngIf="!authentication.user?.uid" class="loginAvatar" (click)="setStatus()" src="../assets/img/carmen.png" alt="">
-
-
-      </div>
+      <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
+      <img src="assets/img/LogoName.png" alt="Slack">
+      <button class="infoButten" (click)="switchVisible()">?</button>
+      <img (click)="setStatus()" class="setStatus" src="../assets\img/carmen.png" alt="">
+      <img class="loginAvartar" src="{{ authentication.user?.photoURL }}" alt=""> 
     </mat-toolbar>
   </header>
 
@@ -96,8 +85,6 @@
 
 
 
-
-
-<!-- <div class="relative" *ngIf="!authentication.user">
+<div class="relative" *ngIf="!authentication.user">
   <app-sign-in></app-sign-in>
-</div> -->
+</div> 

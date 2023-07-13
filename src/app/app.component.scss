@@ -27,7 +27,7 @@ header{
 
 // Info & Avartar header (anja)
 // .infoButten{
-//     margin-left: 60vw;
+//     margin-left: 30px;
 //     background-color: $background-second;
 //     border: none;
 //     color: $color-text;
@@ -68,6 +68,7 @@ mat-expansion-panel-header:hover {
     background-color: $background;
     color: $color-text;
     border-bottom: 1px solid $accent-darkgrey;
+    justify-content: space-between;
 }
 
 .mat-toolbar{
@@ -166,7 +167,6 @@ mat-drawer-content {
     color: $color-text !important;
     gap: 1.2rem;
 }
-
 
 .channel-item{
     height: 3rem;

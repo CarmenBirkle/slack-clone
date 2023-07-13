@@ -47,10 +47,8 @@ import 'emoji-picker-element';
 import { DialogEmojiPickerComponent } from './dialog-emoji-picker/dialog-emoji-picker.component';
 import { EmailVerificationComponent } from './component/email-verification/email-verification.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
-
 import { InfoComponent } from './info/info.component';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
-import { InfoDirektnachrichtenComponent } from './info-direktnachrichten/info-direktnachrichten.component';
 import { InfoImpressumComponent } from './info-impressum/info-impressum.component';
 import { InfoBenachrichtigungenComponent } from './info-benachrichtigungen/info-benachrichtigungen.component';
 import { InfoStatusComponent } from './info-status/info-status.component';
@@ -61,6 +59,7 @@ import { DialogShowUserComponent } from './dialog-show-user/dialog-show-user.com
 import { DialogPostDetailComponent } from './dialog-post-detail/dialog-post-detail.component';
 import { DialogInvitePeopleComponent } from './dialog-invite-people/dialog-invite-people.component';
 import { RelativeTimePipe } from './../app/post/relative-time.pipe';
+import { InfoConfigureNotificationsComponent } from './info-configure-notifications/info-configure-notifications.component';
 
 @NgModule({
   declarations: [
@@ -76,9 +75,8 @@ import { RelativeTimePipe } from './../app/post/relative-time.pipe';
     DialogDeleteChannelComponent,
     PostComponent,
     DialogEmojiPickerComponent,
-    InfoComponent,
-    InfoDialogComponent,
-    InfoDirektnachrichtenComponent,
+    InfoComponent, 
+    InfoDialogComponent, 
     InfoImpressumComponent,
     EmailVerificationComponent,
     ForgotPasswordComponent,
@@ -87,10 +85,6 @@ import { RelativeTimePipe } from './../app/post/relative-time.pipe';
     InfoErinnerungenComponent,
     InfoUserComponent,
     DialogPinnedPostsComponent,
-    DialogShowUserComponent,
-    DialogPostDetailComponent,
-    DialogInvitePeopleComponent,
-    RelativeTimePipe,
   ],
   imports: [
     BrowserModule,

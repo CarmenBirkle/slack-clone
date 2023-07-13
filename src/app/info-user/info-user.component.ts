@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FirestoreUserService } from '../service/firestore-user.service';
 import { AuthenticationService } from '../service/authentication.service';
+import { User } from 'src/models/user.class';
+import { Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-info-user',
@@ -10,13 +12,15 @@ import { AuthenticationService } from '../service/authentication.service';
 })
 export class InfoUserComponent {
   profileForm = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    pin: new FormControl(''),
-  });
+    username: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+    email: new FormControl('', [
+                    Validators.required,
+  	                Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+	});
 
   userId: any = null;
-  user: any = null;
+  user: User = new User ();
+  
 
   constructor(public firestoreUser: FirestoreUserService, private authentication: AuthenticationService) {
     this.userId = authentication.getUserId();
@@ -25,10 +29,20 @@ export class InfoUserComponent {
   }
 
   async getUser() {
-    this.user = this.firestoreUser.getUser(this.userId);
-    console.log(this.user);
-    
+    this.firestoreUser.getUser(this.userId).then( user => {
+      this.profileForm.get('email')?.setValue(user.email)
+      this.profileForm.get('username')?.setValue(user.username)
+      this.user = user;
+      console.log(user)
+    })
   }
 
+  save(){
+    if(this.profileForm.valid){
+      this.firestoreUser.changeUsername(this.profileForm.get('username')?.value || '')
+      this.firestoreUser.changeEmail(this.profileForm.get('email')?.value || '')
+    }
+  }
 
+  
 }

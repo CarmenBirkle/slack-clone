@@ -36,6 +36,7 @@ export class FirestoreUserService {
     });
   }
 
+
   async changeEmail(newEmail: string) {
     const userId = await this.authentication.getUserId();
     const docRef = doc(this.firestore, 'users', `${userId}`);

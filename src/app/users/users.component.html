@@ -1,12 +1,14 @@
 <section>
-    <div class="users-header">
-        <p>People</p>
-        <button>Invite People</button>
-    </div>
-
-    <div (click)="searchUser.focus()" class="users-search">
-        <i type="search-medium">O</i>
-        <input #searchUser type="text" placeholder="Search by name">
+    <div class="users-fixed-container">
+        <div class="users-header">
+            <p>People</p>
+            <button>Invite People</button>
+        </div>
+        <div (click)="searchUser.focus()" class="users-search">
+            <img src="assets/img/icons/search.png" alt="Search Icon">
+            <input #searchUser type="text" placeholder="Search by name">
+        </div>
+        <div class="num-of-users-container"><span>{{ numOfUsers }} Users</span></div>
     </div>
 
     <div class="users-container emulated-flex-gap">

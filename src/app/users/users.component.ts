@@ -10,6 +10,7 @@ import { User } from 'src/models/user.class';
 export class UsersComponent {
   users: any;
   //loadedUsers: number = 5;
+  numOfUsers: number | undefined;
 
   constructor(private firestoreUser: FirestoreUserService) {
     this.getUsers();
@@ -17,9 +18,9 @@ export class UsersComponent {
 
   async getUsers() {
     this.users = await this.firestoreUser.getAllUsers(); //this.loadedUsers, this.loadedUsers
-
-    console.log('Users', this.users);
-    console.log('Entries:', await Object.keys(this.users).length);
+    this.numOfUsers = await Object.keys(this.users).length;
+    /* console.log('Users', this.users);
+    console.log('Entries:', await Object.keys(this.users).length); */
   }
 
   /* async loadMoreUsers() {

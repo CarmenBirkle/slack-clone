@@ -15,6 +15,17 @@ p {
     margin: 0;
 }
 
+.users-fixed-container {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    //right: 55px;
+    width: calc(100vw - 21.3rem);
+    background: $background-second;
+
+    z-index: 1;
+}
+
 .users-header {
     height: 3rem;
     width: 100%;
@@ -78,8 +89,10 @@ p {
         box-shadow: 0 0 0 1px $color-logo-blue, 0 0 0 5px #1d9bd14d;
     }
 
-    i {
+    img {
         width: 20px;
+        filter: invert(1);
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -101,10 +114,15 @@ p {
     }
 }
 
+.num-of-users-container {
+    margin: 20px $margin-width;
+    color: rgba(255,255,255,0.7);
+}
+
 .users-container {
     //height: 500px;
     //width: 100%;
-    margin: 0 $margin-width;
+    //margin: 0 $margin-width;
 
     display: flex;
     flex-wrap: wrap;
@@ -112,7 +130,8 @@ p {
 }
 
 .emulated-flex-gap > * {
-    margin: 12px 0 0 12px;
+    //margin: 12px 0 0 12px;
+    margin: 130px 0 0 12px;
 }
 
 .emulated-flex-gap {

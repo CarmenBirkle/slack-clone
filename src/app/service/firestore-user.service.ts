@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, doc, getDoc, getDocs, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, getDocs, limit, orderBy, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { User } from 'src/models/user.class';
 import { AuthenticationService } from './authentication.service';
 
@@ -57,13 +57,36 @@ export class FirestoreUserService {
     });
   }
 
-  async getUsers() {
-    const querySnapshot = await getDocs(collection(this.firestore, "users"));
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-    });
+  async getAllUsers() { //loadedUsers: number, numNewLoadedUsers: number
+    try {
+      const usersRef = collection(this.firestore, 'users');
+      const q = query(usersRef, orderBy('username')); //limit(loadedUsers + numNewLoadedUsers)
+  
+      const snapshot = await getDocs(q);
+  
+      const users: any = [];
+  
+      // Skip loaded Users
+      // let skipCount = 0;
+      snapshot.forEach((doc) => {
+        /* if (skipCount < loadedUsers) {
+          skipCount++;
+          return;
+        } */
+  
+        const userData = doc.data();
+        const userId = doc.id;
+
+        users.push({ id: userId, ...userData });
+      });
+  
+      return users;
+    } catch (error) {
+      console.log('Error retrieving users:', error);
+      return [];
+    }
   }
+
 
   async getUser(uid: string): Promise<any> {
     const docRef = doc(this.firestore, 'users', `${uid}`);

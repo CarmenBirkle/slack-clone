@@ -10,48 +10,12 @@
     </div>
 
     <div class="users-container emulated-flex-gap">
-        <div class="user-container" > <!-- *ngFor="let user of users" -->
-            <img src="assets/img/avatar/avatar15.png" alt="Profile Picture from USERNAME">
+        <div class="user-container" *ngFor="let user of users">
+            <img src="{{ user.photo }}" alt="Profile Picture from {{ user.username }}">
             <div class="username">
-                <span>WjatscheslawChristophorus</span>
+                <span>{{ user.username }}</span>
             </div>
         </div>
-
-        <div class="user-container" > <!-- *ngFor="let user of users" -->
-            <img src="assets/img/avatar/avatar1.png" alt="Profile Picture from USERNAME">
-            <div class="username"><span>Max Mustermann</span></div>
-        </div>
-
-        <div class="user-container" > <!-- *ngFor="let user of users" -->
-            <img src="assets/img/avatar/avatar2.png" alt="Profile Picture from USERNAME">
-            <div class="username"><span>Erika Mustermann</span></div>
-        </div>
-
-        <div class="user-container" > <!-- *ngFor="let user of users" -->
-            <img src="assets/img/avatar/avatar4.png" alt="Profile Picture from USERNAME">
-            <div class="username"><span>Haraschavidoru</span></div>
-        </div>
-
-        <div class="user-container" > <!-- *ngFor="let user of users" -->
-            <img src="assets/img/avatar/avatar5.png" alt="Profile Picture from USERNAME">
-            <div class="username"><span>Christoper Columbus</span></div>
-        </div>
-
-        <div class="user-container" > <!-- *ngFor="let user of users" -->
-            <img src="assets/img/avatar/avatar6.png" alt="Profile Picture from USERNAME">
-            <div class="username"><span>Elisabeth Maier</span></div>
-        </div>
-
-        <div class="user-container" > <!-- *ngFor="let user of users" -->
-            <img src="assets/img/avatar/avatar7.png" alt="Profile Picture from USERNAME">
-            <div class="username"><span>Optusaurus</span></div>
-        </div>
-
-        <div class="user-container" > <!-- *ngFor="let user of users" -->
-            <img src="assets/img/avatar/avatar10.png" alt="Profile Picture from USERNAME">
-            <div class="username"><span>Rucksacksepp</span></div>
-        </div>
-
     </div>
 </section>
 

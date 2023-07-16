@@ -9,21 +9,28 @@ import { User } from 'src/models/user.class';
 })
 export class UsersComponent {
   users: any;
+  //loadedUsers: number = 5;
 
   constructor(private firestoreUser: FirestoreUserService) {
     this.getUsers();
   }
 
   async getUsers() {
-    this.users = await this.firestoreUser.getUsers();
-    /* this.user.sort((a:any, b: any) => {
-      if(a.username < b.username) {
-        return -1;
-      }
-    }); */
+    this.users = await this.firestoreUser.getAllUsers(); //this.loadedUsers, this.loadedUsers
 
-    console.log(this.users);
-    //console.log('Entries:', await Object.keys(this.user).length);
+    console.log('Users', this.users);
+    console.log('Entries:', await Object.keys(this.users).length);
   }
+
+  /* async loadMoreUsers() {
+    const numNewLoadedUsers = 5;
+
+    this.users.push(await this.firestoreUser.getAllUsers()) //this.loadedUsers, numNewLoadedUsers
+
+    this.loadedUsers += numNewLoadedUsers;
+
+    console.log('Users', this.users);
+    console.log('Entries:', await Object.keys(this.users).length);
+  } */
 
 }

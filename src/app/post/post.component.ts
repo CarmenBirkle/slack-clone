@@ -9,6 +9,7 @@ import {
   query,
   where,
   updateDoc,
+  deleteDoc,
   arrayUnion,
   arrayRemove,
 } from 'firebase/firestore';
@@ -25,7 +26,12 @@ export class PostComponent {
   @Input() post!: Post;
   showThreadContent: boolean = false;
   showHeader: boolean = false;
-  emojiCounts: Map<string, number> = new Map();
+  // emojiCounts: Map<string, number> = new Map();
+  emojiCounts: Map<
+    string,
+    { count: number; users: { userId: string; reactionId: string }[] }
+  > = new Map();
+
   private firestore: Firestore;
   reactions: any[] = [];
   isBookmarked: boolean = false;
@@ -115,26 +121,49 @@ export class PostComponent {
   }
 
   async getReactionData(reactionId: string) {
+    console.log('getReactionData() aufgerufen. Reaction ID: ', reactionId);
     const docRef = doc(this.firestore, 'reactions', reactionId);
     const docSnap = await getDoc(docRef);
+
     if (docSnap.exists()) {
       const data = docSnap.data();
+      console.log('Erhaltene Reaktionsdaten:', data);
       const emoji = data ? data['emoji'] : null;
+      const userId = data ? data['userId'] : null;
+
       this.reactions.push({
         id: reactionId,
         emoji: emoji,
+        userId: userId,
       });
+
       if (emoji) {
         if (this.emojiCounts.has(emoji)) {
-          this.emojiCounts.set(emoji, this.emojiCounts.get(emoji)! + 1);
+          const countObj = this.emojiCounts.get(emoji);
+          if (countObj) {
+            countObj.count += 1;
+            countObj.users.push({ userId: userId, reactionId: reactionId }); // Reaction ID und Benutzer hinzufügen
+          }
+          console.log('oben', this.emojiCounts);
         } else {
-          this.emojiCounts.set(emoji, 1);
+          this.emojiCounts.set(emoji, {
+            count: 1,
+            users: [{ userId: userId, reactionId: reactionId }],
+          }); // Reaction ID und Benutzer hinzufügen
+          console.log('unten', this.emojiCounts);
         }
       }
+
       this.changeDetectorRef.detectChanges();
     } else {
+      // reaction not found
     }
   }
+
+  //TODO entfernen
+  // logReactionData(reaction: any) {
+  //   console.log(reaction);
+  // }
 
   removeDuplicates(originalArray: any[], key: string): any[] {
     return [
@@ -192,11 +221,47 @@ export class PostComponent {
   getPinIconClass() {
     return this.post.pinned ? 'pinned' : 'unpinned';
   }
+
+  async removeEmoji(
+    reactionId: string,
+    users: { userId: string; reactionId: string }[]
+  ) {
+    const currentUser = this.authentication.getUserId();
+    // const currentUser = 'DcMndLPXmVM2HWVyrKYteG6b2Lg1';
+
+    const user = users.find((user) => user.userId === currentUser);
+    if (user) {
+      console.log('Reaction ID:', user.reactionId);
+      try {
+        const docRef = doc(this.firestore, 'reactions', user.reactionId);
+        await deleteDoc(docRef);
+        console.log('Icon erfolgreich gelöscht.');
+        this.reloadPostData();
+      } catch (error) {
+        console.error('Fehler beim Löschen des Icons:', error);
+      }
+    }
+  }
+
+  reloadPostData() {
+    this.ngOnChanges({
+      post: {
+        currentValue: this.post,
+        previousValue: null,
+        firstChange: true,
+        isFirstChange: () => true,
+      },
+    });
+  }
 }
 
 
 
-//TODO: Wenn der User auf das Emoji klickt und es "seins" ist, dann soll es entfernt werden
+
+
 
 
 // User-ID Carmen DcMndLPXmVM2HWVyrKYteG6b2Lg1;
+
+
+

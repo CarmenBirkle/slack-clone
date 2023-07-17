@@ -19,7 +19,7 @@ import {
   DocumentSnapshot,
 } from 'firebase/firestore';
 import { LoadingService } from './../service/loading.service';
-  import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { DialogPinnedPostsComponent } from '../dialog-pinned-posts/dialog-pinned-posts.component';
 
 @Component({
@@ -48,21 +48,13 @@ export class ChatComponent implements OnInit, OnDestroy {
     public authentication: AuthenticationService
   ) {}
 
-  // ngOnInit() {
-  //   this.route.params.subscribe((params) => {
-  //     this.channelId = params['id'];
-  //     this.getChannel();
-  //     const currentUser = this.authentication.getUserId();
-  //     console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
-  //     this.getPinnedPostCount();
-  //   });
-  // }
-
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
       this.getChannel();
-      const currentUser = this.authentication.getUserId();
+      // const currentUser = this.authentication.getUserId();
+      const currentUser = 'hKhYyf1A2qOwLSyxTymq';
+      //TODO currentuser nicht hardcoded
       console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
       this.getPinnedPostCount();
     });
@@ -110,6 +102,58 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.processQuerySnapshot(querySnapshot);
     });
   }
+
+  // getPosts() {
+  //   this.unsubscribePosts && this.unsubscribePosts();
+  //   const postsRef = collection(this.firestore, 'posts');
+
+  //   this.unsubscribePosts = onSnapshot(postsRef, (querySnapshot) => {
+  //     if (this.isThreadView) {
+  //       this.getAllPosts(querySnapshot);
+  //     } else {
+  //       this.getSpecificPosts(querySnapshot);
+  //     }
+  //   });
+  // }
+
+  getAllPosts(querySnapshot: any) {
+    this.allPosts = [];
+    querySnapshot.forEach((doc: any) => {
+      let postData = doc.data();
+      postData['id'] = doc.id;
+      const post = new Post(postData);
+      this.allPosts.push(post);
+      this.hasData = true;
+    });
+    this.finalizePostProcessing();
+  }
+
+  // getAllPosts(querySnapshot: any) {
+  //   this.allPosts = [];
+  //   querySnapshot.forEach((doc: any) => {
+  //     let postData = doc.data();
+  //     postData['id'] = doc.id;
+  //     const post = new Post(postData);
+  //     this.allPosts.push(post);
+  //     this.hasData = true;
+  //   });
+  //   this.finalizePostProcessing();
+  // }
+
+  getSpecificPosts(querySnapshot: any) {
+    this.allPosts = [];
+    querySnapshot.forEach((doc: any) => {
+      this.processDocumentSnapshot(doc);
+    });
+    this.finalizePostProcessing();
+  }
+  // getSpecificPosts(querySnapshot: any) {
+  //   this.allPosts = [];
+  //   querySnapshot.forEach((doc: any) => {
+  //     this.processDocumentSnapshot(doc);
+  //   });
+  //   this.finalizePostProcessing();
+  // }
 
   processQuerySnapshot(querySnapshot: any) {
     this.allPosts = [];
@@ -170,18 +214,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
-  // openPinnedPostDialog(
-  //   enterAnimationDuration: string,
-  //   exitAnimationDuration: string
-  // ): MatDialogRef<DialogPinnedPostsComponent> {
-  //   return this.dialog.open(DialogPinnedPostsComponent, {
-  //     width: '250px',
-  //     enterAnimationDuration,
-  //     exitAnimationDuration,
-  //     data: { channelId: this.channelId },
-  //   });
-  // }
-
   openPinnedPostDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string
@@ -221,7 +253,17 @@ export class ChatComponent implements OnInit, OnDestroy {
   getPinnedPosts(): Post[] {
     return this.allPosts.filter((post) => post.pinned);
   }
-}
 
+  //<-- Thread View -->
+
+  getUserPosts(): Post[] {
+    const currentUser = this.authentication.getUserId();
+    const userPosts = this.allPosts.filter(
+      (post) => post.author === currentUser
+    );
+    console.log('User posts:', userPosts);
+    return userPosts;
+  }
+}
 
 

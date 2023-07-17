@@ -32,7 +32,7 @@
         </div>
 
         <div class="main-content">
-            <div *ngFor="let post of allPosts" class="single-post">
+            <!-- <div *ngFor="let post of allPosts" class="single-post">
                     <div *ngIf="shouldShowDate(getPreviousPost(post), post)" class="date-container">
                         <div class="show-date">
                              <p>{{ post.timestamp | date: 'dd.MM.yyyy' }}</p>
@@ -40,7 +40,42 @@
                      </div>
                      <app-post [post]="post"></app-post>
 
-             </div>
+             </div> -->
+
+
+<!--  
+            <div *ngIf="isThreadView" *ngFor="let post of (isThreadView ? getUserPosts() : allPosts)" class="single-post">
+                 <div *ngIf="shouldShowDate(getPreviousPost(post), post)" class="date-container">
+                <div class="show-date">
+                    <p>{{ post.timestamp | date: 'dd.MM.yyyy' }}</p>
+                </div>
+            </div>
+             <app-post [post]="post"></app-post>
+             </div> -->
+
+             <ng-container *ngIf="isThreadView">
+  <div *ngFor="let post of getUserPosts()" class="single-post">
+    <div *ngIf="shouldShowDate(getPreviousPost(post), post)" class="date-container">
+      <div class="show-date">
+        <p>{{ post.timestamp | date: 'dd.MM.yyyy' }}</p>
+      </div>
+    </div>
+    <app-post [post]="post"></app-post>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!isThreadView">
+  <div *ngFor="let post of allPosts" class="single-post">
+    <div *ngIf="shouldShowDate(getPreviousPost(post), post)" class="date-container">
+      <div class="show-date">
+        <p>{{ post.timestamp | date: 'dd.MM.yyyy' }}</p>
+      </div>
+    </div>
+    <app-post [post]="post"></app-post>
+  </div>
+</ng-container>
+
+
 
 
         </div>

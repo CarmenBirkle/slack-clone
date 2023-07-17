@@ -48,19 +48,38 @@ export class ChatComponent implements OnInit, OnDestroy {
     public authentication: AuthenticationService
   ) {}
 
+  // ngOnInit() {
+  //   this.route.params.subscribe((params) => {
+  //     this.channelId = params['id'];
+  //     this.getChannel();
+  //     // const currentUser = this.authentication.getUserId();
+  //     const currentUser = 'hKhYyf1A2qOwLSyxTymq';
+  //     //TODO currentuser nicht hardcoded
+  //     console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
+  //     this.getPinnedPostCount();
+  //   });
+
+  //   this.route.url.subscribe((segments) => {
+  //     this.isThreadView = segments.some((segment) => segment.path === 'thread');
+  //   });
+  // }
+
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
-      this.getChannel();
       // const currentUser = this.authentication.getUserId();
       const currentUser = 'hKhYyf1A2qOwLSyxTymq';
-      //TODO currentuser nicht hardcoded
       console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
       this.getPinnedPostCount();
     });
 
     this.route.url.subscribe((segments) => {
       this.isThreadView = segments.some((segment) => segment.path === 'thread');
+      if (this.isThreadView) {
+        this.getUserPosts();
+      } else {
+        this.getChannel();
+      }
     });
   }
 
@@ -103,18 +122,38 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
-  // getPosts() {
-  //   this.unsubscribePosts && this.unsubscribePosts();
-  //   const postsRef = collection(this.firestore, 'posts');
+  getUserPosts() {
+    this.unsubscribePosts && this.unsubscribePosts();
+    const postsRef = collection(this.firestore, 'posts');
+  //TODO currentuser nicht hardcoded
+    // const currentUser = this.authentication.getUserId();
+    const currentUser = 'DcMndLPXmVM2HWVyrKYteG6b2Lg1';
+    // console.log('Current user ID:', currentUser);
+    const userPostsQuery = query(postsRef, where('author', '==', currentUser));
+    this.unsubscribePosts = onSnapshot(userPostsQuery, (querySnapshot) => {
+      // console.log('Query snapshot:', querySnapshot);
+      // console.log('Document count:', querySnapshot.size); 
 
-  //   this.unsubscribePosts = onSnapshot(postsRef, (querySnapshot) => {
-  //     if (this.isThreadView) {
-  //       this.getAllPosts(querySnapshot);
-  //     } else {
-  //       this.getSpecificPosts(querySnapshot);
-  //     }
-  //   });
-  // }
+      this.allPosts = [];
+      querySnapshot.forEach((doc) => {
+        console.log('Document data:', doc.data()); 
+        this.processDocumentSnapshotThread(doc);
+      });
+      this.finalizePostProcessing();
+    });
+  }
+
+  getChannelPosts() {
+    this.unsubscribePosts && this.unsubscribePosts();
+    const postsRef = collection(this.firestore, 'posts');
+    const channelPostsQuery = query(
+      postsRef,
+      where('channelId', '==', this.channelId)
+    );
+    this.unsubscribePosts = onSnapshot(channelPostsQuery, (querySnapshot) => {
+      this.processQuerySnapshot(querySnapshot);
+    });
+  }
 
   getAllPosts(querySnapshot: any) {
     this.allPosts = [];
@@ -128,18 +167,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.finalizePostProcessing();
   }
 
-  // getAllPosts(querySnapshot: any) {
-  //   this.allPosts = [];
-  //   querySnapshot.forEach((doc: any) => {
-  //     let postData = doc.data();
-  //     postData['id'] = doc.id;
-  //     const post = new Post(postData);
-  //     this.allPosts.push(post);
-  //     this.hasData = true;
-  //   });
-  //   this.finalizePostProcessing();
-  // }
-
   getSpecificPosts(querySnapshot: any) {
     this.allPosts = [];
     querySnapshot.forEach((doc: any) => {
@@ -147,13 +174,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
     this.finalizePostProcessing();
   }
-  // getSpecificPosts(querySnapshot: any) {
-  //   this.allPosts = [];
-  //   querySnapshot.forEach((doc: any) => {
-  //     this.processDocumentSnapshot(doc);
-  //   });
-  //   this.finalizePostProcessing();
-  // }
 
   processQuerySnapshot(querySnapshot: any) {
     this.allPosts = [];
@@ -171,6 +191,14 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.allPosts.push(post);
       this.hasData = true;
     }
+  }
+
+  processDocumentSnapshotThread(doc: any) {
+    let postData = doc.data();
+    postData['id'] = doc.id;
+    const post = new Post(postData);
+    this.allPosts.push(post);
+    this.hasData = true;
   }
 
   finalizePostProcessing() {
@@ -256,14 +284,14 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   //<-- Thread View -->
 
-  getUserPosts(): Post[] {
-    const currentUser = this.authentication.getUserId();
-    const userPosts = this.allPosts.filter(
-      (post) => post.author === currentUser
-    );
-    console.log('User posts:', userPosts);
-    return userPosts;
-  }
+  // getUserPosts(): Post[] {
+  //   const currentUser = this.authentication.getUserId();
+  //   const userPosts = this.allPosts.filter(
+  //     (post) => post.author === currentUser
+  //   );
+  //   console.log('User posts:', userPosts);
+  //   return userPosts;
+  // }
 }
 
 

@@ -3,6 +3,7 @@ import { Post } from './../../models/post.class';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogEmojiPickerComponent } from '../dialog-emoji-picker/dialog-emoji-picker.component';
 import { AuthenticationService } from '../service/authentication.service';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {
   getDoc,
   doc,
@@ -40,7 +41,8 @@ export class PostComponent {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     public dialog: MatDialog,
-    public authentication: AuthenticationService
+    public authentication: AuthenticationService,
+    private snackBar: MatSnackBar
   ) {
     this.firestore = getFirestore();
     // this.getReactions();
@@ -120,6 +122,7 @@ export class PostComponent {
     }
   }
 
+  //TODO Cleancode kürzen
   async getReactionData(reactionId: string) {
     console.log('getReactionData() aufgerufen. Reaction ID: ', reactionId);
     const docRef = doc(this.firestore, 'reactions', reactionId);
@@ -142,14 +145,14 @@ export class PostComponent {
           const countObj = this.emojiCounts.get(emoji);
           if (countObj) {
             countObj.count += 1;
-            countObj.users.push({ userId: userId, reactionId: reactionId }); // Reaction ID und Benutzer hinzufügen
+            countObj.users.push({ userId: userId, reactionId: reactionId }); 
           }
           console.log('oben', this.emojiCounts);
         } else {
           this.emojiCounts.set(emoji, {
             count: 1,
             users: [{ userId: userId, reactionId: reactionId }],
-          }); // Reaction ID und Benutzer hinzufügen
+          }); 
           console.log('unten', this.emojiCounts);
         }
       }
@@ -237,9 +240,14 @@ export class PostComponent {
         await deleteDoc(docRef);
         console.log('Icon erfolgreich gelöscht.');
         this.reloadPostData();
+        this.showDeleteMsg('Emoji deleted');
       } catch (error) {
         console.error('Fehler beim Löschen des Icons:', error);
+        this.showDeleteMsg('Error deleting emoji')
       }
+    } else {
+     this.showDeleteMsg("You can't delete this emoji, it's not yours");
+
     }
   }
 
@@ -253,6 +261,13 @@ export class PostComponent {
       },
     });
   }
+showDeleteMsg(message:string){
+  this.snackBar.open(message, 'Close', {
+    duration: 3000,
+  });
+}
+
+ 
 }
 
 

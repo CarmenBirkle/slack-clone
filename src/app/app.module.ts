@@ -29,6 +29,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 import { UsersComponent } from './users/users.component';
@@ -108,6 +109,7 @@ import { DialogPinnedPostsComponent } from './dialog-pinned-posts/dialog-pinned-
     MatRadioModule,
     MatProgressBarModule,
     MatBadgeModule,
+    MatSnackBarModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

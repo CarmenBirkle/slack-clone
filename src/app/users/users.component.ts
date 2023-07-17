@@ -11,6 +11,7 @@ export class UsersComponent {
   users: any;
   //loadedUsers: number = 5;
   numOfUsers: number | undefined;
+  userOrUsersString: string = 'User';
 
   constructor(private firestoreUser: FirestoreUserService) {
     this.getUsers();
@@ -19,6 +20,13 @@ export class UsersComponent {
   async getUsers() {
     this.users = await this.firestoreUser.getAllUsers(); //this.loadedUsers, this.loadedUsers
     this.numOfUsers = await Object.keys(this.users).length;
+    if(this.numOfUsers > 1) {
+      this.userOrUsersString = 'Users';
+    } else {
+      this.userOrUsersString = 'User';
+    }
+
+
     /* console.log('Users', this.users);
     console.log('Entries:', await Object.keys(this.users).length); */
   }

@@ -8,18 +8,15 @@
             <img src="assets/img/icons/search.png" alt="Search Icon">
             <input #searchUser type="text" placeholder="Search by name">
         </div>
-        <div class="num-of-users-container"><span>{{ numOfUsers }} Users</span></div>
+        <div class="num-of-users-container"><span>{{ numOfUsers || 0 }} {{ userOrUsersString }} found</span></div>
     </div>
 
     <div class="users-container emulated-flex-gap">
         <div class="user-container" *ngFor="let user of users">
-            <img src="{{ user.photo }}" alt="Profile Picture from {{ user.username }}">
+            <img src="{{ user.photo }}" alt="Profile Photo from {{ user.username }}">
             <div class="username">
                 <span>{{ user.username }}</span>
             </div>
         </div>
     </div>
 </section>
-
-
-

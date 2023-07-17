@@ -48,27 +48,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     public authentication: AuthenticationService
   ) {}
 
-  // ngOnInit() {
-  //   this.route.params.subscribe((params) => {
-  //     this.channelId = params['id'];
-  //     this.getChannel();
-  //     // const currentUser = this.authentication.getUserId();
-  //     const currentUser = 'hKhYyf1A2qOwLSyxTymq';
-  //     //TODO currentuser nicht hardcoded
-  //     console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
-  //     this.getPinnedPostCount();
-  //   });
 
-  //   this.route.url.subscribe((segments) => {
-  //     this.isThreadView = segments.some((segment) => segment.path === 'thread');
-  //   });
-  // }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
       // const currentUser = this.authentication.getUserId();
       const currentUser = 'hKhYyf1A2qOwLSyxTymq';
+      //TODO currentuser nicht hardcoded
       console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
       this.getPinnedPostCount();
     });
@@ -282,16 +269,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     return this.allPosts.filter((post) => post.pinned);
   }
 
-  //<-- Thread View -->
 
-  // getUserPosts(): Post[] {
-  //   const currentUser = this.authentication.getUserId();
-  //   const userPosts = this.allPosts.filter(
-  //     (post) => post.author === currentUser
-  //   );
-  //   console.log('User posts:', userPosts);
-  //   return userPosts;
-  // }
+ 
 }
 
 

@@ -21,36 +21,13 @@
     <div class="post-message" [innerHTML]="post.message"></div>
     <div class="emojis">
       
-  <!-- <div class="emoji-list" *ngFor="let emoji of emojiCounts | keyvalue">
-    {{emoji.key}} {{emoji.value.count}}
-  </div> -->
 
-
-<!-- <div class="emoji-list" *ngFor="let emoji of emojiCounts | keyvalue">
-  <span (click)="removeEmojiByEmoji(emoji.key)">
-    {{emoji.key}} {{emoji.value}}
-  </span>
-</div> -->
-
-<!-- <div class="emoji-list" *ngFor="let emoji of emojiCounts | keyvalue">
-  <span> -->
-  <!-- (click)="removeEmoji(emoji.key, emoji.value.users[])" -->
- 
-    <!-- {{emoji.key}} {{emoji.value.count}}
-  </span>
-</div> -->
 
 <div class="emoji-list" *ngFor="let emoji of emojiCounts | keyvalue">
   <span (click)="removeEmoji(emoji.key, emoji.value.users)">
     {{ emoji.key }} {{ emoji.value.count }}
   </span>
 </div>
-
-
-
-
-
-
 
 
  <mat-icon (click)="openIconDialog('400ms', '400ms')">add_reaction</mat-icon></div>

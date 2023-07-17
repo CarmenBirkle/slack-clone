@@ -225,6 +225,7 @@ export class PostComponent {
     return this.post.pinned ? 'pinned' : 'unpinned';
   }
 
+  //TODO: Cleancode kürzen
   async removeEmoji(
     reactionId: string,
     users: { userId: string; reactionId: string }[]

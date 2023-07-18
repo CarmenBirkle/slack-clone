@@ -39,7 +39,6 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { HomeComponent } from './home/home.component';
 import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
 import { DialogDeleteChannelComponent } from './dialog-delete-channel/dialog-delete-channel.component';
 import { PostComponent } from './post/post.component';
@@ -58,6 +57,7 @@ import { InfoStatusComponent } from './info-status/info-status.component';
 import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen.component';
 import { InfoUserComponent } from './info-user/info-user.component';
 import { DialogPinnedPostsComponent } from './dialog-pinned-posts/dialog-pinned-posts.component';
+import { DialogShowUserComponent } from './dialog-show-user/dialog-show-user.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,6 @@ import { DialogPinnedPostsComponent } from './dialog-pinned-posts/dialog-pinned-
     WelcomeComponent,
     SignInComponent,
     SignUpComponent,
-    HomeComponent,
     DialogEditChannelComponent,
     DialogDeleteChannelComponent,
     PostComponent,
@@ -85,6 +84,7 @@ import { DialogPinnedPostsComponent } from './dialog-pinned-posts/dialog-pinned-
     InfoErinnerungenComponent,
     InfoUserComponent,
     DialogPinnedPostsComponent,
+    DialogShowUserComponent,
   ],
   imports: [
     BrowserModule,

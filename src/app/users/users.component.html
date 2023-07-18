@@ -16,7 +16,7 @@
     </div>
 
     <div class="users-container emulated-flex-gap">
-        <div class="user-container" *ngFor="let user of users">
+        <div class="user-container" *ngFor="let user of users" (click)="showUser(user.id)">
             <img src="{{ user.photo }}" alt="Profile Photo from {{ user.username }}">
             <div class="username">
                 <span>{{ user.username }}</span>

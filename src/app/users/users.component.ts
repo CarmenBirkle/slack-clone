@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FirestoreUserService } from '../service/firestore-user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogShowUserComponent } from '../dialog-show-user/dialog-show-user.component';
 
 @Component({
   selector: 'app-users',
@@ -8,17 +10,16 @@ import { FirestoreUserService } from '../service/firestore-user.service';
 })
 export class UsersComponent {
   users: any;
-  //loadedUsers: number = 5;
   numOfUsers: number | undefined;
   userOrUsersString: string = 'User';
   inputValue = '';
 
-  constructor(private firestoreUser: FirestoreUserService) {
+  constructor(private firestoreUser: FirestoreUserService, public dialog: MatDialog) {
     this.getUsers();
   }
 
   async getUsers() {
-    this.users = await this.firestoreUser.getAllUsers(); //this.loadedUsers, this.loadedUsers
+    this.users = await this.firestoreUser.getAllUsers();
     this.numOfUsers = await Object.keys(this.users).length;
     if(this.numOfUsers > 1) {
       this.userOrUsersString = 'Users';
@@ -38,15 +39,10 @@ export class UsersComponent {
     this.getUsers();
   }
 
-  /* async loadMoreUsers() {
-    const numNewLoadedUsers = 5;
-
-    this.users.push(await this.firestoreUser.getAllUsers()) //this.loadedUsers, numNewLoadedUsers
-
-    this.loadedUsers += numNewLoadedUsers;
-
-    console.log('Users', this.users);
-    console.log('Entries:', await Object.keys(this.users).length);
-  } */
+  showUser(id: string) {
+    this.dialog.open(DialogShowUserComponent, {
+      
+    });
+  }
 
 }

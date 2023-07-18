@@ -91,8 +91,8 @@ p {
     }
 
     img {
-        width: 20px;
-        filter: invert(1);
+        width: 14px;
+        filter: invert(0.8);
 
         display: flex;
         justify-content: center;
@@ -116,7 +116,7 @@ p {
 }
 
 .num-of-users-container {
-    margin: 20px $margin-width 0;
+    margin: 0 $margin-width;
     color: rgba(255,255,255,0.7);
 }
 

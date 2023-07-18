@@ -2,11 +2,15 @@
     <div class="users-fixed-container">
         <div class="users-header">
             <p>People</p>
-            <button>Invite People</button>
+            <button class="noselect">
+                Invite People
+            </button>
         </div>
-        <div (click)="searchUser.focus()" class="users-search">
+        <div (click)="searchUser.focus()" class="users-search noselect">
             <img src="assets/img/icons/search.png" alt="Search Icon">
-            <input #searchUser type="text" placeholder="Search by name">
+            <input #searchUser type="text" placeholder="Search by name or email" [(ngModel)]="inputValue"
+                (keyup)="searchingUsers(searchUser.value)">
+            <mat-icon *ngIf="inputValue" (click)="clearSearchbar()">close</mat-icon>
         </div>
         <div class="num-of-users-container"><span>{{ numOfUsers || 0 }} {{ userOrUsersString }} found</span></div>
     </div>

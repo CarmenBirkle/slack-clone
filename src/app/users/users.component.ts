@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FirestoreUserService } from '../service/firestore-user.service';
-import { User } from 'src/models/user.class';
 
 @Component({
   selector: 'app-users',
@@ -12,6 +11,7 @@ export class UsersComponent {
   //loadedUsers: number = 5;
   numOfUsers: number | undefined;
   userOrUsersString: string = 'User';
+  inputValue = '';
 
   constructor(private firestoreUser: FirestoreUserService) {
     this.getUsers();
@@ -25,10 +25,17 @@ export class UsersComponent {
     } else {
       this.userOrUsersString = 'User';
     }
+  }
 
+  async searchingUsers(inputString: string) {
+    console.log(inputString);
 
-    /* console.log('Users', this.users);
-    console.log('Entries:', await Object.keys(this.users).length); */
+    
+  }
+
+  clearSearchbar() {
+    this.inputValue = '';
+    this.getUsers();
   }
 
   /* async loadMoreUsers() {

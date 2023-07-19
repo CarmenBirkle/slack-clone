@@ -10,9 +10,10 @@ import { DialogShowUserComponent } from '../dialog-show-user/dialog-show-user.co
 })
 export class UsersComponent {
   users: any;
+  allUsers: any;
   numOfUsers: number | undefined;
-  userOrUsersString: string = 'User';
-  inputValue = '';
+  userOrUsersString: string = 'User'; // name after "number of users"
+  inputValue = ''; // searchbar input value
 
   constructor(private firestoreUser: FirestoreUserService, public dialog: MatDialog) {
     this.getUsers();
@@ -20,7 +21,11 @@ export class UsersComponent {
 
   async getUsers() {
     this.users = await this.firestoreUser.getAllUsers();
+    console.log(this.users);
+    
     this.numOfUsers = await Object.keys(this.users).length;
+    this.allUsers = this.users;
+
     if(this.numOfUsers > 1) {
       this.userOrUsersString = 'Users';
     } else {
@@ -30,18 +35,16 @@ export class UsersComponent {
 
   async searchingUsers(inputString: string) {
     console.log(inputString);
-
-    
   }
 
   clearSearchbar() {
     this.inputValue = '';
-    this.getUsers();
+    this.users = this.allUsers;
   }
 
-  showUser(id: string) {
+  showUser(user: any) {
     this.dialog.open(DialogShowUserComponent, {
-      
+      data: { user: user },
     });
   }
 

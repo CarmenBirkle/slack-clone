@@ -2,7 +2,7 @@
   <div class="getActiveContainer">
     <mat-icon title="Add Emoji"  (click)="openIconDialog('400ms', '400ms')">add_reaction</mat-icon>
     <mat-icon [title]="isBookmarked ? 'Remove bookmark' : 'Add bookmark'" (click)="bookmarkPost()">{{isBookmarked ? 'book' : 'bookmark_add'}}</mat-icon>
-    <mat-icon title="Answer">chat</mat-icon>
+    <mat-icon title="Answer" (click)="openPostDetailDialog('400ms', '400ms')">chat</mat-icon>
     <mat-icon title="Pin on Channel" (click)="togglePinnedStatus()" [ngClass]="getPinIconClass()">push_pin</mat-icon>
 
     

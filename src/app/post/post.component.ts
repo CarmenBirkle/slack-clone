@@ -17,6 +17,7 @@ import {
 import { Firestore, getFirestore, collection } from 'firebase/firestore';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { DialogPostDetailComponent } from '../dialog-post-detail/dialog-post-detail.component';
 
 @Component({
   selector: 'app-post',
@@ -25,15 +26,13 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class PostComponent {
   @Input() post!: Post;
+  private firestore: Firestore;
   showThreadContent: boolean = false;
   showHeader: boolean = false;
-  // emojiCounts: Map<string, number> = new Map();
   emojiCounts: Map<
     string,
     { count: number; users: { userId: string; reactionId: string }[] }
   > = new Map();
-
-  private firestore: Firestore;
   reactions: any[] = [];
   isBookmarked: boolean = false;
   isPinned: boolean = false;
@@ -45,7 +44,6 @@ export class PostComponent {
     private snackBar: MatSnackBar
   ) {
     this.firestore = getFirestore();
-    // this.getReactions();
   }
 
   ngOnInit() {
@@ -145,14 +143,14 @@ export class PostComponent {
           const countObj = this.emojiCounts.get(emoji);
           if (countObj) {
             countObj.count += 1;
-            countObj.users.push({ userId: userId, reactionId: reactionId }); 
+            countObj.users.push({ userId: userId, reactionId: reactionId });
           }
           console.log('oben', this.emojiCounts);
         } else {
           this.emojiCounts.set(emoji, {
             count: 1,
             users: [{ userId: userId, reactionId: reactionId }],
-          }); 
+          });
           console.log('unten', this.emojiCounts);
         }
       }
@@ -244,11 +242,10 @@ export class PostComponent {
         this.showDeleteMsg('Emoji deleted');
       } catch (error) {
         console.error('Fehler beim Löschen des Icons:', error);
-        this.showDeleteMsg('Error deleting emoji')
+        this.showDeleteMsg('Error deleting emoji');
       }
     } else {
-     this.showDeleteMsg("You can't delete this emoji, it's not yours");
-
+      this.showDeleteMsg("You can't delete this emoji, it's not yours");
     }
   }
 
@@ -262,13 +259,24 @@ export class PostComponent {
       },
     });
   }
-showDeleteMsg(message:string){
-  this.snackBar.open(message, 'Close', {
-    duration: 3000,
-  });
-}
+  showDeleteMsg(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+    });
+  }
 
- 
+  openPostDetailDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): MatDialogRef<DialogPostDetailComponent> {
+    return this.dialog.open(DialogPostDetailComponent, {
+      width: '343px',
+      height: '400px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: { postId: this.post.id, postData: this.post },
+    });
+  }
 }
 
 

@@ -57,11 +57,9 @@ import { InfoStatusComponent } from './info-status/info-status.component';
 import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen.component';
 import { InfoUserComponent } from './info-user/info-user.component';
 import { DialogPinnedPostsComponent } from './dialog-pinned-posts/dialog-pinned-posts.component';
-<<<<<<< Updated upstream
 import { DialogShowUserComponent } from './dialog-show-user/dialog-show-user.component';
-=======
 import { DialogPostDetailComponent } from './dialog-post-detail/dialog-post-detail.component';
->>>>>>> Stashed changes
+
 
 @NgModule({
   declarations: [
@@ -88,11 +86,8 @@ import { DialogPostDetailComponent } from './dialog-post-detail/dialog-post-deta
     InfoErinnerungenComponent,
     InfoUserComponent,
     DialogPinnedPostsComponent,
-<<<<<<< Updated upstream
     DialogShowUserComponent,
-=======
     DialogPostDetailComponent,
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,9 @@
         <div class="user-container" *ngFor="let user of users" (click)="showUser(user)">
             <img src="{{ user.photo }}" alt="Profile Photo from {{ user.username }}">
             <div class="username">
-                <span>{{ user.username }}</span>
+                <span>
+                    {{ user.username }} <p *ngIf="user.id == currentUser">(you)</p>
+                </span>
             </div>
         </div>
     </div>

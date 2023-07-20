@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FirestoreUserService } from '../service/firestore-user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogShowUserComponent } from '../dialog-show-user/dialog-show-user.component';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-users',
@@ -9,13 +10,16 @@ import { DialogShowUserComponent } from '../dialog-show-user/dialog-show-user.co
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
+  currentUser: string | undefined;
   users: any;
   allUsers: any;
   numOfUsers: number | undefined;
   userOrUsersString: string = 'User'; // name after "number of users"
   inputValue = ''; // searchbar input value
 
-  constructor(private firestoreUser: FirestoreUserService, public dialog: MatDialog) {
+  constructor(private firestoreUser: FirestoreUserService, public dialog: MatDialog,
+      private authentication: AuthenticationService) {
+    this.currentUser = authentication.getUserId();
     this.getUsers();
   }
 

@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-dialog-show-user',
@@ -8,7 +9,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DialogShowUserComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { user: any }) {}
+  currentUser: string | undefined;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { user: any }, 
+      private authentication: AuthenticationService) {
+    this.currentUser = this.authentication.getUserId();
+  }
 
   openChat(uid: string) {
     console.log('Open Chat with User:', uid)

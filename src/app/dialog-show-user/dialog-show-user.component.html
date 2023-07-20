@@ -16,7 +16,7 @@
 
       <div class="user-name" *ngIf="data.user.id == currentUser">
         <h1>{{ data.user.username }} (you)</h1>
-        <button mat-button class="btn-edit btn-message" (click)="openChat(data.user.id)">
+        <button mat-button class="btn-edit btn-message" (click)="openEdit(data.user.id)">
           <span>
             <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
             Edit

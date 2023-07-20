@@ -19,4 +19,8 @@ export class DialogShowUserComponent {
   openChat(uid: string) {
     console.log('Open Chat with User:', uid)
   }
+
+  openEdit(uid: string) {
+    console.log('Open Edit from User:', uid)
+  }
 }

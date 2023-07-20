@@ -9,11 +9,11 @@ import { AuthenticationService } from '../service/authentication.service';
 })
 export class DialogShowUserComponent {
 
-  currentUser: string | undefined;
+  currentUserId: string | undefined;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { user: any }, 
       private authentication: AuthenticationService) {
-    this.currentUser = this.authentication.getUserId();
+    this.currentUserId = this.authentication.getUserId();
   }
 
   openChat(uid: string) {

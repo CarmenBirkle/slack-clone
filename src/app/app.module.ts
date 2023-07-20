@@ -59,6 +59,7 @@ import { InfoUserComponent } from './info-user/info-user.component';
 import { DialogPinnedPostsComponent } from './dialog-pinned-posts/dialog-pinned-posts.component';
 import { DialogShowUserComponent } from './dialog-show-user/dialog-show-user.component';
 import { DialogPostDetailComponent } from './dialog-post-detail/dialog-post-detail.component';
+import { DialogInvitePeopleComponent } from './dialog-invite-people/dialog-invite-people.component';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import { DialogPostDetailComponent } from './dialog-post-detail/dialog-post-deta
     DialogPinnedPostsComponent,
     DialogShowUserComponent,
     DialogPostDetailComponent,
+    DialogInvitePeopleComponent,
   ],
   imports: [
     BrowserModule,

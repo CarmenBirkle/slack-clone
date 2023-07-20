@@ -3,6 +3,7 @@ import { FirestoreUserService } from '../service/firestore-user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogShowUserComponent } from '../dialog-show-user/dialog-show-user.component';
 import { AuthenticationService } from '../service/authentication.service';
+import { DialogInvitePeopleComponent } from '../dialog-invite-people/dialog-invite-people.component';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +11,7 @@ import { AuthenticationService } from '../service/authentication.service';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-  currentUser: string | undefined;
+  currentUserId: string | undefined;
   users: any;
   allUsers: any;
   numOfUsers: number | undefined;
@@ -19,7 +20,7 @@ export class UsersComponent {
 
   constructor(private firestoreUser: FirestoreUserService, public dialog: MatDialog,
       private authentication: AuthenticationService) {
-    this.currentUser = authentication.getUserId();
+    this.currentUserId = authentication.getUserId();
     this.getUsers();
   }
 
@@ -50,6 +51,10 @@ export class UsersComponent {
     this.dialog.open(DialogShowUserComponent, {
       data: { user: user },
     });
+  }
+
+  invitePeople() {
+    this.dialog.open(DialogInvitePeopleComponent, { });
   }
 
 }

@@ -4,7 +4,7 @@
         <img src="{{ data.user.photo }}" alt="Profile Picture from {{ data.user.username }}">
       </div>
 
-      <div class="user-name" *ngIf="data.user.id != currentUser">
+      <div class="user-name" *ngIf="data.user.id != currentUserId">
         <h1>{{ data.user.username }}</h1>
         <button mat-button class="btn-message" (click)="openChat(data.user.id)">
           <span>
@@ -14,7 +14,7 @@
         </button>
       </div>
 
-      <div class="user-name" *ngIf="data.user.id == currentUser">
+      <div class="user-name" *ngIf="data.user.id == currentUserId">
         <h1>{{ data.user.username }} (you)</h1>
         <button mat-button class="btn-edit btn-message" (click)="openEdit(data.user.id)">
           <span>

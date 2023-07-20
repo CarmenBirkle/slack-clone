@@ -2,7 +2,7 @@
     <div class="users-fixed-container">
         <div class="users-header">
             <p>People</p>
-            <button class="noselect">
+            <button class="noselect" (click)="invitePeople()">
                 Invite People
             </button>
         </div>
@@ -20,7 +20,7 @@
             <img src="{{ user.photo }}" alt="Profile Photo from {{ user.username }}">
             <div class="username">
                 <span>
-                    {{ user.username }} <p *ngIf="user.id == currentUser">(you)</p>
+                    {{ user.username }} <p *ngIf="user.id == currentUserId">(you)</p>
                 </span>
             </div>
         </div>

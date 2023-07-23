@@ -9,7 +9,7 @@
             (keydown)="sendInviteKey($event, inputInviteEmail.value)">
         <div class="error-copy-box">
             <div class="error-box">{{ emailErrorTxt }}</div>
-            <div class="copy-link"><a (click)="copyInviteLink()">Copy invite link</a></div>
+            <a (click)="copyInviteLink()">Copy invite link</a>
         </div>
     </div>
 

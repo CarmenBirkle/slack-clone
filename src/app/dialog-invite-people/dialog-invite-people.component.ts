@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../service/shared.service';
 import { FormValidationService } from '../service/form-validation.service';
+import { AuthenticationService } from '../service/authentication.service';
+import { FirestoreUserService } from '../service/firestore-user.service';
 
 @Component({
   selector: 'app-dialog-invite-people',
@@ -10,10 +12,16 @@ import { FormValidationService } from '../service/form-validation.service';
 export class DialogInvitePeopleComponent {
   appComponentContent: any;
   emailErrorTxt: string = '';
+  loggedInUserId: string | undefined;
+  loggedInUser: any;
 
   constructor(public sharedService: SharedService,
-    private formValidation: FormValidationService) {
+    private formValidation: FormValidationService,
+    private authentication: AuthenticationService,
+    private firestoreUser: FirestoreUserService) {
     this.appComponentContent = this.sharedService.appComponentContent;
+    this.loggedInUserId = authentication.getUserId();
+    this.getLoggedInUser(this.loggedInUserId);
   }
 
   async sendInviteBtn(inputString: string) {
@@ -25,9 +33,9 @@ export class DialogInvitePeopleComponent {
       // disable btn and input
 
       let fd = new FormData();
-      /* let requestingName = nameField.value + ' - [ ' + emailField.value + ' ] ';
+      const requestingName = ''; //loggedInUser.username + ' - [ ' + loggedInUser.email + ' ] ';
 
-      fd.append('name', requestingName); */
+      fd.append('name', requestingName);
       fd.append('message', 
         'Someone want invite you to' + this.appComponentContent.title);
       fd.append('project', 'invite@' + this.appComponentContent.title)
@@ -41,6 +49,12 @@ export class DialogInvitePeopleComponent {
 
       // show send notification and close component
     }
+  }
+
+  getLoggedInUser(uid: any) {
+    this.loggedInUser = this.firestoreUser.getUser(uid);
+    console.log(this.loggedInUser);
+    
   }
 
   sendInviteKey(event: any, inputString: string) {

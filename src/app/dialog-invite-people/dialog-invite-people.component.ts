@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SharedService } from '../service/shared.service';
 
 @Component({
   selector: 'app-dialog-invite-people',
@@ -6,15 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./dialog-invite-people.component.scss']
 })
 export class DialogInvitePeopleComponent {
+  appComponentContent: any;
 
-  constructor() { }
+  constructor(public sharedService: SharedService) {
+    this.appComponentContent = this.sharedService.appComponentContent;
+  }
 
   sendInvite() {
     console.log();
   }
 
   copyInviteLink() {
-    var copyText = '/sign-up';
+    var copyText = window.location.origin + '/sign-up';
 
     // Copy the text inside the text field
     navigator.clipboard.writeText(copyText);

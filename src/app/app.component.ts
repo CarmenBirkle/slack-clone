@@ -11,6 +11,7 @@ import { LoadingService } from './service/loading.service';
 import { InfoComponent } from './info/info.component';
 import { AuthenticationService } from './service/authentication.service';
 import { InfoUserComponent } from './info-user/info-user.component';
+import { SharedService } from './service/shared.service';
 
 
 @Component({
@@ -48,7 +49,15 @@ export class AppComponent {
     private cd: ChangeDetectorRef,
     public authentication: AuthenticationService,
     private router: Router,
-  ) {}
+    private sharedService: SharedService
+  ) {
+    // setup appComponent-Variable in SharedService
+    this.sharedService.appComponentContent = {
+      title: this.title,
+      logo: this.logo,
+      logoName: this.logoName,
+    };
+  }
 
   ngOnInit(): void {
     this.readData();

@@ -5,16 +5,16 @@
 
     <div class="">
         <h3>To:</h3>
-        <input type="text">
-        <br>
+        <input #inputInviteEmail type="text" [class.input-error]="emailErrorTxt"
+            (keydown)="sendInviteKey($event, inputInviteEmail.value)">
+        <div class="error-box">{{ emailErrorTxt }}</div>
         <div class="copy-link"><a (click)="copyInviteLink()">Copy invite link</a></div>
     </div>
 
     <!-- <div> -->
         <div mat-dialog-actions class="btn-close-send">
-            <button mat-button mat-dialog-close>Close</button>
-            <button mat-button>Send</button>
+            <button id="sendInvite" mat-button mat-dialog-close>Close</button>
+            <button mat-button (click)="sendInviteBtn(inputInviteEmail.value)">Send</button>
         </div>
     <!-- </div> -->
-
 </section>

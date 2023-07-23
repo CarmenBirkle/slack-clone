@@ -26,20 +26,19 @@ export class UsersComponent {
 
   async getUsers() {
     this.users = await this.firestoreUser.getAllUsers();
-    console.log(this.users);
-    
-    this.numOfUsers = await Object.keys(this.users).length;
     this.allUsers = this.users;
+
+    this.numOfUsersLabel();
+  }
+
+  async numOfUsersLabel() {
+    this.numOfUsers = await Object.keys(this.users).length;
 
     if(this.numOfUsers > 1) {
       this.userOrUsersString = 'Users';
     } else {
       this.userOrUsersString = 'User';
     }
-  }
-
-  async searchingUsers(inputString: string) {
-    console.log(inputString);
   }
 
   clearSearchbar() {
@@ -57,4 +56,28 @@ export class UsersComponent {
     this.dialog.open(DialogInvitePeopleComponent, { });
   }
 
+  // Function to search for users with username or email
+  searchUsers(searchTerm: string): any {
+    const searchTermLowerCase = searchTerm.toLowerCase();
+
+    // Filter through the users' data and return matching users
+    const matchingUsers = this.allUsers.filter((user: any) => {
+      let emailLowerCase = ''; // DELETE AFTER DB RECREATE
+
+      const usernameLowerCase = user.username.toLowerCase();
+
+      // REMOVE TRY AND CATCH AFTER DB RECREATE
+      try{
+        emailLowerCase = user.email.toLowerCase();
+      } catch (error) {
+        //console.log(user.username, 'have no email');
+      }
+
+      // Check if the username or email contains the searchTerm (case-insensitive)
+      return usernameLowerCase.includes(searchTermLowerCase) || emailLowerCase.includes(searchTermLowerCase);
+    });
+
+    this.users = matchingUsers;
+    this.numOfUsersLabel();
+  }
 }

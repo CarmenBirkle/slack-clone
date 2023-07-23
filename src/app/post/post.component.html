@@ -34,9 +34,14 @@
  <mat-icon (click)="openIconDialog('400ms', '400ms')">add_reaction</mat-icon></div>
     <div class="reaction" (mouseenter)="showThread()" (mouseleave)="hideThread()">
       <div class="reaction-left" (click)="openPostDetailDialog('400ms', '400ms')">
-            <img class="small-icon" src="assets/img/carmen.png">
+           <div class="replay-img" *ngFor="let image of replyUserImages; index as i">
+               <img *ngIf="image" class="small-icon" [src]="image" alt="User image {{i + 1}}">
+          </div>
+            <!-- <img class="small-icon" src="assets/img/carmen.png"> -->
             <div class="link">{{post.replay.length}} answers</div>
-            <div  class="text-small" *ngIf="!showThreadContent">last answer...</div>
+            <div  class="text-small" *ngIf="!showThreadContent">last answer... 
+              <div class="text-small">{{ latestReplyDate | date:'short' }}</div>
+</div>
             <div  class="text-small" *ngIf="showThreadContent">Thread content...</div>
            
 

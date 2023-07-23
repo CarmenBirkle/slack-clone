@@ -118,6 +118,14 @@ section::after {
   }
 }
 
+@media (max-width: 750px) {
+  .responsive-dialog .mat-dialog-container {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+
 
  
 

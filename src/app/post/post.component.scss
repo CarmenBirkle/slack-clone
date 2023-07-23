@@ -111,12 +111,19 @@
 }
 
 .emoji-list{
-//  border:1px solid $accent-lightgrey;
   padding: 0 0.2rem ;
   border-radius: 10px;
   font-size: 0.7rem;
   margin-right: 0.5rem;
   background-color: $background;
+}
+
+.replay-img{
+  display: flex;
+  align-items: center;
+  .small-icon{
+    width:18px;
+  }
 }
 
 .pinned {

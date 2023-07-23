@@ -40,6 +40,8 @@ export class PostComponent {
   isPinned: boolean = false;
   userName: string = '';
   userImage: string = '';
+  replyUserImages: string[] = [];
+  latestReplyDate: Date | null = null;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -58,13 +60,11 @@ export class PostComponent {
   // }
 
   ngOnInit() {
-     this.loadAuthorDetails();
-    // this.userService.getUser(this.post.author).then((user) => {
-    //   if (user) {
-    //     this.userName = user.username;
-    //     this.userImage = user.photo;
-    //   }
-    // });
+    this.loadAuthorDetails();
+    this.loadReplyUserImages();
+this.getLatestReplyDate().then((date) => {
+  this.latestReplyDate = date;
+});
     const currentUser = this.authentication.getUserId();
     console.log('Aktuell angemeldeter Benutzer aus post:', currentUser);
     this.checkPinnedStatus();
@@ -75,10 +75,10 @@ export class PostComponent {
     if (user) {
       // console.log('Username:', user.name);
       // console.log('User image:', user.image);
-      
-        this.userName = user.username;
-        this.userImage = user.photo;
-    } 
+
+      this.userName = user.username;
+      this.userImage = user.photo;
+    }
   }
 
   get dateString(): string {
@@ -288,10 +288,62 @@ export class PostComponent {
       },
     });
   }
+
   showDeleteMsg(message: string) {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
     });
+  }
+
+  async loadReplyUserImages() {
+    this.replyUserImages = []; // Reset the array
+
+    for (let replyId of this.post.replay) {
+      let docRef = doc(this.firestore, 'replys', replyId);
+      let docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const replyData = docSnap.data();
+        if (replyData) {
+          const userId = replyData['user_id'];
+          const user = await this.userService.getUser(userId);
+          if (user && user.photo) {
+            this.replyUserImages.push(user.photo);
+          } else {
+            this.replyUserImages.push('');
+          }
+        }
+      } else {
+        this.replyUserImages.push('');
+      }
+    }
+  }
+
+  async getLatestReplyDate(): Promise<Date | null> {
+    if (!this.post.replay || this.post.replay.length === 0) {
+      console.log('No replies for this post.');
+      return null;
+    }
+    let latestDate = new Date(0); // Start at the epoch
+    // Loop over all the replies
+    for (let replyId of this.post.replay) {
+      let docRef = doc(this.firestore, 'replys', replyId);
+      let docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const replyData = docSnap.data();
+
+        if (replyData && replyData['timestamp']) {
+          const replyDate = new Date(replyData['timestamp']);
+          console.log('Reply date:', replyDate);
+          if (replyDate > latestDate) {
+            latestDate = replyDate;
+          }
+        }
+      }
+    }
+
+    return latestDate;
   }
 
   openPostDetailDialog(

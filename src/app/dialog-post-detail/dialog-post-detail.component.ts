@@ -62,6 +62,8 @@ export class DialogPostDetailComponent {
     console.log('Replies:', this.replies);
   }
 
+ 
+
   closeDialog() {
     this.dialogRef.close();
   }

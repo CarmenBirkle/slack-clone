@@ -22,6 +22,7 @@ import { LoadingService } from './../service/loading.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { DialogPinnedPostsComponent } from '../dialog-pinned-posts/dialog-pinned-posts.component';
 
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -38,6 +39,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private unsubscribePosts!: () => void;
   pinCount: number = 0;
   isThreadView: boolean = false;
+ 
 
   constructor(
     private route: ActivatedRoute,
@@ -48,8 +50,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     public authentication: AuthenticationService
   ) {}
 
-
-
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
@@ -58,6 +58,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       //TODO currentuser nicht hardcoded
       console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
       this.getPinnedPostCount();
+
     });
 
     this.route.url.subscribe((segments) => {
@@ -68,12 +69,15 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.getChannel();
       }
     });
+  
   }
 
   ngOnDestroy() {
     this.unsubscribeChannel && this.unsubscribeChannel();
     this.unsubscribePosts && this.unsubscribePosts();
   }
+
+
 
   /**
    * Start the loading animation, from the loadingService
@@ -112,18 +116,18 @@ export class ChatComponent implements OnInit, OnDestroy {
   getUserPosts() {
     this.unsubscribePosts && this.unsubscribePosts();
     const postsRef = collection(this.firestore, 'posts');
-  //TODO currentuser nicht hardcoded
+    //TODO currentuser nicht hardcoded
     // const currentUser = this.authentication.getUserId();
     const currentUser = 'DcMndLPXmVM2HWVyrKYteG6b2Lg1';
     // console.log('Current user ID:', currentUser);
     const userPostsQuery = query(postsRef, where('author', '==', currentUser));
     this.unsubscribePosts = onSnapshot(userPostsQuery, (querySnapshot) => {
       // console.log('Query snapshot:', querySnapshot);
-      // console.log('Document count:', querySnapshot.size); 
+      // console.log('Document count:', querySnapshot.size);
 
       this.allPosts = [];
       querySnapshot.forEach((doc) => {
-        console.log('Document data:', doc.data()); 
+        console.log('Document data:', doc.data());
         this.processDocumentSnapshotThread(doc);
       });
       this.finalizePostProcessing();
@@ -229,16 +233,21 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
+  //TODO: width adjust to screen size
   openPinnedPostDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ): MatDialogRef<DialogPinnedPostsComponent> {
     const pinnedPosts = this.getPinnedPosts();
+    const dialogWidth = window.innerWidth < 750 ? '100vw' : '90vw';
     return this.dialog.open(DialogPinnedPostsComponent, {
-      width: '90vw',
+      // width: dialogWidth,
+      width: '100vw',
+      height: '100vh',
       enterAnimationDuration,
       exitAnimationDuration,
       data: { pinnedPosts },
+      panelClass: 'responsive-dialog',
     });
   }
 
@@ -268,9 +277,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   getPinnedPosts(): Post[] {
     return this.allPosts.filter((post) => post.pinned);
   }
-
-
- 
 }
 
 

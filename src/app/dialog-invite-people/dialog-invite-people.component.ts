@@ -18,7 +18,29 @@ export class DialogInvitePeopleComponent {
 
   async sendInviteBtn(inputString: string) {
     const emailOk = await this.valEmail(inputString);
-    //console.log(emailOk);
+    
+    if(emailOk) {
+      // send invite email
+
+      // disable btn and input
+
+      let fd = new FormData();
+      /* let requestingName = nameField.value + ' - [ ' + emailField.value + ' ] ';
+
+      fd.append('name', requestingName); */
+      fd.append('message', 
+        'Someone want invite you to' + this.appComponentContent.title);
+      fd.append('project', 'invite@' + this.appComponentContent.title)
+      // send
+      await fetch('https://gruppe-597.developerakademie.net/send_mail/send_mail.php', {
+        method: 'POST',
+        body: fd
+      });
+
+      // message sended
+
+      // show send notification and close component
+    }
   }
 
   sendInviteKey(event: any, inputString: string) {
@@ -39,11 +61,15 @@ export class DialogInvitePeopleComponent {
       if(await this.formValidation.testExistEmail(email)) {
         // Email not exist
         this.emailErrorTxt = '';
+        return true;
       } else {
-        this.emailErrorTxt = 'Email already exist';
+        this.emailErrorTxt = 'User already exist';
+        return false;
       }
+    } else {
+      // false Email format
+      this.emailErrorTxt = 'Email-Address is invalid';
+      return false;
     }
-    // false Email format
-    this.emailErrorTxt = 'Email is invalid';
   }
 }

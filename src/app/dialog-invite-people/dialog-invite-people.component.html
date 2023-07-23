@@ -7,8 +7,10 @@
         <h3>To:</h3>
         <input #inputInviteEmail type="text" [class.input-error]="emailErrorTxt"
             (keydown)="sendInviteKey($event, inputInviteEmail.value)">
-        <div class="error-box">{{ emailErrorTxt }}</div>
-        <div class="copy-link"><a (click)="copyInviteLink()">Copy invite link</a></div>
+        <div class="error-copy-box">
+            <div class="error-box">{{ emailErrorTxt }}</div>
+            <div class="copy-link"><a (click)="copyInviteLink()">Copy invite link</a></div>
+        </div>
     </div>
 
     <!-- <div> -->

@@ -1,17 +1,24 @@
 <section>
   <div class="container">
       <div class="header">
-          <h2>Beitrag ... ? </h2>
+          <h2>Thread </h2>
           <mat-icon (click)="closeDialog()"> close </mat-icon>
       </div>
       <div class="main-content">
-          <div *ngFor="let post of data.pinnedPosts" class="single-post">
+          <!-- <div *ngFor="let post of data.pinnedPosts" class="single-post"> -->
               <!-- <div *ngIf="shouldShowDate(getPreviousPost(post), post)" class="date-container">
                   <div class="show-date">
                       <p>{{ post.timestamp | date: 'dd.MM.yyyy' }}</p>
                   </div> 
               </div> -->
+              <!-- <app-post [post]="post"></app-post> -->
+          <!-- </div> -->
+           
+          <div class="single-post">
+         
               <app-post [post]="post"></app-post>
+              <div>Anzahl der Antworten: {{post.replay.length}}</div>
+
           </div>
       </div>
   </div>

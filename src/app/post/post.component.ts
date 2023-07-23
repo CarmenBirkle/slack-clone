@@ -270,8 +270,9 @@ export class PostComponent {
     exitAnimationDuration: string
   ): MatDialogRef<DialogPostDetailComponent> {
     return this.dialog.open(DialogPostDetailComponent, {
-      width: '343px',
-      height: '400px',
+      width: '90vw',
+      // width: '343px',
+      // height: '400px',
       enterAnimationDuration,
       exitAnimationDuration,
       data: { postId: this.post.id, postData: this.post },

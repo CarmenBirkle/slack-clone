@@ -34,7 +34,7 @@
     <div class="reaction" (mouseenter)="showThread()" (mouseleave)="hideThread()">
       <div class="reaction-left">
             <img class="small-icon" src="assets/img/carmen.png">
-            <div class="link">x answers</div>
+            <div class="link">{{post.replay.length}} answers</div>
             <div  class="text-small" *ngIf="!showThreadContent">last answer...</div>
             <div  class="text-small" *ngIf="showThreadContent">Thread content...</div>
            

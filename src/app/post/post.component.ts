@@ -18,6 +18,8 @@ import { Firestore, getFirestore, collection } from 'firebase/firestore';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogPostDetailComponent } from '../dialog-post-detail/dialog-post-detail.component';
+import { FirestoreUserService } from './../service/firestore-user.service'; // Pfad nach Ihrer Projektstruktur anpassen
+
 
 @Component({
   selector: 'app-post',
@@ -36,20 +38,47 @@ export class PostComponent {
   reactions: any[] = [];
   isBookmarked: boolean = false;
   isPinned: boolean = false;
+  userName: string = '';
+  userImage: string = '';
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     public dialog: MatDialog,
     public authentication: AuthenticationService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userService: FirestoreUserService
   ) {
     this.firestore = getFirestore();
   }
 
+  // ngOnInit() {
+  //   const currentUser = this.authentication.getUserId();
+  //   console.log('Aktuell angemeldeter Benutzer aus post:', currentUser);
+  //   this.checkPinnedStatus();
+  // }
+
   ngOnInit() {
+     this.loadAuthorDetails();
+    // this.userService.getUser(this.post.author).then((user) => {
+    //   if (user) {
+    //     this.userName = user.username;
+    //     this.userImage = user.photo;
+    //   }
+    // });
     const currentUser = this.authentication.getUserId();
     console.log('Aktuell angemeldeter Benutzer aus post:', currentUser);
     this.checkPinnedStatus();
+  }
+
+  async loadAuthorDetails() {
+    const user = await this.userService.getUser(this.post.author);
+    if (user) {
+      // console.log('Username:', user.name);
+      // console.log('User image:', user.image);
+      
+        this.userName = user.username;
+        this.userImage = user.photo;
+    } 
   }
 
   get dateString(): string {

@@ -62,7 +62,7 @@ export class PostComponent {
 
   ngOnInit() {
     this.loadAuthorDetails();
-    this.loadReplyUserImages();
+    // this.loadReplyUserImages();
 this.getLatestReplyDate().then((date) => {
   this.latestReplyDate = date;
 });
@@ -136,29 +136,29 @@ this.getLatestReplyDate().then((date) => {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['post'] && this.post) {
-      console.log('Post ID: ', this.post.id);
+      // console.log('Post ID: ', this.post.id);
       this.reactions = [];
       this.emojiCounts = new Map();
       if (this.post.reaction && this.post.reaction.length > 0) {
         const reactionsPromises = this.post.reaction.map((reactionId) =>
           this.getReactionData(reactionId)
         );
-        Promise.all(reactionsPromises).then(() => {
-          console.log('Emoji Counts: ', Array.from(this.emojiCounts.entries()));
-        });
+        // Promise.all(reactionsPromises).then(() => {
+          // console.log('Emoji Counts: ', Array.from(this.emojiCounts.entries()));
+        // });
       }
     }
   }
 
   //TODO Cleancode kürzen
   async getReactionData(reactionId: string) {
-    console.log('getReactionData() aufgerufen. Reaction ID: ', reactionId);
+    // console.log('getReactionData() aufgerufen. Reaction ID: ', reactionId);
     const docRef = doc(this.firestore, 'reactions', reactionId);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       const data = docSnap.data();
-      console.log('Erhaltene Reaktionsdaten:', data);
+      // console.log('Erhaltene Reaktionsdaten:', data);
       const emoji = data ? data['emoji'] : null;
       const userId = data ? data['userId'] : null;
 
@@ -181,7 +181,7 @@ this.getLatestReplyDate().then((date) => {
             count: 1,
             users: [{ userId: userId, reactionId: reactionId }],
           });
-          console.log('unten', this.emojiCounts);
+          // console.log('unten', this.emojiCounts);
         }
       }
 
@@ -296,33 +296,33 @@ this.getLatestReplyDate().then((date) => {
     });
   }
 
-  async loadReplyUserImages() {
-    this.replyUserImages = []; // Reset the array
+  // async loadReplyUserImages() {
+  //   this.replyUserImages = []; // Reset the array
 
-    for (let replyId of this.post.replay) {
-      let docRef = doc(this.firestore, 'replys', replyId);
-      let docSnap = await getDoc(docRef);
+  //   for (let replyId of this.post.replay) {
+  //     let docRef = doc(this.firestore, 'replys', replyId);
+  //     let docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const replyData = docSnap.data();
-        if (replyData) {
-          const userId = replyData['user_id'];
-          const user = await this.userService.getUser(userId);
-          if (user && user.photo) {
-            this.replyUserImages.push(user.photo);
-          } else {
-            this.replyUserImages.push('');
-          }
-        }
-      } else {
-        this.replyUserImages.push('');
-      }
-    }
-  }
+  //     if (docSnap.exists()) {
+  //       const replyData = docSnap.data();
+  //       if (replyData) {
+  //         const userId = replyData['user_id'];
+  //         const user = await this.userService.getUser(userId);
+  //         if (user && user.photo) {
+  //           this.replyUserImages.push(user.photo);
+  //         } else {
+  //           this.replyUserImages.push('');
+  //         }
+  //       }
+  //     } else {
+  //       this.replyUserImages.push('');
+  //     }
+  //   }
+  // }
 
   async getLatestReplyDate(): Promise<Date | null> {
     if (!this.post.replay || this.post.replay.length === 0) {
-      console.log('No replies for this post.');
+      // console.log('No replies for this post.');
       return null;
     }
     let latestDate = new Date(0); // Start at the epoch
@@ -336,7 +336,7 @@ this.getLatestReplyDate().then((date) => {
 
         if (replyData && replyData['timestamp']) {
           const replyDate = new Date(replyData['timestamp']);
-          console.log('Reply date:', replyDate);
+          // console.log('Reply date:', replyDate);
           if (replyDate > latestDate) {
             latestDate = replyDate;
           }

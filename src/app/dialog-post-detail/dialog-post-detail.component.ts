@@ -34,33 +34,22 @@ export class DialogPostDetailComponent {
     this.getReplies();
   }
 
-  // async getReplies() {
-  //   for (let replyId of this.post.replay) {
-  //     let docRef = doc(this.firestore, 'replys', replyId);
-  //     let docSnap = await getDoc(docRef);
-
-  //     if (docSnap.exists()) {
-  //       this.replies.push(docSnap.data());
-  //     }
-  //   }
-  //   console.log('Replies:', this.replies);
-  // }
 
   async getReplies() {
     for (let replyId of this.post.replay) {
-      console.log('Getting reply with ID:', replyId); // Add this line
+      console.log('Getting reply with ID:', replyId); 
       let docRef = doc(this.firestore, 'replys', replyId);
       let docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log('Found reply:', docSnap.data()); // Add this line
+        console.log('Found reply:', docSnap.data()); 
         this.replies.push(docSnap.data());
       } else {
-        console.log('No reply found with ID:', replyId); // Add this line
-      }
+        console.log('No reply found with ID:', replyId); 
     }
     console.log('Replies:', this.replies);
   }
+}
 
  
 

@@ -18,7 +18,8 @@ import { Firestore, getFirestore, collection } from 'firebase/firestore';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogPostDetailComponent } from '../dialog-post-detail/dialog-post-detail.component';
-import { FirestoreUserService } from './../service/firestore-user.service'; // Pfad nach Ihrer Projektstruktur anpassen
+import { FirestoreUserService } from './../service/firestore-user.service'; 
+
 
 
 @Component({

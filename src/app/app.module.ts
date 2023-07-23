@@ -60,7 +60,7 @@ import { DialogPinnedPostsComponent } from './dialog-pinned-posts/dialog-pinned-
 import { DialogShowUserComponent } from './dialog-show-user/dialog-show-user.component';
 import { DialogPostDetailComponent } from './dialog-post-detail/dialog-post-detail.component';
 import { DialogInvitePeopleComponent } from './dialog-invite-people/dialog-invite-people.component';
-
+import { RelativeTimePipe } from './../app/post/relative-time.pipe';
 
 @NgModule({
   declarations: [
@@ -76,9 +76,9 @@ import { DialogInvitePeopleComponent } from './dialog-invite-people/dialog-invit
     DialogDeleteChannelComponent,
     PostComponent,
     DialogEmojiPickerComponent,
-    InfoComponent, 
-    InfoDialogComponent, 
-    InfoDirektnachrichtenComponent, 
+    InfoComponent,
+    InfoDialogComponent,
+    InfoDirektnachrichtenComponent,
     InfoImpressumComponent,
     EmailVerificationComponent,
     ForgotPasswordComponent,
@@ -90,6 +90,7 @@ import { DialogInvitePeopleComponent } from './dialog-invite-people/dialog-invit
     DialogShowUserComponent,
     DialogPostDetailComponent,
     DialogInvitePeopleComponent,
+    RelativeTimePipe,
   ],
   imports: [
     BrowserModule,

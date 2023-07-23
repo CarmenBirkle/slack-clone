@@ -9,13 +9,29 @@ header{
     width: 100%;
     z-index: 1000; 
 }
+
+.header-left, .header-right{
+    display:flex;
+    gap: 1rem;
+}
+
+.loginAvatar{
+    border-radius:10px;
+}
+
 // Info & Avartar header (anja)
-.infoButten{
-    margin-left: 60vw;
-    background-color: $background-second;
-    border: none;
-    color: $color-text;
-    font-size: 16px;
+// .infoButten{
+//     margin-left: 60vw;
+//     background-color: $background-second;
+//     border: none;
+//     color: $color-text;
+//     font-size: 16px;
+//     border-radius: 50%;
+//     border: 1px solid white;
+// }
+
+// new Class for info button, please do not change
+.infoBtn{
     border-radius: 50%;
     border: 1px solid white;
 }
@@ -51,6 +67,7 @@ mat-expansion-panel-header:hover {
 .mat-toolbar{
      gap: 3rem;
      img { height: 30px}
+     justify-content: space-between;;
 }
 
 mat-panel-title{
@@ -119,7 +136,7 @@ mat-drawer-content {
 }
 
 .nav-link.active{
-background-color: $accent-lightgrey;
+    background-color: $accent-lightgrey;
 }
 
 .content{

@@ -3,12 +3,26 @@
   <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
   <header *ngIf="!logSide">
     <mat-toolbar>
-      <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
-      <img src="assets/img/LogoName.png" alt="Slack">
-      <button class="infoButten" (click)="switchVisible()">?</button>
-<!--  <a routerLink="/chat"><button class="infoButten" (click)="switchVisible()">?</button></a>-->
-      <img (click)="setStatus()" class="setStatus" src="../assets\img/carmen.png" alt="">
-      <img class="loginAvartar" src="{{ authentication.user?.photoURL }}" alt=""> 
+      <div class="header-left">
+        <mat-icon class="menu-icon" (click)="onToggleSidebar()">{{ this.drawer.opened ? 'close' : 'menu' }}</mat-icon>
+        <img src="assets/img/LogoName.png" alt="Slack">
+      </div>
+
+      <div class="header-right">
+        <!-- <button class="infoButten" (click)="switchVisible()">?</button> -->
+        <mat-icon class="infoBtn" (click)="switchVisible()"> question_mark </mat-icon>
+       <!-- Zeige das Bild des eingeloggten Nutzers, wenn er eingeloggt ist -->
+      <img *ngIf="authentication.user?.uid" class="loginAvatar" (click)="setStatus()" [src]="authentication.user?.photoURL" alt="">
+
+      <!-- Zeige das alternative Bild, wenn kein Nutzer eingeloggt ist -->
+      <img *ngIf="!authentication.user?.uid" class="loginAvatar" (click)="setStatus()" src="../assets/img/carmen.png" alt="">
+
+
+      </div>
+      <!-- <button class="infoButten" (click)="switchVisible()">?</button> -->
+
+       <!-- src="../assets\img/carmen.png"  -->
+      <!-- <img class="loginAvartar" src="{{ authentication.user?.photoURL }}" alt="">  -->
     </mat-toolbar>
   </header>
 

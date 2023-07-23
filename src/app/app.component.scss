@@ -19,6 +19,8 @@ header{
     border-radius:10px;
 }
 
+
+
 // Info & Avartar header (anja)
 // .infoButten{
 //     margin-left: 60vw;
@@ -66,9 +68,11 @@ mat-expansion-panel-header:hover {
 
 .mat-toolbar{
      gap: 3rem;
-     img { height: 30px}
+    //  img { height: 30px} after 390px -> 25px dynamic
+    img{ height: clamp(1.5625rem, -1.171875rem + 12.5vw, 1.875rem);}
      justify-content: space-between;;
 }
+
 
 mat-panel-title{
     color: $color-text;

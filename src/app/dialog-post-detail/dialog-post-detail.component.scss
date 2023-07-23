@@ -1,11 +1,18 @@
 @import "src/_globals.scss";
+
 section{
-         background: $background-second
-         
+         background: $background-second;
+         height: 100%;        
 }
+
 h2{
  margin:0;
    
+}
+.container{
+    display:grid;
+    grid-template-rows: 60px 1fr auto;
+    height: calc(100vh - 60px);
 }
 
 .header{
@@ -16,7 +23,7 @@ h2{
     padding: 10px 0;
 }
 
-@import "src/_globals.scss";
+
 
 .post{
   display: flex;
@@ -25,9 +32,7 @@ h2{
   &:hover{
     cursor: pointer;
     background-color: $accent-darkgrey;
-    
-  }
-
+    }
 }
 
 .profile-pic{

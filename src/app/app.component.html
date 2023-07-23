@@ -11,18 +11,14 @@
       <div class="header-right">
         <!-- <button class="infoButten" (click)="switchVisible()">?</button> -->
         <mat-icon class="infoBtn" (click)="switchVisible()"> question_mark </mat-icon>
-       <!-- Zeige das Bild des eingeloggten Nutzers, wenn er eingeloggt ist -->
+       <!-- show the pic from login user if is logged-in -->
       <img *ngIf="authentication.user?.uid" class="loginAvatar" (click)="setStatus()" [src]="authentication.user?.photoURL" alt="">
 
-      <!-- Zeige das alternative Bild, wenn kein Nutzer eingeloggt ist -->
+      <!-- show alternative pic if user is not logged in (should not happend later) -->
       <img *ngIf="!authentication.user?.uid" class="loginAvatar" (click)="setStatus()" src="../assets/img/carmen.png" alt="">
 
 
       </div>
-      <!-- <button class="infoButten" (click)="switchVisible()">?</button> -->
-
-       <!-- src="../assets\img/carmen.png"  -->
-      <!-- <img class="loginAvartar" src="{{ authentication.user?.photoURL }}" alt="">  -->
     </mat-toolbar>
   </header>
 
@@ -84,7 +80,8 @@
       <div class="router">
         <router-outlet></router-outlet>
       </div>
-      <div class="box">
+      <!-- TODO : Idee für Responsive - mit auf Width 100 vw bzw. % gehen und öffnen bzw. schließen aus der entsprechenden Ansicht -->
+      <div class="box"> 
         <app-info></app-info>
       </div>
     </div>

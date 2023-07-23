@@ -76,10 +76,11 @@ export class DialogPostDetailComponent {
           if (user) {
             replyData['username'] = user.username;
             replyData['userImage'] = user.photo;
-          } else {
-            replyData['username'] = 'Unbekannt';
-            replyData['userImage'] = ''; // Du könntest hier einen Platzhalter für ein unbekanntes Benutzerbild einfügen
-          }
+          } 
+          // else {
+          //   replyData['username'] = 'Unbekannt';
+          //   replyData['userImage'] = ''; 
+          // }
 
           this.replies.push(replyData);
         }

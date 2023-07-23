@@ -43,6 +43,7 @@ export class PostComponent {
   userImage: string = '';
   replyUserImages: string[] = [];
   latestReplyDate: Date | null = null;
+  isOverlayOpen: boolean = false;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -63,9 +64,9 @@ export class PostComponent {
   ngOnInit() {
     this.loadAuthorDetails();
     // this.loadReplyUserImages();
-this.getLatestReplyDate().then((date) => {
-  this.latestReplyDate = date;
-});
+    this.getLatestReplyDate().then((date) => {
+      this.latestReplyDate = date;
+    });
     const currentUser = this.authentication.getUserId();
     console.log('Aktuell angemeldeter Benutzer aus post:', currentUser);
     this.checkPinnedStatus();
@@ -144,7 +145,7 @@ this.getLatestReplyDate().then((date) => {
           this.getReactionData(reactionId)
         );
         // Promise.all(reactionsPromises).then(() => {
-          // console.log('Emoji Counts: ', Array.from(this.emojiCounts.entries()));
+        // console.log('Emoji Counts: ', Array.from(this.emojiCounts.entries()));
         // });
       }
     }
@@ -347,19 +348,48 @@ this.getLatestReplyDate().then((date) => {
     return latestDate;
   }
 
+  // openPostDetailDialog(
+  //   enterAnimationDuration: string,
+  //   exitAnimationDuration: string
+  // ): MatDialogRef<DialogPostDetailComponent> {
+  //   return this.dialog.open(DialogPostDetailComponent, {
+  //     width: '100%',
+  //     height: '100vh',
+  //     maxWidth: '100vw',
+  //     enterAnimationDuration,
+  //     exitAnimationDuration,
+  //     data: { postId: this.post.id, postData: this.post },
+  //   });
+  // }
+
   openPostDetailDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ): MatDialogRef<DialogPostDetailComponent> {
-    return this.dialog.open(DialogPostDetailComponent, {
-      width: '90vw',
-      // width: '343px',
-      // height: '400px',
+    // Überprüfen Sie, ob das Overlay bereits geöffnet ist
+   
+    // Overlay öffnen und Status auf 'geöffnet' setzen
+    this.isOverlayOpen = true;
+    console.log('Overlay geöffnet', this.isOverlayOpen);
+
+    const dialogRef = this.dialog.open(DialogPostDetailComponent, {
+      width: '100%',
+      height: '100vh',
+      maxWidth:'100vw',
       enterAnimationDuration,
       exitAnimationDuration,
       data: { postId: this.post.id, postData: this.post },
     });
+
+    // Wenn das Dialogfeld geschlossen wird, setzen Sie den Status auf 'geschlossen'
+    dialogRef.afterClosed().subscribe(result => {
+      this.isOverlayOpen = false;
+      console.log('The dialog was closed', this.isOverlayOpen);
+    });
+
+    return dialogRef;
   }
+
 }
 
 

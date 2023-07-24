@@ -24,6 +24,7 @@ export class AppComponent {
   title = 'EchoSphere';
   logo = 'assets/img/Logo.png';
   logoName = 'assets/img/LogoName.png';
+  sendMailService = 'https://gruppe-597.developerakademie.net/send_mail/send_mail.php';
 
   panelOpenState1 = false;
   panelOpenState2 = false;

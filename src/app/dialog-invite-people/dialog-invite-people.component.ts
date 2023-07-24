@@ -33,14 +33,14 @@ export class DialogInvitePeopleComponent {
       // disable btn and input
 
       let fd = new FormData();
-      const requestingName = ''; //loggedInUser.username + ' - [ ' + loggedInUser.email + ' ] ';
+      const requestingName = this.loggedInUser.username + ' - [ ' + this.loggedInUser.email + ' ] ';
 
       fd.append('name', requestingName);
       fd.append('message', 
-        'Someone want invite you to' + this.appComponentContent.title);
-      fd.append('project', 'invite@' + this.appComponentContent.title)
+        this.loggedInUser.username + ' want invite you to ' + this.appComponentContent.title);
+      fd.append('project', 'invite@' + window.location.origin)
       // send
-      await fetch('https://gruppe-597.developerakademie.net/send_mail/send_mail.php', {
+      await fetch(this.appComponentContent.sendMailService, {
         method: 'POST',
         body: fd
       });
@@ -51,10 +51,8 @@ export class DialogInvitePeopleComponent {
     }
   }
 
-  getLoggedInUser(uid: any) {
-    this.loggedInUser = this.firestoreUser.getUser(uid);
-    console.log(this.loggedInUser);
-    
+  async getLoggedInUser(uid: any) {
+    this.loggedInUser = await this.firestoreUser.getUser(uid);
   }
 
   sendInviteKey(event: any, inputString: string) {

@@ -12,6 +12,8 @@ import { InfoComponent } from './info/info.component';
 import { AuthenticationService } from './service/authentication.service';
 import { InfoUserComponent } from './info-user/info-user.component';
 import { SharedService } from './service/shared.service';
+import { ChatService } from './service/chat.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -37,7 +39,9 @@ export class AppComponent {
   @ViewChild(InfoComponent) infoComponent!: InfoComponent;
   allChannels: any = [];
   personalChats: any = [];
-  chat:any = '';
+  currentUserId: string | undefined;
+  private userIdSubscription: Subscription | undefined;
+
   isMobileView = true;
 
   /**
@@ -52,7 +56,8 @@ export class AppComponent {
     private cd: ChangeDetectorRef,
     public authentication: AuthenticationService,
     private router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private chatService: ChatService,
   ) {
     // setup appComponent-Variable in SharedService
     this.sharedService.appComponentContent = {
@@ -66,6 +71,15 @@ export class AppComponent {
     this.readData();
     this.printCurrentUser();
     this.pathCheck();
+
+    this.getCurrentUserId();
+  }
+
+  ngOnDestroy() {
+    // unsubscript
+    if (this.userIdSubscription) {
+      this.userIdSubscription.unsubscribe();
+    }
   }
 
   pathCheck(){
@@ -214,6 +228,24 @@ export class AppComponent {
       width: '50%',
     });
   }
+
+  /* SUBSCRIBTION NOT WORKING */
+  getCurrentUserId() {
+    this.userIdSubscription = this.authentication.getUserId().subscribe((user: any) => {
+      this.currentUserId = user;
+      console.log('User ID changed:', user);
+    });
+  }
+
+  async fillPersonalChats() {
+    if(this.currentUserId) {
+      this.personalChats = await this.chatService.getAllChatsForUser(this.currentUserId);
+      console.log('All my Chats:', this.personalChats);
+    } else {
+      console.log('Cannot get Chats because no UserId found!');
+    }
+  }
+
 }
 
 

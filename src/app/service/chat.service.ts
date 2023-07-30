@@ -28,7 +28,7 @@ export class ChatService {
 
     try {
       await setDoc(chatDocRef, newChat.toJSON());
-      console.log('Successfully create Chat with ID:', uid+puid);
+      //console.log('Successfully create Chat with ID:', uid+puid);
     } catch (error) {
       console.error('Error while creating Chat:', error);
     }
@@ -54,7 +54,7 @@ export class ChatService {
       console.log('Chat with ID', id1+id2, 'or with ID', id2+id1, 'not found');
       return null;
     } catch (error) {
-      console.error('Error when retrieving chat with IDs:', error);
+      console.error('Error while retrieving chat with IDs:', error);
       return null;
     }
   }
@@ -79,7 +79,7 @@ export class ChatService {
       });
       return chats;
     } catch (error) {
-      console.error('Error when retrieving chats for user:', error);
+      console.error('Error while retrieving chats for user:', error);
       return [];
     }
   }

@@ -126,9 +126,9 @@ export class AuthenticationService {
       });
   }
 
-  getUserId() {
+  getUserId(): any {
     /* const auth = getAuth();
-    const user = auth.currentUser; */
+    this.user = auth.currentUser; */
 
     return this.user?.uid;
   }

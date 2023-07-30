@@ -55,7 +55,7 @@
             </div>
 
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="panelOpenState2" (opened)="panelOpenState2 = true"
+          <mat-expansion-panel class="chat-expansion-panel" [expanded]="panelOpenState2" (opened)="panelOpenState2 = true"
             (closed)="panelOpenState2 = false" hideToggle>
             <mat-expansion-panel-header class="expansion-header">
               <mat-panel-title class="expansion-panel">
@@ -64,8 +64,8 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <!-- TODO: add direct messages - currently not working only placeholder   -->
-            <div class="channel-item chat-item" [routerLinkActive]="'active'" 
-              [routerLink]="['/chat', chat.id]"> <!-- *ngFor="let chat of personalChats" -->
+            <div class="channel-item chat-item" [routerLinkActive]="'active'"
+              [routerLink]="['/chat']"> <!-- *ngFor="let chat of personalChats" -->
               <!-- <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> -->
               <!-- IMG OF CHATPARTNER -->
               <img src="assets/img/avatar/avatar13.png" alt="">

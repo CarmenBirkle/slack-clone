@@ -242,3 +242,9 @@ main{
     --mat-mdc-radio-ripple-color: #000;
     --mat-mdc-radio-checked-ripple-color: #FFC000;
 } 
+
+.chat-item img{
+        height: 35px;
+        width: auto;
+        object-fit: contain;
+}

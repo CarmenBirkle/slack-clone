@@ -36,6 +36,8 @@ export class AppComponent {
 
   @ViewChild(InfoComponent) infoComponent!: InfoComponent;
   allChannels: any = [];
+  personalChats: any = [];
+  chat:any = '';
   isMobileView = true;
 
   /**

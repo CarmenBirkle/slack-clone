@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from '../service/authentication.service';
+import { ChatService } from '../service/chat.service';
 
 @Component({
   selector: 'app-dialog-show-user',
@@ -12,12 +13,17 @@ export class DialogShowUserComponent {
   currentUserId: string | undefined;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { user: any }, 
-      private authentication: AuthenticationService) {
+      private authentication: AuthenticationService,
+      private chatService: ChatService) {
     this.currentUserId = this.authentication.getUserId();
   }
 
-  openChat(uid: string) {
-    console.log('Open Chat with User:', uid)
+  openChat(puid: string) {
+    if(this.currentUserId) {
+      this.chatService.openChat(this.currentUserId, puid);
+    } else {
+      console.log('ERROR: No User logged in!');
+    }
   }
 
   openEdit(uid: string) {

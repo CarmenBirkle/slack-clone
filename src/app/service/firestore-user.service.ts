@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, doc, getDoc, getDocs, limit, orderBy, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, getDocs, limit,
+   orderBy, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { User } from 'src/models/user.class';
 import { AuthenticationService } from './authentication.service';
 

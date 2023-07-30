@@ -20,20 +20,22 @@ const routes: Routes = [
     component: WelcomeComponent },
   {
     path: 'users',
-    //canActivate: [AuthGuard], 
+    canActivate: [AuthGuard], 
     component: UsersComponent,
   },
-  {
+  /* {
     path: 'chat',
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: ChatComponent,
   },
-  { path: 'chat/thread', 
-  //canActivate: [AuthGuard],
-  component: ChatComponent },
+  { 
+    path: 'chat/thread', 
+    canActivate: [AuthGuard],
+    component: ChatComponent 
+}, */
   {
     path: 'chat/:id',
-    //canActivate: [AuthGuard], 
+    canActivate: [AuthGuard], 
     component: ChatComponent,
   },
   { path: 'sign-in', component: SignInComponent },

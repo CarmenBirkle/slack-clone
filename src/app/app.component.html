@@ -64,10 +64,13 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <!-- TODO: add direct messages - currently not working only placeholder   -->
-            <div class="channel-item" [routerLinkActive]="'active'" *ngFor="let channel of allChannels"
-              [routerLink]="['/chat', channel.id]">
-              <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon>
-              <div>{{channel.channelName}}</div>
+            <div class="channel-item chat-item" [routerLinkActive]="'active'" 
+              [routerLink]="['/chat', chat.id]"> <!-- *ngFor="let chat of personalChats" -->
+              <!-- <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> -->
+              <!-- IMG OF CHATPARTNER -->
+              <img src="assets/img/avatar/avatar13.png" alt="">
+              <div>Max Mustermann</div>
+              <!-- <div>{{chat.partner}}</div> -->
             </div>
           </mat-expansion-panel>
         </mat-accordion>

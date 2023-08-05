@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, doc, getDoc, getDocs, orderBy, query, setDoc, where } from '@angular/fire/firestore';
+import { DocumentData, Firestore, collection, doc, getDoc, getDocs, 
+  orderBy, query, setDoc, where } from '@angular/fire/firestore';
 import { Chat } from 'src/models/chat.class';
 
 @Injectable({
@@ -59,29 +60,20 @@ export class ChatService {
     }
   }
 
-  async getAllChatsForUser(userId: string) {
-    try {
-      // Query to get all Chat which starts with UserID or end with it
-      const q = query(collection(this.firestore, 'chats'), 
-        where('person1Id', 'in', [userId, `${userId}zzzzzzzzzzzzzzz`]),
-        // `zzzzzzzzz` is a fictitious string that comes alphabetically after the UserID
-        where('person2Id', 'in', [userId, `zzzzzzzzzzzzzzz${userId}`])
-      );
-  
-      const querySnapshot = await getDocs(q);
-  
-      // Create an empty array to store the found chats
-      const chats: any[] = [];
-  
-      // Loop through the found chats and add them to the array
-      querySnapshot.forEach((doc) => {
-        chats.push({ id: doc.id, data: doc.data() });
-      });
-      return chats;
-    } catch (error) {
-      console.error('Error while retrieving chats for user:', error);
-      return [];
-    }
+  async getAllChatsByUserId(userId: string) {
+    const chatsCollection = collection(this.firestore, 'chats');
+
+    const querySnapshot = await getDocs(chatsCollection);
+    const chats: any[] = [];
+
+    querySnapshot.forEach((doc) => {
+      const docId = doc.id;
+      if (docId.startsWith(userId) || docId.endsWith(userId)) {
+        chats.push(doc.data());
+      }
+    });
+   
+    return chats;
   }
 
 }

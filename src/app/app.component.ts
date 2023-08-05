@@ -1,7 +1,7 @@
 import { Component, ViewChild,ChangeDetectorRef } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Event as NavigationEvent, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, timeInterval } from 'rxjs/operators';
 
 import { ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +14,7 @@ import { InfoUserComponent } from './info-user/info-user.component';
 import { SharedService } from './service/shared.service';
 import { ChatService } from './service/chat.service';
 import { Subscription } from 'rxjs';
+import { FirestoreUserService } from './service/firestore-user.service';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class AppComponent {
   allChannels: any = [];
   personalChats: any = [];
   currentUserId: string | undefined;
-  private userIdSubscription: Subscription | undefined;
+  getUserInterval: any;
 
   isMobileView = true;
 
@@ -58,6 +59,7 @@ export class AppComponent {
     private router: Router,
     private sharedService: SharedService,
     private chatService: ChatService,
+    public firestoreUserService: FirestoreUserService
   ) {
     // setup appComponent-Variable in SharedService
     this.sharedService.appComponentContent = {
@@ -73,13 +75,6 @@ export class AppComponent {
     this.pathCheck();
 
     this.getCurrentUserId();
-  }
-
-  ngOnDestroy() {
-    // unsubscript
-    if (this.userIdSubscription) {
-      this.userIdSubscription.unsubscribe();
-    }
   }
 
   pathCheck(){
@@ -229,17 +224,22 @@ export class AppComponent {
     });
   }
 
-  /* SUBSCRIBTION NOT WORKING */
   getCurrentUserId() {
-    this.userIdSubscription = this.authentication.getUserId().subscribe((user: any) => {
-      this.currentUserId = user;
-      console.log('User ID changed:', user);
-    });
+    // interval to check if user is signed in
+    this.getUserInterval = setInterval(() => {
+      if(!this.currentUserId) {
+        this.currentUserId = this.authentication.getUserId();
+      } else {
+        // destroy interval, if user is signed in
+        clearInterval(this.getUserInterval);
+        this.fillPersonalChats();
+      }
+    }, 255);
   }
 
   async fillPersonalChats() {
     if(this.currentUserId) {
-      this.personalChats = await this.chatService.getAllChatsForUser(this.currentUserId);
+      this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
       console.log('All my Chats:', this.personalChats);
     } else {
       console.log('Cannot get Chats because no UserId found!');

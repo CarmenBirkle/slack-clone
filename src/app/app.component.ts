@@ -1,7 +1,7 @@
 import { Component, ViewChild,ChangeDetectorRef } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Event as NavigationEvent, NavigationEnd, Router } from '@angular/router';
-import { filter, timeInterval } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 
 import { ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,9 +13,7 @@ import { AuthenticationService } from './service/authentication.service';
 import { InfoUserComponent } from './info-user/info-user.component';
 import { SharedService } from './service/shared.service';
 import { ChatService } from './service/chat.service';
-import { Subscription } from 'rxjs';
 import { FirestoreUserService } from './service/firestore-user.service';
-
 
 @Component({
   selector: 'app-root',
@@ -41,7 +39,10 @@ export class AppComponent {
   allChannels: any = [];
   personalChats: any = [];
   currentUserId: string | undefined;
-  getUserInterval: any;
+  getUserInterval: any; // interval to get current signed in user
+
+  // NEW
+  personalChatsWithUsernamesAndPhotos: any[] | undefined;
 
   isMobileView = true;
 
@@ -232,18 +233,34 @@ export class AppComponent {
       } else {
         // destroy interval, if user is signed in
         clearInterval(this.getUserInterval);
-        this.fillPersonalChats();
+        this.getPersonalChats();
       }
     }, 255);
   }
 
-  async fillPersonalChats() {
+  async getPersonalChats() { 
     if(this.currentUserId) {
       this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
+
       console.log('All my Chats:', this.personalChats);
+      this.getPersonalChatsUsernameAndPhoto();
     } else {
       console.log('Cannot get Chats because no UserId found!');
     }
+  }
+
+  async getPersonalChatsUsernameAndPhoto() {
+    this.personalChatsWithUsernamesAndPhotos = [];
+
+    for (const chat of this.personalChats) {
+        const otherUserId = chat.person1Id === this.currentUserId ? chat.person2Id : chat.person1Id;
+        const user = await this.firestoreUserService.getUser(otherUserId);
+        if (user) {
+            const chatWithUsername = { ...chat, partner: user.username, photo: user.photo };
+            this.personalChatsWithUsernamesAndPhotos.push(chatWithUsername);            
+        }
+    }
+    //return this.personalChatsWithUsernamesAndPhotos;
   }
 
 }

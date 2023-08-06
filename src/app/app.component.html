@@ -63,17 +63,17 @@
                 Direct Messages
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <!-- TODO: add direct messages - currently not working only placeholder   -->
-            <div class="channel-item chat-item" [routerLinkActive]="'active'"
-              [routerLink]="['/chat']" *ngFor="let chat of personalChats">
-              <!-- <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> -->
-              <!-- IMG OF CHATPARTNER -->
-              <img src="assets/img/avatar/avatar13.png" alt="">
-              <div>
-                Max Mustermann
-              </div>
 
+            <!-- ////////// CHAT CONTENT ////////// --> 
+            <!-- removed: [routerLinkActive]="'active'" [routerLink]="['/chat']" -->
+            <div class="channel-item chat-item" *ngFor="let chat of personalChatsWithUsernamesAndPhotos"
+              [routerLink]="['/chat', chat.id]" (click)="onLinkClicked()">
+              <img src="{{ chat.photo }}" alt="Profilepicture of {{ chat.partner }}">
+              <div>
+                {{ chat.partner }}
+              </div>
             </div>
+            
           </mat-expansion-panel>
         </mat-accordion>
 

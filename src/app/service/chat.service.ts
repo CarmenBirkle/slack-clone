@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DocumentData, Firestore, collection, doc, getDoc, getDocs, 
   orderBy, query, setDoc, where } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { Chat } from 'src/models/chat.class';
 
 @Injectable({
@@ -59,6 +60,24 @@ export class ChatService {
       return null;
     }
   }
+
+  /* getAllChatsByUserId(userId: string): Observable<any[]> {
+    const chatsCollection = collection(this.firestore, 'chats');
+    const q = query(chatsCollection, where('person1Id', '==', userId), where('person2Id', '==', userId));
+
+    return new Observable<any[]>(observer => {
+      getDocs(q).then((querySnapshot) => {
+        const chats: any[] = [];
+        querySnapshot.forEach((doc) => {
+          chats.push(doc.data());
+        });
+        observer.next(chats);
+        observer.complete();
+      }).catch((error) => {
+        observer.error(error);
+      });
+    });
+  } */
 
   async getAllChatsByUserId(userId: string) {
     const chatsCollection = collection(this.firestore, 'chats');

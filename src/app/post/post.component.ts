@@ -24,7 +24,7 @@ import { FirestoreUserService } from './../service/firestore-user.service';
 
 @Component({
   selector: 'app-post',
-  templateUrl: './post.component.html',
+  templateUrl:'./post.component.html',
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent {

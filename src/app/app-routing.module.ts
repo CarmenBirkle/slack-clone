@@ -8,11 +8,13 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { InfoStatusComponent } from './info-status/info-status.component';
-import { InfoImpressumComponent } from './info-impressum/info-impressum.component';
-import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen.component';
+import { InfoImprintComponent } from './info-imprint/info-imprint.component';
+import { InfoSetUpRemindersComponent } from './info-set-up-reminders/info-set-up-reminders.component'; 
 import { BookmarkComponent } from './bookmark/bookmark.component';
 import { InfoDirectMessagesComponent } from './info-direct-messages/info-direct-messages.component';
 import { InfoConfigureNotificationsComponent } from './info-configure-notifications/info-configure-notifications.component';
+
+
 
 
 const routes: Routes = [
@@ -45,8 +47,8 @@ const routes: Routes = [
   { path: 'directMessages', component: InfoDirectMessagesComponent },
   { path: 'configureNotifications', component: InfoConfigureNotificationsComponent },
   { path: 'status', component: InfoStatusComponent },
-  { path: 'erinnerungen', component: InfoErinnerungenComponent },
-  { path: 'impressum', component: InfoImpressumComponent },
+  { path: 'set-up-reminders', component: InfoSetUpRemindersComponent },
+  { path: 'imprint', component: InfoImprintComponent },
 ];
 
 @NgModule({

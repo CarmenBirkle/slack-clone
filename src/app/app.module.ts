@@ -49,10 +49,7 @@ import { EmailVerificationComponent } from './component/email-verification/email
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { InfoComponent } from './info/info.component';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
-import { InfoImpressumComponent } from './info-impressum/info-impressum.component';
-import { InfoBenachrichtigungenComponent } from './info-benachrichtigungen/info-benachrichtigungen.component';
 import { InfoStatusComponent } from './info-status/info-status.component';
-import { InfoErinnerungenComponent } from './info-erinnerungen/info-erinnerungen.component';
 import { InfoUserComponent } from './info-user/info-user.component';
 import { DialogPinnedPostsComponent } from './dialog-pinned-posts/dialog-pinned-posts.component';
 import { DialogShowUserComponent } from './dialog-show-user/dialog-show-user.component';
@@ -60,6 +57,8 @@ import { DialogPostDetailComponent } from './dialog-post-detail/dialog-post-deta
 import { DialogInvitePeopleComponent } from './dialog-invite-people/dialog-invite-people.component';
 import { RelativeTimePipe } from './../app/post/relative-time.pipe';
 import { InfoConfigureNotificationsComponent } from './info-configure-notifications/info-configure-notifications.component';
+import { InfoSetUpRemindersComponent } from './info-set-up-reminders/info-set-up-reminders.component';
+import { InfoImprintComponent } from './info-imprint/info-imprint.component';
 
 @NgModule({
   declarations: [
@@ -77,14 +76,19 @@ import { InfoConfigureNotificationsComponent } from './info-configure-notificati
     DialogEmojiPickerComponent,
     InfoComponent, 
     InfoDialogComponent, 
-    InfoImpressumComponent,
     EmailVerificationComponent,
+    InfoConfigureNotificationsComponent,
+    RelativeTimePipe,
     ForgotPasswordComponent,
-    InfoBenachrichtigungenComponent,
     InfoStatusComponent,
-    InfoErinnerungenComponent,
     InfoUserComponent,
     DialogPinnedPostsComponent,
+    InfoSetUpRemindersComponent,
+    InfoImprintComponent,
+    DialogInvitePeopleComponent,
+    DialogPostDetailComponent,
+    DialogShowUserComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,8 @@ import { FirestoreUserService } from '../service/firestore-user.service';
 import { AuthenticationService } from '../service/authentication.service';
 import { User } from 'src/models/user.class';
 import { Validators } from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog';
+import { ProfilepictureComponent } from '../profilepicture/profilepicture.component';
 
 @Component({
   selector: 'app-info-user',
@@ -19,13 +21,17 @@ export class InfoUserComponent{
 	});
 
   userId: any = null;
-  user: User = new User ();
+  photoUrl: string = '';
   nameEditable = false
   emailEditable = false
 
-  constructor(public firestoreUser: FirestoreUserService, private authentication: AuthenticationService) {
+  constructor(
+    public firestoreUser: FirestoreUserService, 
+    private authentication: AuthenticationService,
+    private dialog: MatDialog) 
+  {
     this.userId = authentication.getUserId();
-    console.log(this.userId);
+      console.log(this.userId);
     this.getUser();
   }
 
@@ -33,7 +39,7 @@ export class InfoUserComponent{
     this.firestoreUser.getUser(this.userId).then( user => {
       this.profileForm.get('email')?.setValue(user.email)
       this.profileForm.get('username')?.setValue(user.username)
-   
+      this.photoUrl = user.photo;
       
       console.log(user)
     })
@@ -54,6 +60,16 @@ export class InfoUserComponent{
 
   changeEmail(){
     this.emailEditable=!this.emailEditable
+  }
+
+  changeImage(){
+    const dialogRef = this.dialog.open(ProfilepictureComponent, {
+      height: '70%',
+      width: '50%',
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getUser()
+    });
   }
 
 }

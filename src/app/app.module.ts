@@ -59,6 +59,7 @@ import { RelativeTimePipe } from './../app/post/relative-time.pipe';
 import { InfoConfigureNotificationsComponent } from './info-configure-notifications/info-configure-notifications.component';
 import { InfoSetUpRemindersComponent } from './info-set-up-reminders/info-set-up-reminders.component';
 import { InfoImprintComponent } from './info-imprint/info-imprint.component';
+import { ProfilepictureComponent } from './profilepicture/profilepicture.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { InfoImprintComponent } from './info-imprint/info-imprint.component';
     DialogInvitePeopleComponent,
     DialogPostDetailComponent,
     DialogShowUserComponent,
+    ProfilepictureComponent,
 
   ],
   imports: [

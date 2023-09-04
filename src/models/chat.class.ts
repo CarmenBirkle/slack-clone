@@ -1,7 +1,7 @@
 export class Chat {
     person1Id: string;
     person2Id: string;
-    message: { timestamp: number, message: string }[];
+    message: {author: string, timestamp: number, message: string }[];
   
     constructor(obj?: any) {
       this.person1Id = obj ? obj.person1Id : '';

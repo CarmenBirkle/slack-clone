@@ -45,7 +45,7 @@ export class SignInComponent {
 
   signInAnonymously(): void {
     //this.signIn('guest@user.com', 'sl4ck-Gu3st');
-    this.signIn('test-verification@trash-mail.com', 'test1234%');
+    this.signIn('test-echosphere@trash-mail.com', 'test1234%');
   }
 
   toggleShowPwd() {

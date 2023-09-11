@@ -24,7 +24,7 @@ import { FirestoreUserService } from './../service/firestore-user.service';
 
 @Component({
   selector: 'app-post',
-  templateUrl:'./post.component.html',
+  templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent {
@@ -99,6 +99,11 @@ export class PostComponent {
       });
     }
     return '';
+  }
+
+ 
+  isAnyDialogOpen(): boolean {
+    return this.dialog.openDialogs.length > 0;
   }
 
   showThread() {
@@ -204,7 +209,7 @@ export class PostComponent {
 
   //TODO hardcoded user entfernen und dynamisch machen
   async bookmarkPost() {
-       const userRef = doc(
+    const userRef = doc(
       this.firestore,
       'users',
       this.authentication.getUserId()
@@ -366,7 +371,7 @@ export class PostComponent {
     exitAnimationDuration: string
   ): MatDialogRef<DialogPostDetailComponent> {
     // Überprüfen Sie, ob das Overlay bereits geöffnet ist
-   
+
     // Overlay öffnen und Status auf 'geöffnet' setzen
     this.isOverlayOpen = true;
     console.log('Overlay geöffnet', this.isOverlayOpen);
@@ -374,21 +379,20 @@ export class PostComponent {
     const dialogRef = this.dialog.open(DialogPostDetailComponent, {
       width: '100%',
       height: '100vh',
-      maxWidth:'100vw',
+      maxWidth: '100vw',
       enterAnimationDuration,
       exitAnimationDuration,
       data: { postId: this.post.id, postData: this.post },
     });
 
     // Wenn das Dialogfeld geschlossen wird, setzen Sie den Status auf 'geschlossen'
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.isOverlayOpen = false;
       console.log('The dialog was closed', this.isOverlayOpen);
     });
 
     return dialogRef;
   }
-
 }
 
 

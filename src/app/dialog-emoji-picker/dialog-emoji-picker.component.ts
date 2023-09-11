@@ -20,8 +20,6 @@ import { AuthenticationService } from '../service/authentication.service';
 export class DialogEmojiPickerComponent {
   private firestore: Firestore;
   userId: string = this.authentication.getUserId();
-  //userId: string = 'DcMndLPXmVM2HWVyrKYteG6b2Lg1';
-  //TODO Fester user entfernen und variable userId mitgeben
   constructor(
     public dialogRef: MatDialogRef<DialogEmojiPickerComponent>,
     public authentication: AuthenticationService,

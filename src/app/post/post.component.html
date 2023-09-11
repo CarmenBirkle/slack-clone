@@ -30,7 +30,7 @@
 
  <mat-icon (click)="openIconDialog('400ms', '400ms')">add_reaction</mat-icon></div>
 
-    <div *ngIf="!isOverlayOpen" (click)="openPostDetailDialog('400ms', '400ms')" class="reaction" (mouseenter)="showThread()" (mouseleave)="hideThread()">
+    <div *ngIf="!isAnyDialogOpen()" (click)="openPostDetailDialog('400ms', '400ms')" class="reaction" (mouseenter)="showThread()" (mouseleave)="hideThread()">
       <div  class="reaction-left" >
            <!-- <div class="replay-img" *ngFor="let image of replyUserImages; index as i">
                <img *ngIf="image" class="small-icon" [src]="image" alt="User image {{i + 1}}">

@@ -10,6 +10,7 @@ import {
   Firestore,
   getFirestore,
 } from 'firebase/firestore';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-dialog-emoji-picker',
@@ -18,10 +19,12 @@ import {
 })
 export class DialogEmojiPickerComponent {
   private firestore: Firestore;
-  userId: string = 'DcMndLPXmVM2HWVyrKYteG6b2Lg1';
+  userId: string = this.authentication.getUserId();
+  //userId: string = 'DcMndLPXmVM2HWVyrKYteG6b2Lg1';
   //TODO Fester user entfernen und variable userId mitgeben
   constructor(
     public dialogRef: MatDialogRef<DialogEmojiPickerComponent>,
+    public authentication: AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: { postId: string }
   ) {
     this.firestore = getFirestore();

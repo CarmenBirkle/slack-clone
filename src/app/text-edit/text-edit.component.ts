@@ -71,8 +71,8 @@ export class TextEditComponent {
   saveChannelPost() {
     console.log('savePost aufgerufen');
     //TODO: author actual hardcoded, later dynamic
-    this.post.author = 'hKhYyf1A2qOwLSyxTymq';
-    // this.post.author = this.authentication.getUserId();
+    //this.post.author = 'hKhYyf1A2qOwLSyxTymq';
+    this.post.author = this.authentication.getUserId();
     this.post.timestamp = new Date().getTime();
     this.post.message = this.editorContent;
     console.log(this.post);
@@ -99,7 +99,7 @@ export class TextEditComponent {
 
   async addPost() {
     this.startLoading();
-    console.log('addPost aufgerufen - channel: ', this.channelId);
+    // console.log('addPost aufgerufen - channel: ', this.channelId);
     const docRef = await addDoc(
       collection(this.firestore, 'posts'),
       this.post.toJson()
@@ -126,7 +126,8 @@ export class TextEditComponent {
 
   saveReply() {
     console.log('saveReply aufgerufen');
-    this.reply.userId = 'hKhYyf1A2qOwLSyxTymq'; // userId des aktuellen Benutzers
+    // this.reply.userId = 'hKhYyf1A2qOwLSyxTymq'; // userId des aktuellen Benutzers
+    this.reply.userId = this.authentication.getUserId();
     this.reply.timestamp = new Date().getTime();
     this.reply.message = this.editorContent;
     console.log(this.reply);

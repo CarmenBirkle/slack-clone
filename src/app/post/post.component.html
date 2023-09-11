@@ -18,8 +18,8 @@
     </div>
     <div class="post-message" [innerHTML]="post.message"></div>
     <div class="emojis">
-      
 
+      
 
 <div class="emoji-list" *ngFor="let emoji of emojiCounts | keyvalue">
   <span (click)="removeEmoji(emoji.key, emoji.value.users)">

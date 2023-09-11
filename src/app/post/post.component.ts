@@ -78,7 +78,6 @@ export class PostComponent {
       // console.log('Username:', user.name);
       // console.log('User image:', user.image);
 
-      this.userName = user.username;
       this.userImage = user.photo;
     }
   }
@@ -205,10 +204,10 @@ export class PostComponent {
 
   //TODO hardcoded user entfernen und dynamisch machen
   async bookmarkPost() {
-    const userRef = doc(
+       const userRef = doc(
       this.firestore,
       'users',
-      'DcMndLPXmVM2HWVyrKYteG6b2Lg1'
+      this.authentication.getUserId()
     ); // Hardcoded user ID
     const userSnap = await getDoc(userRef);
 

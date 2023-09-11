@@ -70,7 +70,10 @@ export class ChatService {
     querySnapshot.forEach((doc) => {
       const docId = doc.id;
       if (docId.startsWith(userId) || docId.endsWith(userId)) {
-        chats.push(doc.data(), doc.id);
+        const chatData = doc.data();
+        chatData['id'] = doc.id;
+        chats.push(chatData);
+        //chats.push(doc.data(), doc.id);
         /* console.log('data:', doc.data());
         console.log('id:', doc.id); */
         

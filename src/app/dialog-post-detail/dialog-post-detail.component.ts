@@ -12,6 +12,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { FirestoreUserService } from '../service/firestore-user.service'; 
+import { DialogService } from '../service/dialog.service';
 
 @Component({
   selector: 'app-dialog-post-detail',
@@ -26,7 +27,8 @@ export class DialogPostDetailComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DialogPostDetailComponent>,
     private firestore: Firestore,
-    private userService: FirestoreUserService
+    private userService: FirestoreUserService,
+    private dialogService: DialogService,
   ) {
     console.log('postId:', data.postId);
     console.log('postData:', data.postData);
@@ -35,6 +37,9 @@ export class DialogPostDetailComponent {
     console.log('this.post.message:', this.post.message);
     console.log('this.post.replay:', this.post.replay);
     this.getReplies();
+    this.dialogService.closeDialogObservable.subscribe(() => {
+      this.closeDialog();
+    });
   }
 
   // async getReplies() {

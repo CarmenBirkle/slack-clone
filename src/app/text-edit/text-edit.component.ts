@@ -16,6 +16,7 @@ import {
 } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingService } from './../service/loading.service';
+import { DialogService } from '../service/dialog.service';
 
 @Component({
   selector: 'app-text-edit',
@@ -36,7 +37,8 @@ export class TextEditComponent {
     private firestore: Firestore,
     private route: ActivatedRoute,
     public loadingService: LoadingService,
-    public authentication: AuthenticationService
+    public authentication: AuthenticationService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -132,6 +134,7 @@ export class TextEditComponent {
     this.reply.message = this.editorContent;
     console.log(this.reply);
     this.addReply();
+    this.dialogService.closeDialog();
   }
 
   async addReply() {

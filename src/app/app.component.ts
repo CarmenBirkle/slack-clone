@@ -25,13 +25,14 @@ export class AppComponent {
   title = 'EchoSphere';
   logo = 'assets/img/Logo.png';
   logoName = 'assets/img/LogoName.png';
-  sendMailService = 'https://gruppe-597.developerakademie.net/send_mail/send_mail.php';
+  sendMailService =
+    'https://gruppe-597.developerakademie.net/send_mail/send_mail.php';
 
   panelOpenState1 = false;
   panelOpenState2 = false;
   dataLoaded = false;
   isSidebarOpened: boolean = true;
-  logSide:boolean = false;
+  logSide: boolean = false;
 
   @ViewChild('drawer') drawer!: MatDrawer;
 
@@ -39,7 +40,9 @@ export class AppComponent {
   allChannels: any = [];
   personalChats: any = [];
   currentUserId: string | undefined;
+  currentUserImage: string | undefined;
   getUserInterval: any; // interval to get current signed in user
+  getImageInterval: any; // interval to get current signed in user Image
 
   // NEW
   personalChatsWithUsernamesAndPhotos: any[] | undefined;
@@ -61,53 +64,52 @@ export class AppComponent {
     private sharedService: SharedService,
     private chatService: ChatService,
     public firestoreUserService: FirestoreUserService
-  ) { // setup appComponent-Variable in SharedService
+  ) {
+    // setup appComponent-Variable in SharedService
     this.sharedService.appComponentContent = {
       title: this.title,
       logo: this.logo,
       logoName: this.logoName,
     };
-  } 
+  }
 
   ngOnInit(): void {
     this.readData();
     this.printCurrentUser();
     this.pathCheck();
-
     this.getCurrentUserId();
+    this.getCurrentUserImage();
   }
 
-  pathCheck(){
-  this.router.events
-    .pipe(
-      filter(
-        (event: NavigationEvent): event is NavigationEnd =>
-          event instanceof NavigationEnd
+  pathCheck() {
+    this.router.events
+      .pipe(
+        filter(
+          (event: NavigationEvent): event is NavigationEnd =>
+            event instanceof NavigationEnd
+        )
       )
-    )
-    .subscribe((event: NavigationEnd) => {
-      console.log(event.urlAfterRedirects); 
-      if (
-        event.urlAfterRedirects === '/sign-in' ||
-        event.urlAfterRedirects === '/sign-up'
-      ) {
-        console.log('drawer closed pfad');
-        this.logSide = true;
-        console.log(this.logSide);
-        this.drawer.close();
-        this.isSidebarOpened = false;
-       
-      } else {
-        this.logSide = false;
-        console.log("nicht auf login/up: ", this.logSide)
-        if(window.innerWidth >= 768){
-        this.drawer.open();
-        this.isSidebarOpened = true;
+      .subscribe((event: NavigationEnd) => {
+        console.log(event.urlAfterRedirects);
+        if (
+          event.urlAfterRedirects === '/sign-in' ||
+          event.urlAfterRedirects === '/sign-up'
+        ) {
+          console.log('drawer closed pfad');
+          this.logSide = true;
+          console.log(this.logSide);
+          this.drawer.close();
+          this.isSidebarOpened = false;
+        } else {
+          this.logSide = false;
+          console.log('nicht auf login/up: ', this.logSide);
+          if (window.innerWidth >= 768) {
+            this.drawer.open();
+            this.isSidebarOpened = true;
+          }
         }
-      }
-    });
+      });
   }
-  
 
   /**
    * Start the loading animation, from the loadingService
@@ -181,10 +183,10 @@ export class AppComponent {
    * If the width is less than or equal to 768px, it assumes that the user is in mobile view and sets the drawer mode accordingly.
    */
   checkViewport() {
-    if (this.logSide){
-      console.log('return from checkviewport')
+    if (this.logSide) {
+      console.log('return from checkviewport');
       return;
-    } 
+    }
     this.isMobileView = window.innerWidth <= 768; // TODO Adjust the breakpoint as needed
     this.drawer.opened = !this.isMobileView;
     this.isSidebarOpened = !this.isMobileView;
@@ -227,7 +229,7 @@ export class AppComponent {
   getCurrentUserId() {
     // interval to check if user is signed in
     this.getUserInterval = setInterval(() => {
-      if(!this.currentUserId) {
+      if (!this.currentUserId) {
         this.currentUserId = this.authentication.getUserId();
       } else {
         // destroy interval, if user is signed in
@@ -237,9 +239,25 @@ export class AppComponent {
     }, 255);
   }
 
-  async getPersonalChats() { 
-    if(this.currentUserId) {
-      this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
+  async getCurrentUserImage() {
+    this.getImageInterval = setInterval(async () => {
+      if (this.currentUserId) {
+        const user = await this.firestoreUserService.getUser(
+          this.currentUserId
+        );
+        if (user && user.photo) {
+          this.currentUserImage = user.photo;
+          clearInterval(this.getImageInterval); // destroy interval once the image is fetched
+        }
+      }
+    }, 255);
+  }
+
+  async getPersonalChats() {
+    if (this.currentUserId) {
+      this.personalChats = await this.chatService.getAllChatsByUserId(
+        this.currentUserId
+      );
 
       console.log('All my Chats:', this.personalChats);
       this.getPersonalChatsUsernameAndPhoto();
@@ -252,16 +270,20 @@ export class AppComponent {
     this.personalChatsWithUsernamesAndPhotos = [];
 
     for (const chat of this.personalChats) {
-        const otherUserId = chat.person1Id === this.currentUserId ? chat.person2Id : chat.person1Id;
-        const user = await this.firestoreUserService.getUser(otherUserId);
-        if (user) {
-            const chatWithUsername = { ...chat, partner: user.username, photo: user.photo };
-            this.personalChatsWithUsernamesAndPhotos.push(chatWithUsername);            
-        }
+      const otherUserId =
+        chat.person1Id === this.currentUserId ? chat.person2Id : chat.person1Id;
+      const user = await this.firestoreUserService.getUser(otherUserId);
+      if (user) {
+        const chatWithUsername = {
+          ...chat,
+          partner: user.username,
+          photo: user.photo,
+        };
+        this.personalChatsWithUsernamesAndPhotos.push(chatWithUsername);
+      }
     }
     //return this.personalChatsWithUsernamesAndPhotos;
   }
-
 }
 
 

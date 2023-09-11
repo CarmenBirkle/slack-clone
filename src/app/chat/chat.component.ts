@@ -116,10 +116,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   getUserPosts() {
     this.unsubscribePosts && this.unsubscribePosts();
     const postsRef = collection(this.firestore, 'posts');
-    //TODO currentuser nicht hardcoded
-    // const currentUser = this.authentication.getUserId();
-    const currentUser = 'DcMndLPXmVM2HWVyrKYteG6b2Lg1';
-    // console.log('Current user ID:', currentUser);
+    const currentUser = this.authentication.getUserId();
     const userPostsQuery = query(postsRef, where('author', '==', currentUser));
     this.unsubscribePosts = onSnapshot(userPostsQuery, (querySnapshot) => {
       // console.log('Query snapshot:', querySnapshot);

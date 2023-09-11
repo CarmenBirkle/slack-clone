@@ -18,34 +18,39 @@ import { InfoConfigureNotificationsComponent } from './info-configure-notificati
 
 
 const routes: Routes = [
-  { path: '',
+  {
+    path: '',
     //canActivate: [AuthGuard],
-    component: WelcomeComponent },
+    component: WelcomeComponent,
+  },
   {
     path: 'users',
-    canActivate: [AuthGuard], 
+    canActivate: [AuthGuard],
     component: UsersComponent,
   },
   /* {
     path: 'chat',
     canActivate: [AuthGuard],
     component: ChatComponent,
-  },
-  { 
-    path: 'chat/thread', 
+  },*/
+  {
+    path: 'chat/thread',
     canActivate: [AuthGuard],
-    component: ChatComponent 
-}, */
+    component: ChatComponent,
+  },
   {
     path: 'chat/:id',
-    canActivate: [AuthGuard], 
+    canActivate: [AuthGuard],
     component: ChatComponent,
   },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
-  //TODO: Add routes for the new components when they are changed to english 
+  //TODO: Add routes for the new components when they are changed to english
   { path: 'directMessages', component: InfoDirectMessagesComponent },
-  { path: 'configureNotifications', component: InfoConfigureNotificationsComponent },
+  {
+    path: 'configureNotifications',
+    component: InfoConfigureNotificationsComponent,
+  },
   { path: 'status', component: InfoStatusComponent },
   { path: 'set-up-reminders', component: InfoSetUpRemindersComponent },
   { path: 'imprint', component: InfoImprintComponent },

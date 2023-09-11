@@ -43,6 +43,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: ChatComponent,
   },
+  {
+    path: 'chat/dm/:id',
+    canActivate: [AuthGuard],
+    component: ChatComponent,
+  },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   //TODO: Add routes for the new components when they are changed to english

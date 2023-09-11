@@ -279,6 +279,8 @@ export class AppComponent {
           partner: user.username,
           photo: user.photo,
         };
+        console.log('chat with',chatWithUsername);
+        
         this.personalChatsWithUsernamesAndPhotos.push(chatWithUsername);
       }
     }

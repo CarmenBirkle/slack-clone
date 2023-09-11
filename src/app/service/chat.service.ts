@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { DocumentData, Firestore, collection, doc, getDoc, getDocs, 
   orderBy, query, setDoc, where } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 import { Chat } from 'src/models/chat.class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
+  
   constructor(private firestore: Firestore) { }
 
   async openChat(uid: string, puid: string) {
@@ -61,24 +61,6 @@ export class ChatService {
     }
   }
 
-  /* getAllChatsByUserId(userId: string): Observable<any[]> {
-    const chatsCollection = collection(this.firestore, 'chats');
-    const q = query(chatsCollection, where('person1Id', '==', userId), where('person2Id', '==', userId));
-
-    return new Observable<any[]>(observer => {
-      getDocs(q).then((querySnapshot) => {
-        const chats: any[] = [];
-        querySnapshot.forEach((doc) => {
-          chats.push(doc.data());
-        });
-        observer.next(chats);
-        observer.complete();
-      }).catch((error) => {
-        observer.error(error);
-      });
-    });
-  } */
-
   async getAllChatsByUserId(userId: string) {
     const chatsCollection = collection(this.firestore, 'chats');
 
@@ -88,8 +70,13 @@ export class ChatService {
     querySnapshot.forEach((doc) => {
       const docId = doc.id;
       if (docId.startsWith(userId) || docId.endsWith(userId)) {
-        chats.push(doc.data());
+        chats.push(doc.data(), doc.id);
+        /* console.log('data:', doc.data());
+        console.log('id:', doc.id); */
+        
       }
+      console.log('chat aktuallisiert!');
+      
     });
    
     return chats;

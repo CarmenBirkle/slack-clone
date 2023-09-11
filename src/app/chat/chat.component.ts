@@ -39,7 +39,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private unsubscribePosts!: () => void;
   pinCount: number = 0;
   isThreadView: boolean = false;
- 
+  isGuest: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,12 +53,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
-      // const currentUser = this.authentication.getUserId();
-      const currentUser = 'hKhYyf1A2qOwLSyxTymq';
+      const currentUser = this.authentication.getUserId();
+      // const currentUser = 'hKhYyf1A2qOwLSyxTymq';
       //TODO currentuser nicht hardcoded
       console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
       this.getPinnedPostCount();
-
+      this.getCurrentUserData(currentUser);
     });
 
     this.route.url.subscribe((segments) => {
@@ -69,15 +69,12 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.getChannel();
       }
     });
-  
   }
 
   ngOnDestroy() {
     this.unsubscribeChannel && this.unsubscribeChannel();
     this.unsubscribePosts && this.unsubscribePosts();
   }
-
-
 
   /**
    * Start the loading animation, from the loadingService
@@ -101,6 +98,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.unsubscribeChannel = onSnapshot(docRef, (docSnap) => {
       this.channel = new Channel(docSnap.data());
       console.log(this.channel);
+      console.log(this.channel.channelType);
       this.getPosts();
     });
   }
@@ -153,6 +151,18 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.hasData = true;
     });
     this.finalizePostProcessing();
+  }
+
+  getCurrentUserData(userId: string) {
+    const userRef = doc(this.firestore, 'users', userId);
+    onSnapshot(userRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        this.isGuest =
+          userData && userData['guest'] ? userData['guest'] : false;
+          console.log('isGuest: ', this.isGuest);
+      }
+    });
   }
 
   getSpecificPosts(querySnapshot: any) {

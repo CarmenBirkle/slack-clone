@@ -45,22 +45,30 @@
           </ng-container>
 
             <ng-container *ngIf="!isThreadView">
-              <div *ngFor="let post of allPosts" class="single-post">
-                <div *ngIf="shouldShowDate(getPreviousPost(post), post)" class="date-container">
-                  <div class="show-date">
-                    <p>{{ post.timestamp | date: 'dd.MM.yyyy' }}</p>
+
+              <div class="guest" *ngIf="isGuest && channel.channelType ==='protected'">
+              This area is protected. Only logged in users can see this content. All guests can use the open areas.
+              </div>
+
+              <div *ngIf="!isGuest || channel.channelType !=='protected'">
+                <div *ngFor="let post of allPosts" class="single-post">
+                  <div *ngIf="shouldShowDate(getPreviousPost(post), post)" class="date-container">
+                    <div class="show-date">
+                      <p>{{ post.timestamp | date: 'dd.MM.yyyy' }}</p>
+                    </div>
                   </div>
+                  <app-post [post]="post"></app-post>
                 </div>
-                <app-post [post]="post"></app-post>
               </div>
             </ng-container>
         </div>
 
    <!-- *ngIf="!isThreadView"  -->
-        <div class="app-text-edit">
+        <div class="app-text-edit" *ngIf="!isGuest || channel.channelType !== 'protected'">
               <app-text-edit context="channel"></app-text-edit>
         </div>
-</div>
+    </div>
+
 
 </section>
 

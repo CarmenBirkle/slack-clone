@@ -72,6 +72,9 @@
               <div>
                 {{ chat.partner }}
               </div>
+              <div (click)="deleteChat(chat.id)">
+                X
+              </div>
             </div>
             
           </mat-expansion-panel>

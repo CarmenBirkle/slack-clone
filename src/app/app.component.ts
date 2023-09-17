@@ -259,7 +259,7 @@ export class AppComponent {
         this.currentUserId
       );
 
-      console.log('All my Chats:', this.personalChats);
+      //console.log('All my Chats:', this.personalChats);
       this.getPersonalChatsUsernameAndPhoto();
     } else {
       console.log('Cannot get Chats because no UserId found!');
@@ -279,13 +279,19 @@ export class AppComponent {
           partner: user.username,
           photo: user.photo,
         };
-        console.log('chat with',chatWithUsername);
+        //console.log('chat with',chatWithUsername);
         
         this.personalChatsWithUsernamesAndPhotos.push(chatWithUsername);
       }
     }
     //return this.personalChatsWithUsernamesAndPhotos;
   }
+
+  deleteChat(chatId: string) {
+    //console.log('delete Chat', chatId);
+    this.chatService.deleteChat(chatId);
+  }
+
 }
 
 

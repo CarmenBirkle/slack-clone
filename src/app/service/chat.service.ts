@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, doc, getDoc, getDocs, 
+import { Firestore, collection, collectionData, doc, getDoc, getDocs, 
   setDoc } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
 import { Chat } from 'src/models/chat.class';
@@ -8,7 +8,7 @@ import { Chat } from 'src/models/chat.class';
   providedIn: 'root'
 })
 export class ChatService {
-  /* allChats: Observable<any[]>; */
+  allChats: Array<any> | undefined;
   private allChatsSubscription: Subscription | undefined;
   
   constructor(private firestore: Firestore) { }
@@ -76,27 +76,27 @@ export class ChatService {
         const chatData = doc.data();
         chatData['id'] = doc.id;
         chats.push(chatData);
-        //chats.push(doc.data(), doc.id);
-        /* console.log('data:', doc.data());
-        console.log('id:', doc.id); */
-        
       }
-      console.log('chat aktuallisiert!');
-      
+      //console.log('chat aktuallisiert!');
     });
    
     return chats;
   }
 
-  /* getAllChats() {
-    // Firestore-Referenz erstellen
+  getAllChats() {
     const chatsCollection = collection(this.firestore, 'chats');
 
-    // Abonnement auf die Firestore-Abfrage
-    this.allChatsSubscription = chatsCollection.valueChanges().subscribe((chats: any[]) => {
-      this.allChats = chats;
-      console.log('Alle Chats:', this.allChats);
-    });
-  } */
+    this.allChatsSubscription = collectionData(chatsCollection)
+      .subscribe(changes => {
+        console.log('Document Chat changed:', changes);
+        this.allChats = changes;
+      });
+  }
+
+  deleteChat(id: string) {
+    //const chatsCollection = collection(this.firestore, 'chats', doc(id));
+
+    
+  }
 
 }

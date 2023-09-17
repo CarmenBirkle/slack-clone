@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { DocumentData, Firestore, collection, doc, getDoc, getDocs, 
-  orderBy, query, setDoc, where } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, getDocs, 
+  setDoc } from '@angular/fire/firestore';
+import { Observable, Subscription } from 'rxjs';
 import { Chat } from 'src/models/chat.class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
+  allChats: Observable<any[]>;
+  private allChatsSubscription: Subscription | undefined;
   
   constructor(private firestore: Firestore) { }
 
@@ -83,6 +86,17 @@ export class ChatService {
     });
    
     return chats;
+  }
+
+  getAllChats() {
+    // Firestore-Referenz erstellen
+    const chatsCollection = collection(this.firestore, 'chats');
+
+    // Abonnement auf die Firestore-Abfrage
+    this.allChatsSubscription = chatsCollection.valueChanges().subscribe((chats: any[]) => {
+      this.allChats = chats;
+      console.log('Alle Chats:', this.allChats);
+    });
   }
 
 }

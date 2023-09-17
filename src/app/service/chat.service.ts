@@ -8,7 +8,7 @@ import { Chat } from 'src/models/chat.class';
   providedIn: 'root'
 })
 export class ChatService {
-  allChats: Observable<any[]>;
+  /* allChats: Observable<any[]>; */
   private allChatsSubscription: Subscription | undefined;
   
   constructor(private firestore: Firestore) { }
@@ -88,7 +88,7 @@ export class ChatService {
     return chats;
   }
 
-  getAllChats() {
+  /* getAllChats() {
     // Firestore-Referenz erstellen
     const chatsCollection = collection(this.firestore, 'chats');
 
@@ -97,6 +97,6 @@ export class ChatService {
       this.allChats = chats;
       console.log('Alle Chats:', this.allChats);
     });
-  }
+  } */
 
 }

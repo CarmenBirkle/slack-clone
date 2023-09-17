@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, getDoc, getDocs, 
+import { Firestore, collection, collectionData, deleteDoc, doc, getDoc, getDocs, 
   setDoc } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
 import { Chat } from 'src/models/chat.class';
@@ -93,10 +93,16 @@ export class ChatService {
       });
   }
 
-  deleteChat(id: string) {
-    //const chatsCollection = collection(this.firestore, 'chats', doc(id));
+  async deleteChat(id: string) {
+    const chatsCollection = collection(this.firestore, 'chats', id);
 
-    
+    try {
+      await deleteDoc(doc(chatsCollection));
+      console.log('Chat deleted');
+    } catch (error) {
+      console.log('Error while deleting Chat.', error);
+      
+    }
   }
 
 }

@@ -50,20 +50,46 @@ export class ChatComponent implements OnInit, OnDestroy {
     public authentication: AuthenticationService
   ) {}
 
+  // ngOnInit() {
+  //   this.route.params.subscribe((params) => {
+  //     this.channelId = params['id'];
+  //     const currentUser = this.authentication.getUserId();
+  //     // const currentUser = 'hKhYyf1A2qOwLSyxTymq';
+  //     //TODO currentuser nicht hardcoded
+  //     console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
+  //     this.getPinnedPostCount();
+  //     this.getCurrentUserData(currentUser);
+  //   });
+
+  //   this.route.url.subscribe((segments) => {
+  //     this.isThreadView = segments.some((segment) => segment.path === 'thread');
+  //     if (this.isThreadView) {
+  //       this.getUserPosts();
+  //     } else {
+  //       this.getChannel();
+  //     }
+  //   });
+  // }
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
       const currentUser = this.authentication.getUserId();
-      // const currentUser = 'hKhYyf1A2qOwLSyxTymq';
-      //TODO currentuser nicht hardcoded
       console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
       this.getPinnedPostCount();
       this.getCurrentUserData(currentUser);
     });
 
     this.route.url.subscribe((segments) => {
+      // Check for "dm" path in the URL
+      const isDMView = segments.some((segment) => segment.path === 'dm');
+
       this.isThreadView = segments.some((segment) => segment.path === 'thread');
-      if (this.isThreadView) {
+
+      if (isDMView) {
+        // Call the method to fetch DMs
+        console.log('DM View aus Init', isDMView)
+        this.getDirectMessage();
+      } else if (this.isThreadView) {
         this.getUserPosts();
       } else {
         this.getChannel();
@@ -100,6 +126,19 @@ export class ChatComponent implements OnInit, OnDestroy {
       console.log(this.channel);
       console.log(this.channel.channelType);
       this.getPosts();
+    });
+  }
+
+  getDirectMessage() {
+    console.log('DM aufgerufen')
+    console.log('Abruf der Direktnachricht für channelId:', this.channelId);
+
+    // Assuming the DMs are stored in a collection named 'directMessages' and are identifiable by channelId
+    const dmRef = doc(this.firestore, 'chats', this.channelId);
+    onSnapshot(dmRef, (docSnap) => {
+      if (docSnap.exists()) {
+        console.log('Direktnachricht:', docSnap.data());
+      }
     });
   }
 
@@ -160,7 +199,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         const userData = docSnap.data();
         this.isGuest =
           userData && userData['guest'] ? userData['guest'] : false;
-          console.log('isGuest: ', this.isGuest);
+        console.log('isGuest: ', this.isGuest);
       }
     });
   }

@@ -21,6 +21,7 @@ import {
 import { LoadingService } from './../service/loading.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { DialogPinnedPostsComponent } from '../dialog-pinned-posts/dialog-pinned-posts.component';
+import { Chat } from 'src/models/chat.class';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   pinCount: number = 0;
   isThreadView: boolean = false;
   isGuest: boolean = false;
+  directMessages: Chat[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -87,7 +89,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       if (isDMView) {
         // Call the method to fetch DMs
-        console.log('DM View aus Init', isDMView)
+        console.log('DM View aus Init', isDMView);
         this.getDirectMessage();
       } else if (this.isThreadView) {
         this.getUserPosts();
@@ -129,15 +131,31 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
+  // getDirectMessage() {
+  //   console.log('DM aufgerufen');
+  //   console.log('Abruf der Direktnachricht für channelId:', this.channelId);
+
+  //   // Assuming the DMs are stored in a collection named 'directMessages' and are identifiable by channelId
+  //   const dmRef = doc(this.firestore, 'chats', this.channelId);
+  //   onSnapshot(dmRef, (docSnap) => {
+  //     if (docSnap.exists()) {
+  //       console.log('Direktnachricht:', docSnap.data());
+  //     }
+  //   });
+  // }
+
   getDirectMessage() {
-    console.log('DM aufgerufen')
+    console.log('DM aufgerufen');
     console.log('Abruf der Direktnachricht für channelId:', this.channelId);
 
-    // Assuming the DMs are stored in a collection named 'directMessages' and are identifiable by channelId
     const dmRef = doc(this.firestore, 'chats', this.channelId);
     onSnapshot(dmRef, (docSnap) => {
       if (docSnap.exists()) {
         console.log('Direktnachricht:', docSnap.data());
+
+        // Convert the data to a Chat instance and save it in directMessages
+        const chat = new Chat(docSnap.data());
+        this.directMessages.push(chat);
       }
     });
   }

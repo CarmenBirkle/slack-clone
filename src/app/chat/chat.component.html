@@ -60,6 +60,16 @@
                   <app-post [post]="post"></app-post>
                 </div>
               </div>
+
+              <!-- TODO - erstmal nur Platzhalter und funktionalität -->
+          <div *ngFor="let chat of directMessages" class="chat-container">
+            <h3>Direktnachricht zwischen {{ chat.person1Id }} und {{ chat.person2Id }}</h3>
+                      <div *ngFor="let msg of chat.message" class="chat-message">
+                <!-- <strong>{{ msg.author }}</strong> -->
+                <span>{{ msg }}</span>
+                <!-- <small>{{ msg.timestamp | date: 'dd.MM.yyyy' }}</small> -->
+            </div>
+        </div>
             </ng-container>
         </div>
 

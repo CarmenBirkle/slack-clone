@@ -22,6 +22,7 @@ import { LoadingService } from './../service/loading.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { DialogPinnedPostsComponent } from '../dialog-pinned-posts/dialog-pinned-posts.component';
 import { Chat } from 'src/models/chat.class';
+import { UserService } from '../service/user.service';
 
 
 @Component({
@@ -50,7 +51,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public loadingService: LoadingService,
     private cd: ChangeDetectorRef,
-    public authentication: AuthenticationService
+    public authentication: AuthenticationService,
+    private userService: UserService
   ) {}
 
   // ngOnInit() {
@@ -164,6 +166,23 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
+  getOtherUserId(chat: Chat): string {
+    const otherUserId =
+      chat.person1Id === this.authentication.getUserId()
+        ? chat.person2Id
+        : chat.person1Id;
+    return otherUserId;
+  }
+
+
+  getOtherUserName(chat: Chat): string {
+    return this.userService.getUserName(this.getOtherUserId(chat));
+  }
+
+  getOtherUserPhoto(chat: Chat): string {
+    return this.userService.getUserPhoto(this.getOtherUserId(chat));
+  }
+
   // loadUsers() {
   //   const usersRef = collection(this.firestore, 'users');
   //   onSnapshot(usersRef, (querySnapshot) => {
@@ -182,9 +201,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   // getUserPhoto(userId: string): string {
   //   return this.users[userId]?.photo || 'defaultPhotoLink'; // Geben Sie hier den Link zu Ihrem Standardfoto ein
   // }
-
- 
-
 
   getPosts() {
     this.unsubscribePosts && this.unsubscribePosts();

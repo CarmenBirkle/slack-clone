@@ -42,6 +42,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   isThreadView: boolean = false;
   isGuest: boolean = false;
   directMessages: Chat[] = [];
+  users: { [id: string]: any } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -80,6 +81,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
       this.getPinnedPostCount();
       this.getCurrentUserData(currentUser);
+      this.loadUsers();
     });
 
     this.route.url.subscribe((segments) => {
@@ -160,6 +162,25 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.directMessages = [chat]; // replace the array with a new one
       }
     });
+  }
+
+  loadUsers() {
+    const usersRef = collection(this.firestore, 'users');
+    onSnapshot(usersRef, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.users[doc.id] = doc.data();
+      });
+        console.log('Loaded Users:', this.users);
+    });
+  }
+
+  getUserName(userId: string): string {
+    console.log('getUserName aufgerufen', userId);
+    return this.users[userId]?.username || 'Unbekannt';
+  }
+
+  getUserPhoto(userId: string): string {
+    return this.users[userId]?.photo || 'defaultPhotoLink'; // Geben Sie hier den Link zu Ihrem Standardfoto ein
   }
 
   getPosts() {

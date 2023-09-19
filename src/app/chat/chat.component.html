@@ -66,8 +66,14 @@
             <h3>Direktnachricht zwischen {{ chat.person1Id }} und {{ chat.person2Id }}</h3>
                       <div *ngFor="let msg of chat.message" class="chat-message">
                 <!-- <strong>{{ msg.author }}</strong> -->
-                <span>{{ msg }}</span>
+                <div>{{ getUserName(msg.author) }}</div>
+<!-- <div>{{ getUserName(msg.author) }}</div> -->
+ <img [src]="getUserPhoto(msg.author)" alt="User photo">
+
+                <span>{{ msg.message }}</span>
                 <!-- <small>{{ msg.timestamp | date: 'dd.MM.yyyy' }}</small> -->
+                <small>{{ msg.timestamp | date: 'dd.MM.yyyy HH:mm' }}</small>
+
             </div>
         </div>
             </ng-container>

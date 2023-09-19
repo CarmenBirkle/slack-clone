@@ -75,6 +75,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
+      this.directMessages = []; // clear the array
       const currentUser = this.authentication.getUserId();
       console.log('Aktuell angemeldeter Benutzer aus chat:', currentUser);
       this.getPinnedPostCount();
@@ -155,7 +156,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
         // Convert the data to a Chat instance and save it in directMessages
         const chat = new Chat(docSnap.data());
-        this.directMessages.push(chat);
+        // this.directMessages.push(chat);
+        this.directMessages = [chat]; // replace the array with a new one
       }
     });
   }

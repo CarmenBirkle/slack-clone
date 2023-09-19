@@ -17,6 +17,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { LoadingService } from './../service/loading.service';
 import { DialogService } from '../service/dialog.service';
+import { Chat } from 'src/models/chat.class';
 
 @Component({
   selector: 'app-text-edit',
@@ -31,6 +32,8 @@ export class TextEditComponent {
   post: Post = new Post();
   channelId: string = '';
   reply: Reply = new Reply();
+  currentChat: Chat = new Chat();
+  chatId: string = '';
   // postId: string = '';
 
   constructor(
@@ -41,12 +44,27 @@ export class TextEditComponent {
     private dialogService: DialogService
   ) {}
 
+  // ngOnInit() {
+  //   this.route.params.subscribe((params) => {
+  //     this.channelId = params['id'];
+  //   });
+  //   const currentUser = this.authentication.getUserId();
+  //   //TODO rausnehmen
+  //   console.log('Aktuell angemeldeter Benutzer aus Textedit:', currentUser);
+  // }
+
   ngOnInit() {
+    this.route.url.subscribe((segments) => {
+      //check if the first segment is 'dm'
+      if (segments.length && segments[0].path === 'dm') {
+        this.context = 'directmessage';
+      }
+    });
+
     this.route.params.subscribe((params) => {
       this.channelId = params['id'];
     });
     const currentUser = this.authentication.getUserId();
-    //TODO rausnehmen
     console.log('Aktuell angemeldeter Benutzer aus Textedit:', currentUser);
   }
 
@@ -66,8 +84,33 @@ export class TextEditComponent {
     }
   }
 
-  saveDirectMessage() {
-    // Code to save a direct message
+  async saveDirectMessage() {
+    console.log('saveDirectMessage aufgerufen');
+    const chatDoc = doc(this.firestore, 'chats', this.channelId); // Annahme: Chat-Daten sind in einer 'chats' Sammlung gespeichert
+    const chatSnap = await getDoc(chatDoc);
+
+    if (!chatSnap.exists()) {
+      console.error('Chat not found.');
+      return;
+    }
+
+    const chatData = chatSnap.data();
+
+    // hinzufügen einer neuen Nachricht zum Msg Array
+    const newMessage = {
+      author: this.authentication.getUserId(),
+      timestamp: new Date().getTime(),
+      message: this.editorContent,
+    };
+    if (!chatData['message']) chatData['message'] = [];
+      chatData['message'].push(newMessage);
+
+
+    // aktualisieren des Chat-Dokuments in Firestore
+    await updateDoc(chatDoc, { message: chatData['message'] });
+
+    console.log('Direct message added successfully.');
+    this.editorContent = ''; // Zurücksetzen des Editors
   }
 
   saveChannelPost() {

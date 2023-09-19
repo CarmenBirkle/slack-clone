@@ -71,12 +71,24 @@
             </div>
         </div>
             </ng-container>
+
+
         </div>
 
    <!-- *ngIf="!isThreadView"  -->
+
+    <ng-container *ngIf="!isGuest || channel.channelType !== 'protected'">
+            <div class="app-text-edit" *ngIf="directMessages && directMessages.length > 0">
+                <app-text-edit [context]="'directmessage'"></app-text-edit>
+            </div>
+            <div class="app-text-edit" *ngIf="!directMessages || directMessages.length === 0">
+                <app-text-edit [context]="'channel'"></app-text-edit>
+            </div>
+        </ng-container>
+<!-- 
         <div class="app-text-edit" *ngIf="!isGuest || channel.channelType !== 'protected'">
               <app-text-edit context="channel"></app-text-edit>
-        </div>
+        </div> -->
     </div>
 
 

@@ -121,6 +121,18 @@ section::after {
     background-color: none;
   }
 }
+.msg-header {
+     padding:0 10%;
+     display: flex;
+     align-items: center;
+     gap: 2rem;
+     img {
+      width:100px;
+     }
+     h3{
+      margin:0;
+     }
+}
 
 @media (max-width: 750px) {
   .responsive-dialog .mat-dialog-container {

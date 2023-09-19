@@ -44,6 +44,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   isGuest: boolean = false;
   directMessages: Chat[] = [];
   users: { [id: string]: any } = {};
+  directMessageView: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -93,6 +94,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.isThreadView = segments.some((segment) => segment.path === 'thread');
 
       if (isDMView) {
+        this.directMessageView = true;
         // Call the method to fetch DMs
         console.log('DM View aus Init', isDMView);
         this.getDirectMessage();
@@ -100,6 +102,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.getUserPosts();
       } else {
         this.getChannel();
+        this.directMessageView = false;
       }
     });
   }

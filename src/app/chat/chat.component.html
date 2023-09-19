@@ -1,14 +1,15 @@
 <section>
     <div class="container">
-        <div class="header">
+        <div class="header" >
             <div class="left-items">
                     <mat-icon> {{channel.channelType === 'public' ? 'tag' : 'lock' }}</mat-icon> 
                     <h2>{{channel.channelName}}</h2>  
                     <h2 *ngIf="isThreadView"> Threads </h2>
+                    <h2 *ngIf=" directMessageView"> Direct Message</h2>
                     <p class="d-none">{{ getPinnedPostCount() }}</p>
                
                         <mat-icon 
-                            *ngIf="!isThreadView"
+                            *ngIf="!isThreadView && !directMessageView"
                             [class.active-pin]="pinCount > 0"
                             [class.disabled-pin]="pinCount === 0" 
                             (click)="pinCount > 0 ? openPinnedPostDialog('400ms', '400ms') : null" 
@@ -20,15 +21,16 @@
                         </mat-icon>
 
 
-                </div>
-                <div *ngIf="!isThreadView" class="right-items">
+            </div>
+            <div *ngIf="!isThreadView" class="right-items">
                         <!-- <button (click)="openEditDialog('400ms', '400ms')" mat-icon-button>
                              <mat-icon >edit</mat-icon>
                          </button> -->
                            <!-- <button mat-icon-button (click)="openDeleteDialog('400ms', '400ms')">
                              <mat-icon>delete</mat-icon>
                          </button> -->
-                </div>
+            </div>
+            <!-- <div *ngIf="directMessages" class="left-items"> Direct Message</div> -->
         </div>
 
         <div class="main-content">
@@ -63,12 +65,14 @@
 <!-- Start DM -->
     
           <div *ngFor="let chat of directMessages" class="chat-container">
-            <img [src]="getOtherUserPhoto(chat)" alt="User photo">
-              <h3>This conversation is only between {{ getOtherUserName(chat) }}
-           
-                   and you. View the person's profile to learn more about them. Add Click to User ? 
-              </h3>
+            <div class="msg-header">
+               <img [src]="getOtherUserPhoto(chat)" alt="User photo">
+                <h3>This conversation is only between {{ getOtherUserName(chat) }}
+                    and you. View the person's profile to learn more about them. Add Click to User ? 
+                </h3>
+            </div>
               <br> <hr>
+
               <div *ngFor="let msg of chat.message" class="chat-message">
                 <app-direct-message [directMessage]="msg"></app-direct-message>
               </div>

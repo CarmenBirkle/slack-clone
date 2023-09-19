@@ -1,0 +1,12 @@
+<div class="message-container">
+  <strong>Autor aus dm: {{ directMessage.author }}</strong>
+  <!-- <div>{{userName}}</div> -->
+  <div> mein autor aus methode: {{ getUserName(directMessage.author) }}</div>
+
+  <p>dm aus dm: {{ directMessage.message }}</p>
+  <small>timestamp aus dm: {{ directMessage.timestamp | date: 'dd.MM.yyyy HH:mm' }}</small>
+  <div>photo:</div>
+   <img [src]="getUserPhoto(directMessage.author)" alt="User photo">
+   <div>ende</div>
+</div>
+ 

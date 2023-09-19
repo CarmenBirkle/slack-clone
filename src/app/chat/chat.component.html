@@ -60,22 +60,15 @@
                   <app-post [post]="post"></app-post>
                 </div>
               </div>
-
-              <!-- TODO - erstmal nur Platzhalter und funktionalität -->
+<!-- Start DM -->
+    
           <div *ngFor="let chat of directMessages" class="chat-container">
-            <h3>Direktnachricht zwischen {{ chat.person1Id }} und {{ chat.person2Id }}</h3>
-                      <div *ngFor="let msg of chat.message" class="chat-message">
-                <!-- <strong>{{ msg.author }}</strong> -->
-                <div>{{ getUserName(msg.author) }}</div>
-<!-- <div>{{ getUserName(msg.author) }}</div> -->
- <img [src]="getUserPhoto(msg.author)" alt="User photo">
+              <h3>Direktnachricht zwischen {{ chat.person1Id }} und {{ chat.person2Id }}</h3>
+              <div *ngFor="let msg of chat.message" class="chat-message">
+                <app-direct-message [directMessage]="msg"></app-direct-message>
+              </div>
+         </div>
 
-                <span>{{ msg.message }}</span>
-                <!-- <small>{{ msg.timestamp | date: 'dd.MM.yyyy' }}</small> -->
-                <small>{{ msg.timestamp | date: 'dd.MM.yyyy HH:mm' }}</small>
-
-            </div>
-        </div>
             </ng-container>
 
 

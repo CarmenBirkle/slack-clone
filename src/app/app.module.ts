@@ -60,6 +60,7 @@ import { InfoConfigureNotificationsComponent } from './info-configure-notificati
 import { InfoSetUpRemindersComponent } from './info-set-up-reminders/info-set-up-reminders.component';
 import { InfoImprintComponent } from './info-imprint/info-imprint.component';
 import { ProfilepictureComponent } from './profilepicture/profilepicture.component';
+import { DirectMessageComponent } from './direct-message/direct-message.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { ProfilepictureComponent } from './profilepicture/profilepicture.compone
     DialogPostDetailComponent,
     DialogShowUserComponent,
     ProfilepictureComponent,
+    DirectMessageComponent,
 
   ],
   imports: [

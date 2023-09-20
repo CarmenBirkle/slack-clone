@@ -16,12 +16,10 @@ export class UserService {
       querySnapshot.forEach((doc) => {
         this.users[doc.id] = doc.data();
       });
-      console.log('Loaded Users:', this.users);
     });
   }
 
   getUserName(userId: string): string {
-    console.log('getUserName aufgerufen', userId);
     return this.users[userId]?.username || 'Unbekannt';
   }
 

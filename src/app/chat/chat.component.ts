@@ -139,19 +139,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
-  // getDirectMessage() {
-  //   console.log('DM aufgerufen');
-  //   console.log('Abruf der Direktnachricht für channelId:', this.channelId);
-
-  //   // Assuming the DMs are stored in a collection named 'directMessages' and are identifiable by channelId
-  //   const dmRef = doc(this.firestore, 'chats', this.channelId);
-  //   onSnapshot(dmRef, (docSnap) => {
-  //     if (docSnap.exists()) {
-  //       console.log('Direktnachricht:', docSnap.data());
-  //     }
-  //   });
-  // }
-
   getDirectMessage() {
     console.log('DM aufgerufen');
     console.log('Abruf der Direktnachricht für channelId:', this.channelId);
@@ -176,7 +163,6 @@ export class ChatComponent implements OnInit, OnDestroy {
         : chat.person1Id;
     return otherUserId;
   }
-
 
   getOtherUserName(chat: Chat): string {
     return this.userService.getUserName(this.getOtherUserId(chat));
@@ -386,6 +372,29 @@ export class ChatComponent implements OnInit, OnDestroy {
   getPinnedPosts(): Post[] {
     return this.allPosts.filter((post) => post.pinned);
   }
+
+  getPreviousDM(
+    messages: { author: string; timestamp: number; message: string }[],
+    currentIndex: number
+  ): { author: string; timestamp: number; message: string } | null {
+    if (currentIndex > 0 && currentIndex < messages.length) {
+      return messages[currentIndex - 1];
+    }
+    return null;
+  }
+
+  shouldShowDMDate(messages: any[], currentIndex: number): boolean {
+    if (currentIndex === 0) {
+      return true;
+    }
+    const previousMsg = messages[currentIndex - 1];
+    const currentMsg = messages[currentIndex];
+    const prevDate = new Date(previousMsg.timestamp);
+    const currentDate = new Date(currentMsg.timestamp);
+    const shouldShow = prevDate.toDateString() !== currentDate.toDateString();
+    return shouldShow;
+  }
+
 }
 
 

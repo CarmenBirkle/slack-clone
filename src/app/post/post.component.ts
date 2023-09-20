@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogPostDetailComponent } from '../dialog-post-detail/dialog-post-detail.component';
 import { FirestoreUserService } from './../service/firestore-user.service'; 
+import { UserService } from '../service/user.service';
 
 
 
@@ -50,7 +51,8 @@ export class PostComponent {
     public dialog: MatDialog,
     public authentication: AuthenticationService,
     private snackBar: MatSnackBar,
-    private userService: FirestoreUserService
+    private userService: FirestoreUserService,
+    private userNameService: UserService
   ) {
     this.firestore = getFirestore();
   }
@@ -70,6 +72,7 @@ export class PostComponent {
     const currentUser = this.authentication.getUserId();
     console.log('Aktuell angemeldeter Benutzer aus post:', currentUser);
     this.checkPinnedStatus();
+    this.userNameService.loadUsers();
   }
 
   async loadAuthorDetails() {
@@ -101,7 +104,6 @@ export class PostComponent {
     return '';
   }
 
- 
   isAnyDialogOpen(): boolean {
     return this.dialog.openDialogs.length > 0;
   }
@@ -392,6 +394,10 @@ export class PostComponent {
     });
 
     return dialogRef;
+  }
+
+  getUserName(userId: string): string {
+    return this.userNameService.getUserName(userId);
   }
 }
 

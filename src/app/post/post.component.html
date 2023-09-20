@@ -13,7 +13,7 @@
   <div class="right-area">
    
     <div class="post-header">
-        <h3>{{userName}}</h3>
+        <h3>{{ getUserName(post.author) }}</h3>
         <div  class="text-small">{{ timeString }} h </div>
     </div>
     <div class="post-message" [innerHTML]="post.message"></div>

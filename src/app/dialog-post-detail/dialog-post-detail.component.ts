@@ -13,6 +13,7 @@ import {
 } from '@angular/fire/firestore';
 import { FirestoreUserService } from '../service/firestore-user.service'; 
 import { DialogService } from '../service/dialog.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-dialog-post-detail',
@@ -29,6 +30,7 @@ export class DialogPostDetailComponent {
     private firestore: Firestore,
     private userService: FirestoreUserService,
     private dialogService: DialogService,
+    private userNameService: UserService
   ) {
     console.log('postId:', data.postId);
     console.log('postData:', data.postData);
@@ -40,6 +42,9 @@ export class DialogPostDetailComponent {
     this.dialogService.closeDialogObservable.subscribe(() => {
       this.closeDialog();
     });
+  }
+  ngOnInit() {
+    this.userNameService.loadUsers();
   }
 
   // async getReplies() {
@@ -81,10 +86,10 @@ export class DialogPostDetailComponent {
           if (user) {
             replyData['username'] = user.username;
             replyData['userImage'] = user.photo;
-          } 
+          }
           // else {
           //   replyData['username'] = 'Unbekannt';
-          //   replyData['userImage'] = ''; 
+          //   replyData['userImage'] = '';
           // }
 
           this.replies.push(replyData);
@@ -98,5 +103,13 @@ export class DialogPostDetailComponent {
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  getUserName(userId: string): string {
+    return this.userNameService.getUserName(userId);
+  }
+
+  getOtherUserPhoto(userID: string): string {
+    return this.userNameService.getUserPhoto(userID);
   }
 }

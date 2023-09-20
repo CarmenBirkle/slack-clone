@@ -20,12 +20,14 @@
                     <!-- Testbereich von hideThread -->
 
                     <div class="post">
-
-                        <img class="profile-pic" src= {{reply.userImage}} alt="">
+<!-- 
+                        <img class="profile-pic" src= {{reply.userImage}} alt=""> -->
+                        <img class="profile-pic" src= {{getOtherUserPhoto(reply.userId)}} alt="">
 
                         <div class="right-area">
                             <div class="post-header">                             
-                                <h3>{{ reply.username }}</h3>
+                                <!-- <h3>{{ reply.username }}</h3> -->
+                                <h3>{{ getUserName(reply.userId) }}</h3>
                                 <div  class="text-small">before {{ reply.timestamp | relativeTime }}</div>
                             </div>
                             <div class="post-message" [innerHTML]="reply.message"></div>

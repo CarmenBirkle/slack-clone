@@ -235,6 +235,7 @@ export class AppComponent {
         // destroy interval, if user is signed in
         clearInterval(this.getUserInterval);
         this.getPersonalChats();
+        this.chatService.getAllChats(this.currentUserId);
       }
     }, 255);
   }
@@ -255,9 +256,7 @@ export class AppComponent {
 
   async getPersonalChats() {
     if (this.currentUserId) {
-      this.personalChats = await this.chatService.getAllChatsByUserId(
-        this.currentUserId
-      );
+      this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
 
       //console.log('All my Chats:', this.personalChats);
       this.getPersonalChatsUsernameAndPhoto();
@@ -285,11 +284,6 @@ export class AppComponent {
       }
     }
     //return this.personalChatsWithUsernamesAndPhotos;
-  }
-
-  deleteChat(chatId: string) {
-    //console.log('delete Chat', chatId);
-    this.chatService.deleteChat(chatId);
   }
 
 }

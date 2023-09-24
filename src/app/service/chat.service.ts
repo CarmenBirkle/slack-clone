@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, deleteDoc, doc, getDoc, getDocs, 
-  setDoc } from '@angular/fire/firestore';
-import { Observable, Subscription } from 'rxjs';
+import { Firestore, collection, collectionData, doc, getDoc, getDocs, onSnapshot, 
+  query, setDoc } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
 import { Chat } from 'src/models/chat.class';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Chat } from 'src/models/chat.class';
 })
 export class ChatService {
   allChats: Array<any> | undefined;
+  ownChats: Array<any> | undefined;
   private allChatsSubscription: Subscription | undefined;
   
   constructor(private firestore: Firestore) { }
@@ -83,26 +84,31 @@ export class ChatService {
     return chats;
   }
 
-  getAllChats() {
+ /* getAllChats(uid: string) { 
     const chatsCollection = collection(this.firestore, 'chats');
 
     this.allChatsSubscription = collectionData(chatsCollection)
       .subscribe(changes => {
-        console.log('Document Chat changed:', changes);
         this.allChats = changes;
+
+        console.log('Document Chat changed:', this.allChats);        
+        this.getOwnChats(uid)
       });
-  }
+  } */
 
-  async deleteChat(id: string) {
-    const chatsCollection = collection(this.firestore, 'chats', id);
+  getAllChats(uid: string) {
+    const chatsCollection = collection(this.firestore, 'chats');
 
-    try {
-      await deleteDoc(doc(chatsCollection));
-      console.log('Chat deleted');
-    } catch (error) {
-      console.log('Error while deleting Chat.', error);
+    const unsub = onSnapshot(doc(this.firestore, 'chats'), (doc) => {
+      console.log('Chat changed', doc);
       
-    }
+    });
   }
+
+  getOwnChats(uid: string) {
+
+    // this.ownChat = ;
+  }
+
 
 }

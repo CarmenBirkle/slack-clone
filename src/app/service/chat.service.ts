@@ -14,6 +14,7 @@ export class ChatService {
   
   constructor(private firestore: Firestore) { }
 
+  // EDIT
   async openChat(uid: string, puid: string) {
     const chat = await this.getChatWithIds(uid, puid);
 

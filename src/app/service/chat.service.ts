@@ -14,7 +14,6 @@ export class ChatService {
   
   constructor(private firestore: Firestore) { }
 
-  // EDIT
   async openChat(uid: string, puid: string) {
     const chat = await this.getChatWithIds(uid, puid);
 
@@ -36,6 +35,7 @@ export class ChatService {
     try {
       await setDoc(chatDocRef, newChat.toJSON());
       //console.log('Successfully create Chat with ID:', uid+puid);
+      this.openChat(uid, puid);
     } catch (error) {
       console.error('Error while creating Chat:', error);
     }
@@ -85,30 +85,28 @@ export class ChatService {
     return chats;
   }
 
- /* getAllChats(uid: string) { 
-    const chatsCollection = collection(this.firestore, 'chats');
-
-    this.allChatsSubscription = collectionData(chatsCollection)
-      .subscribe(changes => {
-        this.allChats = changes;
-
-        console.log('Document Chat changed:', this.allChats);        
-        this.getOwnChats(uid)
-      });
-  } */
-
   getAllChats(uid: string) {
     const chatsCollection = collection(this.firestore, 'chats');
 
-    const unsub = onSnapshot(doc(this.firestore, 'chats'), (doc) => {
-      console.log('Chat changed', doc);
-      
+    onSnapshot(chatsCollection, (snapshot) => {
+      this.allChats = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      //console.log('updated all chats', this.allChats);
+
+      //get own Chats
+      this.getOwnChats(uid);
     });
   }
 
   getOwnChats(uid: string) {
+    this.ownChats = [];
 
-    // this.ownChat = ;
+    this.ownChats = this.allChats.filter(chat => {
+      return chat.person1Id === uid || chat.person2Id === uid;
+    });
+  
+    // filteredChats enthält jetzt alle passenden Chats
+    console.log('Chats for UID', uid, ':', this.ownChats);
+    return this.ownChats;
   }
 
 

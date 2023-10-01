@@ -151,7 +151,7 @@ export class AppComponent {
       this.allChannels = changes;
 
       //TODO: console.log entfernen
-      console.log('changes', changes);
+      //console.log('changes', changes);
       this.dataLoaded = true;
       this.stopLoading();
     });
@@ -234,8 +234,8 @@ export class AppComponent {
       } else {
         // destroy interval, if user is signed in
         clearInterval(this.getUserInterval);
-        this.getPersonalChats();
         this.chatService.getAllChats(this.currentUserId);
+        this.getPersonalChats();
       }
     }, 255);
   }
@@ -254,9 +254,20 @@ export class AppComponent {
     }, 255);
   }
 
-  async getPersonalChats() {
+  /* async getPersonalChats() {
     if (this.currentUserId) {
       this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
+
+      //console.log('All my Chats:', this.personalChats);
+      this.getPersonalChatsUsernameAndPhoto();
+    } else {
+      console.log('Cannot get Chats because no UserId found!');
+    }
+  } */
+
+  async getPersonalChats() {
+    if (this.currentUserId) {
+      //this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
 
       //console.log('All my Chats:', this.personalChats);
       this.getPersonalChatsUsernameAndPhoto();

@@ -49,17 +49,17 @@ export class ChatService {
     try {
       const docSnapshot1 = await getDoc(documentRef1);
       if (docSnapshot1.exists()) {
-        console.log('Document-ID:', docSnapshot1.id, 'Documentdata:', docSnapshot1.data());
+        //console.log('Document-ID:', docSnapshot1.id, 'Documentdata:', docSnapshot1.data());
         return { id: docSnapshot1.id, data: docSnapshot1.data() };
       }
   
       const docSnapshot2 = await getDoc(documentRef2);
       if (docSnapshot2.exists()) {
-        console.log('Document-ID:', docSnapshot2.id, 'Documentdata:', docSnapshot2.data());
+        //console.log('Document-ID:', docSnapshot2.id, 'Documentdata:', docSnapshot2.data());
         return { id: docSnapshot2.id, data: docSnapshot2.data() };
       }
   
-      console.log('Chat with ID', id1+id2, 'or with ID', id2+id1, 'not found');
+      //console.log('Chat with ID', id1+id2, 'or with ID', id2+id1, 'not found');
       return null;
     } catch (error) {
       console.error('Error while retrieving chat with IDs:', error);
@@ -94,7 +94,6 @@ export class ChatService {
       //console.log('updated all chats', this.allChats);
 
       //get own Chats
-      //this.getOwnChats(uid);
       this.updateOwnChats(uid);
     });
   }
@@ -102,6 +101,7 @@ export class ChatService {
   updateOwnChats(uid: string) {
     // filter chats with uid
     const ownChats = this.allChats.filter(chat => chat.person1Id === uid || chat.person2Id === uid);
+    //console.log('update Own Chats', ownChats);
     
     // refresh ownChats in BehaviorSubject
     this.ownChatsSubject.next(ownChats);

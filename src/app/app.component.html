@@ -66,15 +66,15 @@
 
             <!-- ////////// CHAT CONTENT ////////// --> 
             <!-- removed: [routerLinkActive]="'active'" [routerLink]="['/chat']" -->
-            <div class="channel-item chat-item" *ngFor="let chat of personalChatsWithUsernamesAndPhotos"
-              [routerLink]="['/chat/dm', chat.id]" (click)="onLinkClicked()">
-              <img src="{{ chat.photo }}" alt="Profilepicture of {{ chat.partner }}">
-              <div>
-                {{ chat.partner }}
-              </div>
-              <!-- <div (click)="deleteChat(chat.id)">
-                X
-              </div> -->
+            <div *ngFor="let chat of personalChatsWithUsernamesAndPhotos"
+              [routerLink]="['/chat/dm', chat.id]" >
+              <ng-container class="channel-item chat-item" *ngIf="chat.message.length > 0"
+                (click)="onLinkClicked()">
+                <img src="{{ chat.photo }}" alt="Profilepicture of {{ chat.partner }}">
+                <div>
+                  {{ chat.partner }}
+                </div>
+              </ng-container>
             </div>
             
           </mat-expansion-panel>

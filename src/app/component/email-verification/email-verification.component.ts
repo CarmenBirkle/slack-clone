@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 import { AuthenticationService } from 'src/app/service/authentication.service';
-import { NavigationService } from 'src/app/service/navigation.service';
 
 @Component({
   selector: 'app-email-verification',
@@ -11,7 +11,8 @@ export class EmailVerificationComponent {
   verificationSended: boolean = false;
 
 
-  constructor(public authentication: AuthenticationService) { }
+  constructor(public authentication: AuthenticationService,
+    public appComponent: AppComponent) { }
 
   sendVerification() {
     this.verificationSended = true;

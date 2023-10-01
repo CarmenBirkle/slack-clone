@@ -39,8 +39,8 @@ export class AppComponent {
 
   @ViewChild(InfoComponent) infoComponent!: InfoComponent;
   allChannels: any = [];
-  //personalChats: any = [];
-  personalChats: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  personalChats: any = [];
+  //personalChats: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   currentUserId: string | undefined;
   currentUserImage: string | undefined;
   getUserInterval: any; // interval to get current signed in user
@@ -272,7 +272,8 @@ export class AppComponent {
       //this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
 
       this.chatService.ownChatsSubject.subscribe(ownChats => {
-        this.personalChats.next(ownChats);
+        //this.personalChats.next(ownChats);
+        this.personalChats = ownChats;
         console.log('All my Chats:', this.personalChats);
         this.getPersonalChatsUsernameAndPhoto();
       });
@@ -285,7 +286,7 @@ export class AppComponent {
   }
 
   async getPersonalChatsUsernameAndPhoto() {
-    /* this.personalChatsWithUsernamesAndPhotos = [];
+    this.personalChatsWithUsernamesAndPhotos = [];
 
     for (const chat of this.personalChats) {
       const otherUserId =
@@ -301,7 +302,7 @@ export class AppComponent {
         
         this.personalChatsWithUsernamesAndPhotos.push(chatWithUsername);
       }
-    } */
+    }
     //return this.personalChatsWithUsernamesAndPhotos;
   }
 

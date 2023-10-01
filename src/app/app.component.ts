@@ -40,6 +40,7 @@ export class AppComponent {
   @ViewChild(InfoComponent) infoComponent!: InfoComponent;
   allChannels: any = [];
   personalChats: any = [];
+  //personalChats: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   currentUserId: string | undefined;
   currentUserImage: string | undefined;
   getUserInterval: any; // interval to get current signed in user
@@ -269,9 +270,12 @@ export class AppComponent {
   async getPersonalChats() {
     if (this.currentUserId) {
       //this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
-      this.personalChats = new BehaviorSubject(this.chatService.ownChats);
+      this.chatService.ownChatsSubject.subscribe(ownChats => {
+        this.personalChats.next(ownChats);
+        this.getPersonalChatsUsernameAndPhoto();
+      });
 
-      //console.log('All my Chats:', this.personalChats);
+      console.log('All my Chats:', this.personalChats);
       this.getPersonalChatsUsernameAndPhoto();
     } else {
       console.log('Cannot get Chats because no UserId found!');

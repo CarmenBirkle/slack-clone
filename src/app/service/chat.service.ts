@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, getDoc, getDocs, onSnapshot, 
   setDoc } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Chat } from 'src/models/chat.class';
 
 @Injectable({
@@ -10,7 +10,8 @@ import { Chat } from 'src/models/chat.class';
 export class ChatService {
   allChats: Array<any> | undefined;
   ownChats: Array<any> | undefined;
-  private allChatsSubscription: Subscription | undefined;
+  ownChatsSubject = new BehaviorSubject<any[]>([]);
+  //private allChatsSubscription: Subscription | undefined;
   
   constructor(private firestore: Firestore) { }
 
@@ -93,11 +94,20 @@ export class ChatService {
       //console.log('updated all chats', this.allChats);
 
       //get own Chats
-      this.getOwnChats(uid);
+      //this.getOwnChats(uid);
+      this.updateOwnChats(uid);
     });
   }
 
-  getOwnChats(uid: string) {
+  updateOwnChats(uid: string) {
+    // filter chats with uid
+    const ownChats = this.allChats.filter(chat => chat.person1Id === uid || chat.person2Id === uid);
+    
+    // refresh ownChats in BehaviorSubject
+    this.ownChatsSubject.next(ownChats);
+  }
+
+  /* getOwnChats(uid: string) {
     this.ownChats = [];
 
     this.ownChats = this.allChats.filter(chat => {
@@ -106,7 +116,6 @@ export class ChatService {
   
     //console.log('Chats for UID', uid, ':', this.ownChats);
     return this.ownChats;
-  }
-
+  } */
 
 }

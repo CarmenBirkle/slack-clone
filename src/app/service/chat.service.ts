@@ -107,15 +107,4 @@ export class ChatService {
     this.ownChatsSubject.next(ownChats);
   }
 
-  /* getOwnChats(uid: string) {
-    this.ownChats = [];
-
-    this.ownChats = this.allChats.filter(chat => {
-      return chat.person1Id === uid || chat.person2Id === uid;
-    });
-  
-    //console.log('Chats for UID', uid, ':', this.ownChats);
-    return this.ownChats;
-  } */
-
 }

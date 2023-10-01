@@ -39,8 +39,8 @@ export class AppComponent {
 
   @ViewChild(InfoComponent) infoComponent!: InfoComponent;
   allChannels: any = [];
-  personalChats: any = [];
-  //personalChats: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  //personalChats: any = [];
+  personalChats: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   currentUserId: string | undefined;
   currentUserImage: string | undefined;
   getUserInterval: any; // interval to get current signed in user
@@ -270,20 +270,22 @@ export class AppComponent {
   async getPersonalChats() {
     if (this.currentUserId) {
       //this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
+
       this.chatService.ownChatsSubject.subscribe(ownChats => {
         this.personalChats.next(ownChats);
+        console.log('All my Chats:', this.personalChats);
         this.getPersonalChatsUsernameAndPhoto();
       });
 
-      console.log('All my Chats:', this.personalChats);
-      this.getPersonalChatsUsernameAndPhoto();
+      //console.log('All my Chats:', this.personalChats);
+      //this.getPersonalChatsUsernameAndPhoto();
     } else {
       console.log('Cannot get Chats because no UserId found!');
     }
   }
 
   async getPersonalChatsUsernameAndPhoto() {
-    this.personalChatsWithUsernamesAndPhotos = [];
+    /* this.personalChatsWithUsernamesAndPhotos = [];
 
     for (const chat of this.personalChats) {
       const otherUserId =
@@ -299,7 +301,7 @@ export class AppComponent {
         
         this.personalChatsWithUsernamesAndPhotos.push(chatWithUsername);
       }
-    }
+    } */
     //return this.personalChatsWithUsernamesAndPhotos;
   }
 

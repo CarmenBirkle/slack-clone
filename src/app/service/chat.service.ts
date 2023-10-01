@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, getDoc, getDocs, onSnapshot, 
-  query, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, getDocs, onSnapshot, 
+  setDoc } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { Chat } from 'src/models/chat.class';
 
@@ -104,8 +104,7 @@ export class ChatService {
       return chat.person1Id === uid || chat.person2Id === uid;
     });
   
-    // filteredChats enthält jetzt alle passenden Chats
-    console.log('Chats for UID', uid, ':', this.ownChats);
+    //console.log('Chats for UID', uid, ':', this.ownChats);
     return this.ownChats;
   }
 

@@ -14,6 +14,7 @@ import { InfoUserComponent } from './info-user/info-user.component';
 import { SharedService } from './service/shared.service';
 import { ChatService } from './service/chat.service';
 import { FirestoreUserService } from './service/firestore-user.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -268,6 +269,7 @@ export class AppComponent {
   async getPersonalChats() {
     if (this.currentUserId) {
       //this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
+      this.personalChats = new BehaviorSubject(this.chatService.ownChats);
 
       //console.log('All my Chats:', this.personalChats);
       this.getPersonalChatsUsernameAndPhoto();

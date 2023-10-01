@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, getDoc, getDocs, onSnapshot, 
   setDoc } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Chat } from 'src/models/chat.class';
 
@@ -13,13 +14,14 @@ export class ChatService {
   ownChatsSubject = new BehaviorSubject<any[]>([]);
   //private allChatsSubscription: Subscription | undefined;
   
-  constructor(private firestore: Firestore) { }
+  constructor(private firestore: Firestore,
+    private router: Router) { }
 
   async openChat(uid: string, puid: string) {
     const chat = await this.getChatWithIds(uid, puid);
 
     if(chat) {
-      console.log('open chat', chat.id);
+      this.router.navigate(['/chat/dm', chat.id]);
     } else {
       this.createChat(uid, puid);
     }

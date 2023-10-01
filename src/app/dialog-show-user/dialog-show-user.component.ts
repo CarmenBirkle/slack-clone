@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationService } from '../service/authentication.service';
 import { ChatService } from '../service/chat.service';
 
@@ -12,7 +12,8 @@ export class DialogShowUserComponent {
 
   currentUserId: string | undefined;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { user: any }, 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { user: any },
+    private dialogRef: MatDialogRef<DialogShowUserComponent>,
       private authentication: AuthenticationService,
       private chatService: ChatService) {
     this.currentUserId = this.authentication.getUserId();
@@ -21,6 +22,7 @@ export class DialogShowUserComponent {
   openChat(puid: string) {
     if(this.currentUserId) {
       this.chatService.openChat(this.currentUserId, puid);
+      this.dialogRef.close();
     } else {
       console.log('ERROR: No User logged in!');
     }

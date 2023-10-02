@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationService } from '../service/authentication.service';
 import { ChatService } from '../service/chat.service';
 import { AppComponent } from '../app.component';
+import { InfoUserComponent } from '../info-user/info-user.component';
 
 @Component({
   selector: 'app-dialog-show-user',
@@ -16,7 +17,8 @@ export class DialogShowUserComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { user: any },
     private dialogRef: MatDialogRef<DialogShowUserComponent>,
       private authentication: AuthenticationService,
-      private chatService: ChatService) {
+      private chatService: ChatService,
+      private dialog: MatDialog,) {
 
     this.currentUserId = this.authentication.getUserId();
   }
@@ -33,6 +35,10 @@ export class DialogShowUserComponent {
   openEdit(uid: string) {
     if(this.currentUserId) {
       console.log('Open Edit from User:', uid)
+      this.dialog.open(InfoUserComponent, {
+        height: '50%',
+        width: '40%',
+      });
       //this.appComponent.setStatus();
       this.dialogRef.close();
     } else {

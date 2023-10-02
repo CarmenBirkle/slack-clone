@@ -221,6 +221,7 @@ export class AppComponent {
       exitAnimationDuration,
     });
   }
+  
   setStatus() {
     this.dialog.open(InfoUserComponent, {
       height: '50%',
@@ -269,17 +270,14 @@ export class AppComponent {
 
   async getPersonalChats() {
     if (this.currentUserId) {
-      //this.personalChats = await this.chatService.getAllChatsByUserId(this.currentUserId);
 
       this.chatService.ownChatsSubject.subscribe(ownChats => {
         //this.personalChats.next(ownChats);
         this.personalChats = ownChats;
-        console.log('All my Chats:', this.personalChats);
+        //console.log('All my Chats:', this.personalChats);
         this.getPersonalChatsUsernameAndPhoto();
       });
 
-      //console.log('All my Chats:', this.personalChats);
-      //this.getPersonalChatsUsernameAndPhoto();
     } else {
       console.log('Cannot get Chats because no UserId found!');
     }
@@ -303,7 +301,6 @@ export class AppComponent {
         this.personalChatsWithUsernamesAndPhotos.push(chatWithUsername);
       }
     }
-    //return this.personalChatsWithUsernamesAndPhotos;
   }
 
 }

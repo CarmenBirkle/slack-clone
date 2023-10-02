@@ -12,7 +12,6 @@ export class ChatService {
   allChats: Array<any> | undefined;
   ownChats: Array<any> | undefined;
   ownChatsSubject = new BehaviorSubject<any[]>([]);
-  //private allChatsSubscription: Subscription | undefined;
   
   constructor(private firestore: Firestore,
     private router: Router) { }
@@ -67,25 +66,6 @@ export class ChatService {
       console.error('Error while retrieving chat with IDs:', error);
       return null;
     }
-  }
-
-  async getAllChatsByUserId(userId: string) {
-    const chatsCollection = collection(this.firestore, 'chats');
-
-    const querySnapshot = await getDocs(chatsCollection);
-    const chats: any[] = [];
-
-    querySnapshot.forEach((doc) => {
-      const docId = doc.id;
-      if (docId.startsWith(userId) || docId.endsWith(userId)) {
-        const chatData = doc.data();
-        chatData['id'] = doc.id;
-        chats.push(chatData);
-      }
-      //console.log('chat aktuallisiert!');
-    });
-   
-    return chats;
   }
 
   getAllChats(uid: string) {

@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationService } from '../service/authentication.service';
 import { ChatService } from '../service/chat.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-dialog-show-user',
@@ -16,6 +17,7 @@ export class DialogShowUserComponent {
     private dialogRef: MatDialogRef<DialogShowUserComponent>,
       private authentication: AuthenticationService,
       private chatService: ChatService) {
+
     this.currentUserId = this.authentication.getUserId();
   }
 
@@ -29,6 +31,12 @@ export class DialogShowUserComponent {
   }
 
   openEdit(uid: string) {
-    console.log('Open Edit from User:', uid)
+    if(this.currentUserId) {
+      console.log('Open Edit from User:', uid)
+      //this.appComponent.setStatus();
+      this.dialogRef.close();
+    } else {
+      console.log('ERROR: No User logged in!');
+    }
   }
 }

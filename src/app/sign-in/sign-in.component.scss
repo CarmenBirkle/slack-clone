@@ -1,7 +1,7 @@
 // import globale style
 @import "src/_globals.scss";
 
-$height-default: calc(100vh - 65px);
+$height-default: calc(100vh - 3rem); /* calc(100vh - 65px); */
 $height-logo: 40px;
 $input-font-size: 1.2rem;
 $input-padding: 12px;
@@ -29,6 +29,7 @@ a {
     max-height: 100%;
     width: calc(100vw - 17px);
     max-width: 100%;
+    padding-top: 3rem;
     background-color: $background-second;
     font-size: 18px;
 }

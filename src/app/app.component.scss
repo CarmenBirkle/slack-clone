@@ -13,11 +13,10 @@ header{
 .header-left, .header-right{
     display:flex;
     gap: 1rem;
+    align-items: center;
+
 }
 
-.header-right{
-    align-items: center;
-}
 
 .loginAvatar{
     border-radius:10px;

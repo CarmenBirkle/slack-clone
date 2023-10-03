@@ -214,10 +214,10 @@ button {
 
 }
 
-// ======== MEDIA HEIGTH ========
+/* // ======== MEDIA HEIGTH ========
 @media (max-height: 695px) {
     .input-container {
-        height: 300px;
+        height: 40vh;
         overflow-y: auto;
     }
 
@@ -233,3 +233,9 @@ button {
         margin-top: 20px;
     }
 }
+
+@media (max-height: 615px) OR ((max-height: 656px) AND (max-width: 319px)) {
+    .input-container {
+        height: 30vh;
+    }
+} */

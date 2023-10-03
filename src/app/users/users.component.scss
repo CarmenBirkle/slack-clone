@@ -5,10 +5,11 @@ $margin-width: 20px;
 $border-default: 1px solid rgba(255,255,255,0.2);
 $background-hover: #313337;
 
-// section {
-//     height: calc(100vh - 4.3rem);
-//     width: calc(100vw - 21.3rem);
-// }
+section {
+    height: calc(100vh - 60px);
+//    width: calc(100vw - 21.3rem);
+    width: 100%;
+}
 
 p {
     margin: 0;
@@ -18,7 +19,9 @@ p {
     position: absolute;
     top: 40px;
     left: 0;
-    width: calc(100vw - 21.3rem);
+    width: calc(100% - 3%);
+    //width: calc(100vw - 21.3rem);
+    max-width: 100%;
     background: $background-second;
 
     z-index: 1;
@@ -180,7 +183,7 @@ p {
     }
 }
 
-@media (max-width: 1088px) {
+/* @media (max-width: 1088px) {
     section {
         width: calc(100vw - 22.3rem);
     }
@@ -194,4 +197,4 @@ p {
     .users-fixed-container {
         width: calc(100vw - 38px);
     }
-}
+} */

@@ -194,8 +194,42 @@ button {
     }
 }
 
+// ======== MEDIA WIDTH ========
 @media (max-width: 1187px) {
     .signin-main {
         width: 100vw;
+    }
+}
+
+@media (max-width: 414px) {
+    .signin-container mat-card {
+        width: unset;
+    }
+}
+
+@media (max-width: 399px) {
+    .logo {
+        padding: 0;
+    }
+
+}
+
+// ======== MEDIA HEIGTH ========
+@media (max-height: 695px) {
+    .input-container {
+        height: 300px;
+        overflow-y: auto;
+    }
+
+    .input input {
+        width: calc(100% - 13px - 13px);
+    }
+
+    .input-pwd input{
+        width: calc(100% - 13px - 49px);
+    }
+
+    #signUpBtn {
+        margin-top: 20px;
     }
 }

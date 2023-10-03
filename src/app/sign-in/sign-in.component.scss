@@ -194,16 +194,22 @@ button {
     }
 }
 
-// ======== MEDIA WIDTH ========
+// ======== MEDIA ========
 @media (max-width: 1187px) {
     .signin-main {
         width: 100vw;
     }
 }
 
-@media (max-width: 414px) {
-    .signin-container mat-card {
-        width: unset;
+@media (max-width: 414px) OR (max-height: 686px) {
+    .signin-container {
+        gap: 0;
+
+        mat-card {
+            width: unset;
+            background-color: transparent;
+            box-shadow: unset;
+        }
     }
 }
 
@@ -211,31 +217,16 @@ button {
     .logo {
         padding: 0;
     }
-
 }
 
-/* // ======== MEDIA HEIGTH ========
-@media (max-height: 695px) {
-    .input-container {
-        height: 40vh;
-        overflow-y: auto;
-    }
-
-    .input input {
-        width: calc(100% - 13px - 13px);
-    }
-
-    .input-pwd input{
-        width: calc(100% - 13px - 49px);
-    }
-
-    #signUpBtn {
-        margin-top: 20px;
+@media (max-height: 685px) {
+    .signin-container {
+        margin-top: 0;
+        height: unset;
+        max-height: unset;
     }
 }
 
-@media (max-height: 615px) OR ((max-height: 656px) AND (max-width: 319px)) {
-    .input-container {
-        height: 30vh;
-    }
-} */
+@media (max-height: 592px) {
+    
+}

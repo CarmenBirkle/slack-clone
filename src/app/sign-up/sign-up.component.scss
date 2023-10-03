@@ -55,28 +55,14 @@ $slack-blue: #36c5f0;
     line-height: normal;
 }
 
-// ======== MEDIA HEIGTH ========
-@media (max-height: 695px) {
-    .input-container {
-        height: 40vh;
-        overflow-y: auto;
+// ======== MEDIA ========
+@media (max-height: 705px) {
+    .signin-container {
+        margin-top: 35px;
     }
 
-    .input input {
-        width: calc(100% - 13px - 13px);
-    }
-
-    .input-pwd input{
-        width: calc(100% - 13px - 49px);
-    }
-
-    #signUpBtn {
-        margin-top: 20px;
-    }
-}
-
-@media (max-height: 615px) OR ((max-height: 656px) AND (max-width: 319px)) {
-    .input-container {
-        height: 30vh;
+    .logo img {
+        position: absolute;
+        top: 5px;
     }
 }

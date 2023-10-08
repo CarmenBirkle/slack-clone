@@ -3,7 +3,7 @@
         <h1>Invite your friends to {{ appComponentContent.title }}</h1>
     </div>
 
-    <div class="">
+    <div class="input-container">
         <h3>To:</h3>
         <input #inputInviteEmail type="text" [class.input-error]="emailErrorTxt"
             (keydown)="sendInviteKey($event, inputInviteEmail.value)">

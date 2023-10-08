@@ -140,7 +140,7 @@ p {
     width: calc(100% - $margin-width - 8px);
     display: inline-flex;
     flex-wrap: wrap;
-    margin: 140px calc($margin-width - $margin-sides-users) 0 calc($margin-width - $margin-sides-users);
+    margin: 150px calc($margin-width - $margin-sides-users) 0 calc($margin-width - $margin-sides-users);
 
     > * {
         margin: $margin-sides-users;

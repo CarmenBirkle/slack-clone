@@ -103,3 +103,9 @@ input {
     padding: 0;
 }
 
+// ========= MEDIA =========
+@media screen and (max-width: 540px) {
+    section {
+        width: unset;
+    }
+}

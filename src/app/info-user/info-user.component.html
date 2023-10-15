@@ -2,22 +2,14 @@
 
     <h1>Profile</h1>
     <div class="setUser">
-   
-    <!-- <img src="{{ authentication.user?.photoURL }}"> -->
+       
 
     <img class="setImg" (click) = "changeImage()" [src]="photoUrl" alt="">
-    
         <form [formGroup]="profileForm">
-          
             <div class="form-group">
                 <label for="name">{{profileForm.get('username')?.value}}</label> <img (click)="changeName()" class="nameIcon" src="./assets/img/icons/Stift.png" alt=""><br>
                 <input [class.d-none]="!nameEditable"  input [class.is-invalid] = "profileForm.get('username')?.invalid && profileForm.get('username')?.touched" id="name" type="text" formControlName="username">
             </div> <br>
-            <div class="form-group">
-                <label for="email">{{profileForm.get('email')?.value}}</label><img (click)="changeEmail()" class="nameIcon" src="./assets/img/icons/Stift.png" alt=""><br>
-                <input  [class.d-none]="!emailEditable"  input [class.is-invalid] = "profileForm.get('email')?.invalid && profileForm.get('email')?.touched"
-                id="email" type="text" formControlName="email">
-            </div>
             <div class="form-group">
                 <button (click)="save()" [disabled]="profileForm.invalid">Save</button>
             </div>

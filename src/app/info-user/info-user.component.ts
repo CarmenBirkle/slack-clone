@@ -23,7 +23,7 @@ export class InfoUserComponent{
   userId: any = null;
   photoUrl: string = '';
   nameEditable = false
-  emailEditable = false
+  // emailEditable = false
 
   constructor(
     public firestoreUser: FirestoreUserService, 
@@ -37,7 +37,7 @@ export class InfoUserComponent{
 
   async getUser() {
     this.firestoreUser.getUser(this.userId).then( user => {
-      this.profileForm.get('email')?.setValue(user.email)
+      // this.profileForm.get('email')?.setValue(user.email)
       this.profileForm.get('username')?.setValue(user.username)
       this.photoUrl = user.photo;
       
@@ -48,9 +48,9 @@ export class InfoUserComponent{
   save(){
     if(this.profileForm.valid){
       this.firestoreUser.changeUsername(this.profileForm.get('username')?.value || '')
-      this.firestoreUser.changeEmail(this.profileForm.get('email')?.value || '')
+      // this.firestoreUser.changeEmail(this.profileForm.get('email')?.value || '')
       this.nameEditable=false;
-      this.emailEditable=false;
+      // this.emailEditable=false;
     }
   }
 
@@ -58,9 +58,9 @@ export class InfoUserComponent{
     this.nameEditable=!this.nameEditable
   }
 
-  changeEmail(){
-    this.emailEditable=!this.emailEditable
-  }
+  // changeEmail(){
+  //   this.emailEditable=!this.emailEditable
+  // }
 
   changeImage(){
     const dialogRef = this.dialog.open(ProfilepictureComponent, {

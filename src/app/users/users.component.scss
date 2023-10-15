@@ -16,7 +16,7 @@ p {
 }
 
 .users-fixed-container {
-    position: absolute;
+    // position: absolute;  //AH
     top: 40px;
     left: 0;
     width: calc(100% - $margin-width);

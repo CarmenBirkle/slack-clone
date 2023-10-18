@@ -34,7 +34,6 @@ export class DialogShowUserComponent {
 
   openEdit(uid: string) {
     if(this.currentUserId) {
-      console.log('Open Edit from User:', uid)
       this.dialog.open(InfoUserComponent, {
         height: '50%',
         width: '40%',

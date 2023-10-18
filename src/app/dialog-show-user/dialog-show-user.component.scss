@@ -5,6 +5,7 @@ $margin-sides: 20px;
 
 section {
     width: 400px;
+    max-width: 100%;
     background: $background;
     display: flex;
     flex-direction: column;
@@ -120,5 +121,67 @@ a {
 
     button {
         margin: 0 20px 10px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    section {
+        width: 100%;
+    }
+}
+
+@media screen and (max-height: 690px) {
+    section{
+        width: 100vw;
+        height: 100vh;
+        justify-content: space-between;
+    }
+
+    .user-name, .user-contact {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .btn-close {
+        margin-bottom: 20px;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            height: 60px;
+            width: 125px;
+        }
+    }
+}
+
+@media screen and (max-height: 599px) {
+    .user-photo img{
+        $photo-size: 120px;
+
+        height: $photo-size;
+        width: $photo-size;
+    }
+}
+
+@media screen and (max-height: 469px) {
+    section {
+        padding-top: 20px;
+        justify-content: space-evenly;
+    }
+
+    .user-container {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-photo, .user-name, .user-contact {
+        width: unset;
+        border-bottom: none;
+    }
+
+    .user-photo {
+        margin: 0;
     }
 }

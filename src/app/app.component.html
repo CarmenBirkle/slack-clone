@@ -1,5 +1,5 @@
 <div class="relative">
-<div class="relative" *ngIf="router.url === '/sign-up' || router.url === '/sign-in'"> <!-- authentication.user || -->
+<div class="relative" *ngIf="router.url === '/sign-up' || authentication.user">
   <img class="loader" *ngIf="loadingService.getLoadingState()" src="assets/img/slack-logo-img.png" alt="loading...">
   <header *ngIf="!logSide">
     <mat-toolbar>
@@ -99,6 +99,6 @@
 
 
 
-<!-- <div class="relative" *ngIf="!authentication.user">
+<div class="relative" *ngIf="!authentication.user && router.url != '/sign-up'">
   <app-sign-in></app-sign-in>
-</div>  -->
+</div> 

@@ -73,6 +73,7 @@ export class AppComponent {
       logo: this.logo,
       logoName: this.logoName,
     };
+    //this.goToSignIn();
   }
 
   ngOnInit(): void {
@@ -302,6 +303,15 @@ export class AppComponent {
       }
     }
   }
+
+  /* goToSignIn() {
+    if(!this.authentication.user && this.router.url != '/sign-in' && this.router.url != '/sign-up') {
+      console.log('nobody logged in. go to "/sign-in"');
+      console.log('Path:', this.router.url);
+      
+      //window.location.href = '/sign-in'
+    }
+  } */
 
 }
 

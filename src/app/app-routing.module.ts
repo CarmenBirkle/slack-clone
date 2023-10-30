@@ -13,7 +13,7 @@ import { InfoSetUpRemindersComponent } from './info-set-up-reminders/info-set-up
 import { BookmarkComponent } from './bookmark/bookmark.component';
 import { InfoDirectMessagesComponent } from './info-direct-messages/info-direct-messages.component';
 import { InfoConfigureNotificationsComponent } from './info-configure-notifications/info-configure-notifications.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+//import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -55,7 +55,7 @@ const routes: Routes = [
   { path: 'status', component: InfoStatusComponent },
   { path: 'set-up-reminders', component: InfoSetUpRemindersComponent },
   { path: 'imprint', component: InfoImprintComponent },
-  { path: 'page-not-found', component: PageNotFoundComponent },
+  //{ path: 'page-not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/page-not-found' },
 ];
 

@@ -61,6 +61,7 @@ import { InfoSetUpRemindersComponent } from './info-set-up-reminders/info-set-up
 import { InfoImprintComponent } from './info-imprint/info-imprint.component';
 import { ProfilepictureComponent } from './profilepicture/profilepicture.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { DirectMessageComponent } from './direct-message/direct-message.componen
     DialogShowUserComponent,
     ProfilepictureComponent,
     DirectMessageComponent,
+    PageNotFoundComponent,
 
   ],
   imports: [

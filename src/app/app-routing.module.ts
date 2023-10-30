@@ -13,6 +13,7 @@ import { InfoSetUpRemindersComponent } from './info-set-up-reminders/info-set-up
 import { BookmarkComponent } from './bookmark/bookmark.component';
 import { InfoDirectMessagesComponent } from './info-direct-messages/info-direct-messages.component';
 import { InfoConfigureNotificationsComponent } from './info-configure-notifications/info-configure-notifications.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -20,7 +21,7 @@ import { InfoConfigureNotificationsComponent } from './info-configure-notificati
 const routes: Routes = [
   {
     path: '',
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: WelcomeComponent,
   },
   {
@@ -28,11 +29,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: UsersComponent,
   },
-  /* {
-    path: 'chat',
-    canActivate: [AuthGuard],
-    component: ChatComponent,
-  },*/
   {
     path: 'chat/thread',
     canActivate: [AuthGuard],
@@ -50,7 +46,7 @@ const routes: Routes = [
   },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
-  //TODO: Add routes for the new components when they are changed to english
+
   { path: 'directMessages', component: InfoDirectMessagesComponent },
   {
     path: 'configureNotifications',
@@ -59,6 +55,8 @@ const routes: Routes = [
   { path: 'status', component: InfoStatusComponent },
   { path: 'set-up-reminders', component: InfoSetUpRemindersComponent },
   { path: 'imprint', component: InfoImprintComponent },
+  { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '/page-not-found' },
 ];
 
 @NgModule({

@@ -99,14 +99,15 @@ export class AppComponent {
         ) {
           console.log('drawer closed pfad');
           this.logSide = true;
-          console.log(this.logSide);
-          this.drawer.close();
+          console.log('bin ich auf loginseite',this.logSide);
+          console.log('Sidebar: ', this.isSidebarOpened);
+          // this.drawer.close();
           this.isSidebarOpened = false;
         } else {
           this.logSide = false;
           console.log('nicht auf login/up: ', this.logSide);
           if (window.innerWidth >= 768) {
-            this.drawer.open();
+            // this.drawer.open();
             this.isSidebarOpened = true;
           }
         }
@@ -209,6 +210,7 @@ export class AppComponent {
   onToggleSidebar() {
     this.drawer.toggle();
     this.isSidebarOpened = !this.isSidebarOpened;
+    console.log('isSidebarOpened', this.isSidebarOpened);
   }
 
   openDialog(

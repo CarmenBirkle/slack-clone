@@ -6,14 +6,14 @@ import { UserService } from '../service/user.service';
   templateUrl: './direct-message.component.html',
   styleUrls: ['./direct-message.component.scss'],
 })
-export class DirectMessageComponent implements OnInit {
+export class DirectMessageComponent /* implements OnInit */ {
   @Input() directMessage: any; 
 
   constructor(private userService: UserService) {}
 
-  ngOnInit(): void {
-    this.userService.loadUsers();
-  }
+  /* ngOnInit(): void {
+    //this.userService.loadUsers();
+  } */
 
   getUserName(userId: string): string {
     return this.userService.getUserName(userId);

@@ -154,6 +154,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.directMessages = [chat]; // replace the array with a new one
       }
     });
+    this.userService.loadUsers();
   }
 
   getOtherUserId(chat: Chat): string {

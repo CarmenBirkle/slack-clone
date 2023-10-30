@@ -67,7 +67,7 @@
             <!-- ////////// CHAT CONTENT ////////// --> 
             <!-- removed: [routerLinkActive]="'active'" [routerLink]="['/chat']" -->
             <div *ngFor="let chat of personalChatsWithUsernamesAndPhotos"
-              [routerLink]="['/chat/dm', chat.id]" >
+              [routerLink]="['/chat/dm', chat.id]" > 
               <div class="channel-item chat-item" *ngIf="chat.message.length > 0"
                 (click)="onLinkClicked()">
                 <img src="{{ chat.photo }}" alt="Profilepicture of {{ chat.partner }}">

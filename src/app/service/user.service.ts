@@ -19,7 +19,7 @@ export class UserService {
     });
   }
 
-  getUserName(userId: string): string {
+  getUserName(userId: string): string {    
     return this.users[userId]?.username || 'Unbekannt';
   }
 

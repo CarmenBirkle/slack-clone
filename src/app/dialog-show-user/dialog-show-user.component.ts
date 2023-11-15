@@ -4,6 +4,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { ChatService } from '../service/chat.service';
 import { AppComponent } from '../app.component';
 import { InfoUserComponent } from '../info-user/info-user.component';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 
 @Component({
   selector: 'app-dialog-show-user',
@@ -34,10 +35,11 @@ export class DialogShowUserComponent {
 
   openEdit(uid: string) {
     if(this.currentUserId) {
-      this.dialog.open(InfoUserComponent, {
+      this.dialog.open(DialogEditUserComponent, {});
+      /* this.dialog.open(InfoUserComponent, {
         height: '50%',
         width: '40%',
-      });
+      }); */
       //this.appComponent.setStatus();
       this.dialogRef.close();
     } else {

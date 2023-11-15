@@ -15,6 +15,7 @@ import { SharedService } from './service/shared.service';
 import { ChatService } from './service/chat.service';
 import { FirestoreUserService } from './service/firestore-user.service';
 import { BehaviorSubject } from 'rxjs';
+import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 
 @Component({
   selector: 'app-root',
@@ -225,11 +226,15 @@ export class AppComponent {
   }
   
   setStatus() {
-    this.dialog.open(InfoUserComponent, {
+    this.dialog.open(DialogEditUserComponent, {});
+  }
+
+  /* setStatus() {
+    this.dialog.open( InfoUserComponent, {
       height: '50%',
       width: '40%',
     });
-  }
+  } */
 
   getCurrentUserId() {
     // interval to check if user is signed in

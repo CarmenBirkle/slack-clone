@@ -1,7 +1,21 @@
 <section>
     <div class="main">
-        <div>
-            <img src="" alt="">
+        <div *ngIf="currentUser$ | async as user">
+            <img class="user-photo" src="{{user.photo}}" alt="{{user.username}} profil picture">
+            <div>
+                <div class="">
+                    <span>{{user.username}}</span>
+                    <img src="/assets/img/icons/pencil.png" alt="edit icon">
+                </div>
+
+                <div>
+                    <span>{{user.email}}</span>
+                    <img src="/assets/img/icons/pencil.png" alt="edit icon">
+                </div>
+
+                <span>change Password</span>
+
+            </div>
         </div>
     </div>
 </section>

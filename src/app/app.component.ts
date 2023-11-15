@@ -226,7 +226,9 @@ export class AppComponent {
   }
   
   setStatus() {
-    this.dialog.open(DialogEditUserComponent, {});
+    this.dialog.open(DialogEditUserComponent, {
+      data: {currentUserId: this.currentUserId},
+    });
   }
 
   /* setStatus() {

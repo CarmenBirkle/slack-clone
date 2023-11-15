@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FirestoreUserService } from '../service/firestore-user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -9,13 +12,16 @@ import { AuthenticationService } from '../service/authentication.service';
 export class DialogEditUserComponent {
 
   currentUserId: string;
-  
+  currentUser$: Promise<any>;
 
-  constructor(authentication: AuthenticationService) {
-    this.currentUserId = authentication.getUserId();
-
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any,
+    public firestoreUserService: FirestoreUserService) {
+    this.currentUserId = data.currentUserId;
+    this.currentUser$ = firestoreUserService.getUser(this.currentUserId);
+    console.log('current User:', this.currentUser$);
+    
   }
 
-
+  
 
 }

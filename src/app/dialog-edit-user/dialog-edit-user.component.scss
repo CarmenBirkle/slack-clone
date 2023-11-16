@@ -4,14 +4,38 @@
 // import dialog-show-user
 @import "src/app/dialog-show-user/dialog-show-user.component.scss";
 
-.user-name {
-    padding-bottom: 0;
+h2 {
+    margin: 0;
+}
+
+input {
+    padding: 5px 10px;
+    background: none;
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: 65%;
+    font-size: 18px;
+    color: white;
+}
+
+.user-photo img {
+    $photo-size: 200px;
+
+    height: $photo-size;
+    width: $photo-size;
+    margin-bottom: 20px;
 }
 
 .username-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.error-username {
+    height: 16px;
+    width: 100%;
+    color: $color-error;
 }
 
 .btn-edit {
@@ -24,6 +48,7 @@
 }
 
 .password {
+    font-size: 18px;
     color: $color-logo-blue;
     cursor: pointer;
 

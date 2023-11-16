@@ -13,6 +13,7 @@ export class DialogEditUserComponent {
 
   currentUserId: string;
   currentUser$: Promise<any>;
+  isUsernameEditVisible = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
     public firestoreUserService: FirestoreUserService) {
@@ -23,6 +24,16 @@ export class DialogEditUserComponent {
   getUser() {
     this.currentUser$ = this.firestoreUserService.getUser(this.currentUserId);
     console.log('current User:', this.currentUser$);
+  }
+
+  toggleUsernameEdit() {
+    this.isUsernameEditVisible = !this.isUsernameEditVisible;
+  }
+
+  saveUsername() {
+    // push to firestore
+
+    this.toggleUsernameEdit();
   }
 
 }

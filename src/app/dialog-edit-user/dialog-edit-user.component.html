@@ -5,16 +5,28 @@
         </div>
   
         <div class="user-name">
-          <div class="username-container">
+          <div #usernameContainer class="username-container" [ngClass]="{'d-none': isUsernameEditVisible}">
               <h2>{{ user.username }}</h2>
-              <button mat-button class="btn-edit btn-message">
+              <button mat-button class="btn-edit btn-message" (click)="toggleUsernameEdit()">
                 <span>
                   <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
                   Edit
                 </span>
               </button>
           </div>
-          <h2 class="password">Change Password</h2>
+
+          <div #usernameEditContainer class="username-container" [ngClass]="{'d-none': !isUsernameEditVisible}">
+            <input [(ngModel)]="user.username">
+            <button mat-button class="btn-edit btn-message" (click)="toggleUsernameEdit()">
+              <span>
+                <img src="assets/img/icons/save.png" alt="Save Icon">
+                Save
+              </span>
+            </button>
+        </div>
+
+          <div #errorUsername class="error-username"></div>
+          <a class="password">Change Password</a>
         </div>
   
         <div class="user-contact">
@@ -23,7 +35,6 @@
             <img src="assets/img/icons/mail.png" alt="Email Icon" class="noselect">
             <div class="email-address-and-btn">
                 {{ user.email }}
-
                 <button mat-button class="btn-edit btn-message">
                 <span>
                     <img src="assets/img/icons/pencil.png" alt="Pencil Icon">

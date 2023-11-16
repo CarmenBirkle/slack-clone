@@ -1,21 +1,40 @@
 <section>
-    <div class="main">
-        <div *ngIf="currentUser$ | async as user">
-            <img class="user-photo" src="{{user.photo}}" alt="{{user.username}} profil picture">
-            <div>
-                <div class="">
-                    <span>{{user.username}}</span>
-                    <img src="/assets/img/icons/pencil.png" alt="edit icon">
-                </div>
+    <div class="user-container" *ngIf="currentUser$ | async as user">
+        <div class="user-photo">
+          <img src="{{ user.photo }}" alt="{{ user.username }} Profile Picture">
+        </div>
+  
+        <div class="user-name">
+          <div class="username-container">
+              <h2>{{ user.username }}</h2>
+              <button mat-button class="btn-edit btn-message">
+                <span>
+                  <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
+                  Edit
+                </span>
+              </button>
+          </div>
+          <h2 class="password">Change Password</h2>
+        </div>
+  
+        <div class="user-contact">
+          <h2>Contact information</h2>
+          <div class="email-container">
+            <img src="assets/img/icons/mail.png" alt="Email Icon" class="noselect">
+            <div class="email-address-and-btn">
+                {{ user.email }}
 
-                <div>
-                    <span>{{user.email}}</span>
-                    <img src="/assets/img/icons/pencil.png" alt="edit icon">
-                </div>
-
-                <span>change Password</span>
-
+                <button mat-button class="btn-edit btn-message">
+                <span>
+                    <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
+                    Edit
+                </span>
+                </button>
             </div>
+          </div>
         </div>
     </div>
-</section>
+    <div mat-dialog-actions class="btn-close">
+      <button mat-button mat-dialog-close>Close</button>
+    </div>
+  </section>

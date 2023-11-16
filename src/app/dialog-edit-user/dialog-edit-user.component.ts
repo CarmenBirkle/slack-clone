@@ -17,11 +17,12 @@ export class DialogEditUserComponent {
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
     public firestoreUserService: FirestoreUserService) {
     this.currentUserId = data.currentUserId;
-    this.currentUser$ = firestoreUserService.getUser(this.currentUserId);
-    console.log('current User:', this.currentUser$);
-    
+    this.getUser();
   }
 
-  
+  getUser() {
+    this.currentUser$ = this.firestoreUserService.getUser(this.currentUserId);
+    console.log('current User:', this.currentUser$);
+  }
 
 }

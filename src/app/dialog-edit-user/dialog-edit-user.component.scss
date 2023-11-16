@@ -1,16 +1,40 @@
 // import globale style
 @import "src/_globals.scss";
 
-section {
-    width: 400px;
-    max-width: 100%;
-    background: $background;
+// import dialog-show-user
+@import "src/app/dialog-show-user/dialog-show-user.component.scss";
+
+.user-name {
+    padding-bottom: 0;
+}
+
+.username-container {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 }
 
-.user-photo {
-    height: 10rem;
-    border-radius: 10%;
+.btn-edit {
+    width: 80px;
+    height: 25px;
+
+    img {
+        height: 15px;
+    }
+}
+
+.password {
+    color: $color-logo-blue;
+    cursor: pointer;
+
+    &:hover {
+        color: $color-info;
+    }
+}
+
+.email-address-and-btn {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row !important;
 }

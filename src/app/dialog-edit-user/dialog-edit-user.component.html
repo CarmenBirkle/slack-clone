@@ -17,7 +17,7 @@
 
           <div #usernameEditContainer class="username-container" [ngClass]="{'d-none': !isUsernameEditVisible}">
             <input [(ngModel)]="user.username">
-            <button mat-button class="btn-edit btn-message" (click)="toggleUsernameEdit()">
+            <button mat-button class="btn-edit btn-message" (click)="saveUsername(user.username)">
               <span>
                 <img src="assets/img/icons/save.png" alt="Save Icon">
                 Save

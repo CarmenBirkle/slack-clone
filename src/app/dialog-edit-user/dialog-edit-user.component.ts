@@ -30,8 +30,12 @@ export class DialogEditUserComponent {
     this.isUsernameEditVisible = !this.isUsernameEditVisible;
   }
 
-  saveUsername() {
+  saveUsername(newUsername) {
+    // validate input
+    console.log('new Username:', newUsername);
+
     // push to firestore
+    //this.firestoreUserService.changeUsername(input);
 
     this.toggleUsernameEdit();
   }

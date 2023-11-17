@@ -59,22 +59,16 @@ export class FirestoreUserService {
     });
   }
 
-  async getAllUsers() { //loadedUsers: number, numNewLoadedUsers: number
+  async getAllUsers() {
     try {
       const usersRef = collection(this.firestore, 'users');
-      const q = query(usersRef, orderBy('username')); //limit(loadedUsers + numNewLoadedUsers)
+      const q = query(usersRef, orderBy('username'));
   
       const snapshot = await getDocs(q);
   
       const users: any = [];
   
-      // Skip loaded Users
-      // let skipCount = 0;
       snapshot.forEach((doc) => {
-        /* if (skipCount < loadedUsers) {
-          skipCount++;
-          return;
-        } */
   
         const userData = doc.data();
         const userId = doc.id;

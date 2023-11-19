@@ -16,10 +16,11 @@
           </button>
       </div>
 
-      <!-- ========== EDIT PASSWORD ========== -->
+      <!-- ========== EDIT USERNAME ========== -->
       <div #usernameEditContainer class="username-container" [ngClass]="{'d-none': !isUsernameEditVisible}">
-        <input [(ngModel)]="currentUser.username">
-        <button mat-button class="btn-edit btn-message" (click)="saveUsername(currentUser.username)">
+        <input [(ngModel)]="currentUser.username" (keydown)="saveUsernameKey($event)">
+        <button id="saveUsername" mat-button class="btn-edit btn-message" 
+          (click)="saveUsername(currentUser.username)">
           <span>
             <img src="assets/img/icons/save.png" alt="Save Icon">
             Save
@@ -59,20 +60,37 @@
     
     <span>Current Password</span>
     <div class="input-pwd">
-      <input type="password" #currentPassword required maxlength="30" (keydown)="savePasswordKey($event)">
-      <img class="noselect" [src]="currentPwdImg" (click)="toggleShowPwd()">
+      <input type="{{ passwordFieldTypes.current }}" #currentPwd required maxlength="30" (keydown)="savePasswordKey($event)">
+      <img class="noselect" [src]="passwordFieldTypes.current === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('current')">
+    </div>
+
+    <span>New Password</span>
+    <div class="input-pwd">
+      <input type="{{ passwordFieldTypes.new }}" #newPwd required maxlength="30" (keydown)="savePasswordKey($event)">
+      <img class="noselect" [src]="passwordFieldTypes.new === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('new')">
+    </div>
+    
+    <span>Repeat new Password</span>
+    <div class="input-pwd">
+      <input type="{{ passwordFieldTypes.repeat }}" #newPwdRepeat required maxlength="30" (keydown)="savePasswordKey($event)">
+      <img class="noselect" [src]="passwordFieldTypes.repeat === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('repeat')">
+    </div>
+
+    <div class="error-pwd-container">
+      <span>test</span>
     </div>
 
   </div>
   <!-- ==================== -->
 
-  <!-- ToDo: LOGG OUT BTN -->
-
   <div mat-dialog-actions class="btn-close">
 
     <div class="">
+      <button *ngIf="!isPwdEditVisible">Logout</button>
+
       <button mat-button class="btn-bottom" *ngIf="isPwdEditVisible"
-        id="savePwd"(click)="savePwd(currentUser.password)">
+        id="savePwd" > <!-- (click)="savePwd(currentPwd.value)" -->
+
         <span>
           <img src="assets/img/icons/save.png" alt="Save Icon">
           Save

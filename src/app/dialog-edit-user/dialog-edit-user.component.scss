@@ -47,7 +47,7 @@ button {
 
 .btn-edit {
     width: 80px;
-    height: 25px;
+    height: 30px;
 
     /* img {
         height: 15px;
@@ -99,7 +99,8 @@ button {
 
     input {
         width: calc(100% - $input-padding - 48px);
-        padding-right: 48px
+        padding-right: 48px;
+        margin-bottom: 15px;
     }
 
     img {
@@ -113,4 +114,9 @@ button {
 
         cursor: pointer;
     }
+}
+
+.error-pwd-container {
+    color: $color-error !important;
+    margin-bottom: 15px;
 }

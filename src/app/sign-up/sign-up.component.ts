@@ -11,10 +11,6 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-  // email: max@mustermann.de
-  // username: MusterMax
-  // uid: "BDFNy8NT4GOD7rFa5aIuNsL1Kr82"
-  // pwd: test123
 
   @ViewChild('passwordSignUp') pwdField: ElementRef<HTMLInputElement>;
   @ViewChild('passwordRepeat') pwdRepeatField: ElementRef<HTMLInputElement>;

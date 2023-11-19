@@ -21,9 +21,12 @@ export class DialogEditUserComponent {
 
   pwdShow = 'assets/img/icons/eye.png';
   pwdHide = 'assets/img/icons/eye-crossed-out.png';
-  currentPwdImg: any =this.pwdShow
-  pwdImg: any = this.pwdShow;
-  pwdRepeatImg: any = this.pwdShow;
+  passwordFieldTypes = {
+    current: 'password',
+    new: 'password',
+    repeat: 'password'
+  };
+
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
     public firestoreUserService: FirestoreUserService,
@@ -118,14 +121,23 @@ export class DialogEditUserComponent {
     }
   }
 
-  savePwd(newPwd) {
-    console.log('old Password:', this.currentUser.password);
-    console.log('new Password:', newPwd);
+  saveUsernameKey(event: KeyboardEvent) {
+    const saveUsername = document.getElementById('saveUsername')
+
+    if (event.key === "Enter" && saveUsername) {
+      saveUsername.click();
+    }
+  }
+
+  savePwd(currentPwd: string) { //newPwd: string, repeatPwd: string
+    console.log('Current Password:', currentPwd);
+    /* console.log('New Password:', newPwd);
+    console.log('Repeat Password:', repeatPwd); */
     
   }
 
-  toggleShowPwd() {
-    
+  toggleShowPwd(field: string) {
+    this.passwordFieldTypes[field] = this.passwordFieldTypes[field] === 'password' ? 'text' : 'password';
   }
 
 }

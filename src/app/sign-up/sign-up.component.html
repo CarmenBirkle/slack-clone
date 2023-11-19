@@ -37,7 +37,7 @@
 
                     <div class="input input-pwd" [class.errorBorder]="errorPwdRepeat">
                         <input type="password" #passwordRepeat required maxlength="30" [disabled]="loading"
-                            (keydown)="signUpKey($event)" (select)="onSelect($event)"> <!-- (focusout)="valPwdRepeat(passwordSignUp.value, passwordRepeat.value)" -->
+                            (keydown)="signUpKey($event)" (select)="onSelect($event)">
                         <span>repeat Password</span>
                         <img class="noselect" [class.show-pwd]="!loading"
                         (click)="!loading ? toggleShowPwd(true) : false" [src]="pwdRepeatImg">

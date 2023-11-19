@@ -1,52 +1,85 @@
 <section>
-    <div class="user-container" *ngIf="currentUser"> <!--  | async as user" -->
-        <div class="user-photo">
-          <img src="{{ currentUser.photo }}" alt="{{ currentUser.username }} Profile Picture">
-        </div>
-  
-        <div class="user-name">
-          <div #usernameContainer class="username-container" [ngClass]="{'d-none': isUsernameEditVisible}">
-              <h2>{{ currentUser.username }}</h2>
-              <button mat-button class="btn-edit btn-message" *ngIf="!currentUser.guest"
-                (click)="toggleUsernameEdit()">
-                <span>
-                  <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
-                  Edit
-                </span>
-              </button>
-          </div>
+  <div class="user-container" *ngIf="currentUser && !isPwdEditVisible">
+    <div class="user-photo">
+      <img src="{{ currentUser.photo }}" alt="{{ currentUser.username }} Profile Picture">
+    </div>
 
-          <div #usernameEditContainer class="username-container" [ngClass]="{'d-none': !isUsernameEditVisible}">
-            <input [(ngModel)]="currentUser.username">
-            <button mat-button class="btn-edit btn-message" (click)="saveUsername(currentUser.username)">
-              <span>
-                <img src="assets/img/icons/save.png" alt="Save Icon">
-                Save
-              </span>
+    <div class="user-name">
+      <div #usernameContainer class="username-container" [ngClass]="{'d-none': isUsernameEditVisible}">
+          <h2>{{ currentUser.username }}</h2>
+          <button mat-button class="btn-edit btn-message" *ngIf="!currentUser.guest"
+            (click)="toggleUsernameEdit()">
+            <span>
+              <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
+              Edit
+            </span>
+          </button>
+      </div>
+
+      <!-- ========== EDIT PASSWORD ========== -->
+      <div #usernameEditContainer class="username-container" [ngClass]="{'d-none': !isUsernameEditVisible}">
+        <input [(ngModel)]="currentUser.username">
+        <button mat-button class="btn-edit btn-message" (click)="saveUsername(currentUser.username)">
+          <span>
+            <img src="assets/img/icons/save.png" alt="Save Icon">
+            Save
+          </span>
+        </button>
+      </div>
+      <!-- ==================== -->
+
+      <div class="error" *ngIf="!currentUser.guest"><span>{{ errorNameTxt }}</span></div>
+      
+      <a class="password" *ngIf="!currentUser.guest" (click)="togglePwdEdit()">
+        Change Password
+      </a>
+    </div>
+
+    <div class="user-contact">
+      <h2>Contact information</h2>
+      <div class="email-container">
+        <img src="assets/img/icons/mail.png" alt="Email Icon" class="noselect">
+        <div class="email-address-and-btn">
+            {{ currentUser.email }}
+            <button mat-button class="btn-edit btn-message" *ngIf="!currentUser.guest">
+            <span>
+                <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
+                Edit
+            </span>
             </button>
         </div>
+      </div>
+    </div>
+  </div>
 
-          <div class="error" *ngIf="!currentUser.guest"><span>{{ errorNameTxt }}</span></div>
-          <a class="password" *ngIf="!currentUser.guest">Change Password</a>
-        </div>
-  
-        <div class="user-contact">
-          <h2>Contact information</h2>
-          <div class="email-container">
-            <img src="assets/img/icons/mail.png" alt="Email Icon" class="noselect">
-            <div class="email-address-and-btn">
-                {{ currentUser.email }}
-                <button mat-button class="btn-edit btn-message" *ngIf="!currentUser.guest">
-                <span>
-                    <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
-                    Edit
-                </span>
-                </button>
-            </div>
-          </div>
-        </div>
+  <!-- ========== EDIT PASSWORD ========== -->
+  <div class="user-container edit-overlay" *ngIf="isPwdEditVisible">
+
+    <h1>Change Password</h1>
+    
+    <span>Current Password</span>
+    <div class="input-pwd">
+      <input type="password" #currentPassword required maxlength="30" (keydown)="savePasswordKey($event)">
+      <img class="noselect" [src]="currentPwdImg" (click)="toggleShowPwd()">
     </div>
-    <div mat-dialog-actions class="btn-close">
-      <button mat-button mat-dialog-close>Close</button>
+
+  </div>
+  <!-- ==================== -->
+
+  <!-- ToDo: LOGG OUT BTN -->
+
+  <div mat-dialog-actions class="btn-close">
+
+    <div class="">
+      <button mat-button class="btn-bottom" *ngIf="isPwdEditVisible"
+        id="savePwd"(click)="savePwd(currentUser.password)">
+        <span>
+          <img src="assets/img/icons/save.png" alt="Save Icon">
+          Save
+        </span>
+      </button>
     </div>
-  </section>
+
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</section>

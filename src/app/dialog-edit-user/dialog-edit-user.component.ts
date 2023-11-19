@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FirestoreUserService } from '../service/firestore-user.service';
 import { FormValidationService } from '../service/form-validation.service';
@@ -11,13 +11,19 @@ import { FormValidationService } from '../service/form-validation.service';
 export class DialogEditUserComponent {
 
   currentUserId: string;
-  //currentUser$: Promise<any>;
   currentUser: any;
 
   isUsernameEditVisible = false;
+  isPwdEditVisible = false;
 
   errorUsername: boolean = false;
   errorNameTxt: string = '';
+
+  pwdShow = 'assets/img/icons/eye.png';
+  pwdHide = 'assets/img/icons/eye-crossed-out.png';
+  currentPwdImg: any =this.pwdShow
+  pwdImg: any = this.pwdShow;
+  pwdRepeatImg: any = this.pwdShow;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
     public firestoreUserService: FirestoreUserService,
@@ -36,6 +42,12 @@ export class DialogEditUserComponent {
     });
   }
 
+  onSelect(event: Event) {
+    event.preventDefault();
+    window.getSelection()?.removeAllRanges();
+  }
+
+  // ========== USERNAME ==========
   toggleUsernameEdit() {
     this.isUsernameEditVisible = !this.isUsernameEditVisible;
   }
@@ -48,6 +60,7 @@ export class DialogEditUserComponent {
       if(usernameOk){
         
         if(!this.errorUsername && !this.currentUser.guest) {
+          // write change to database
           this.firestoreUserService.changeUsername(newUsername);
         }
         this.toggleUsernameEdit();
@@ -84,6 +97,35 @@ export class DialogEditUserComponent {
 
     this.errorUsername = true;
     return false;
+  }
+
+  // ========== PASSWORD ==========
+  togglePwdEdit() {
+    this.isPwdEditVisible = !this.isPwdEditVisible;
+
+    /* if(this.isPwdEditVisible) {
+      this.pwdField = {} as ElementRef<HTMLInputElement>;
+      this.pwdRepeatField = {} as ElementRef<HTMLInputElement>;
+    } */
+  }
+
+
+  savePasswordKey(event: KeyboardEvent) {
+    const savePwd = document.getElementById('savePwd');
+
+    if (event.key === "Enter" && savePwd) {
+      savePwd.click();
+    }
+  }
+
+  savePwd(newPwd) {
+    console.log('old Password:', this.currentUser.password);
+    console.log('new Password:', newPwd);
+    
+  }
+
+  toggleShowPwd() {
+    
   }
 
 }

@@ -32,10 +32,11 @@ input {
     align-items: center;
 }
 
-.error-username {
-    height: 16px;
+.error {
+    //height: 1.2rem;
     width: 100%;
-    color: $color-error;
+    margin-bottom: 1rem;
+    color: $color-error !important;
 }
 
 .btn-edit {

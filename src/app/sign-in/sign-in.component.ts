@@ -48,6 +48,10 @@ export class SignInComponent {
     this.signIn('test-echosphere@trash-mail.com', 'test1234%');
   }
 
+  signInTest() {
+    this.signIn('stan.loretta@re-gister.com', 'x$75Urzm-=');
+  }
+
   toggleShowPwd() {
     this.pwdVisible = !this.pwdVisible;
     this.pwdField.nativeElement.type = this.pwdVisible ? 'text' : 'password';

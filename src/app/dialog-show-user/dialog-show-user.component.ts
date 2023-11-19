@@ -35,11 +35,14 @@ export class DialogShowUserComponent {
 
   openEdit(uid: string) {
     if(this.currentUserId) {
-      this.dialog.open(DialogEditUserComponent, {});
+      this.dialog.open(DialogEditUserComponent, {
+        data: {currentUserId: this.currentUserId},
+      });
       /* this.dialog.open(InfoUserComponent, {
         height: '50%',
         width: '40%',
       }); */
+
       //this.appComponent.setStatus();
       this.dialogRef.close();
     } else {

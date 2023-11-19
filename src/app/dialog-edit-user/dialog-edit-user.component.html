@@ -1,13 +1,14 @@
 <section>
-    <div class="user-container" *ngIf="currentUser$ | async as user">
+    <div class="user-container" *ngIf="currentUser"> <!--  | async as user" -->
         <div class="user-photo">
-          <img src="{{ user.photo }}" alt="{{ user.username }} Profile Picture">
+          <img src="{{ currentUser.photo }}" alt="{{ currentUser.username }} Profile Picture">
         </div>
   
         <div class="user-name">
           <div #usernameContainer class="username-container" [ngClass]="{'d-none': isUsernameEditVisible}">
-              <h2>{{ user.username }}</h2>
-              <button mat-button class="btn-edit btn-message" (click)="toggleUsernameEdit()">
+              <h2>{{ currentUser.username }}</h2>
+              <button mat-button class="btn-edit btn-message" *ngIf="!currentUser.guest"
+                (click)="toggleUsernameEdit()">
                 <span>
                   <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
                   Edit
@@ -16,8 +17,8 @@
           </div>
 
           <div #usernameEditContainer class="username-container" [ngClass]="{'d-none': !isUsernameEditVisible}">
-            <input [(ngModel)]="user.username">
-            <button mat-button class="btn-edit btn-message" (click)="saveUsername(user.username)">
+            <input [(ngModel)]="currentUser.username">
+            <button mat-button class="btn-edit btn-message" (click)="saveUsername(currentUser.username)">
               <span>
                 <img src="assets/img/icons/save.png" alt="Save Icon">
                 Save
@@ -25,8 +26,8 @@
             </button>
         </div>
 
-          <div #errorUsername class="error-username"></div>
-          <a class="password">Change Password</a>
+          <div class="error" *ngIf="!currentUser.guest"><span>{{ errorNameTxt }}</span></div>
+          <a class="password" *ngIf="!currentUser.guest">Change Password</a>
         </div>
   
         <div class="user-contact">
@@ -34,8 +35,8 @@
           <div class="email-container">
             <img src="assets/img/icons/mail.png" alt="Email Icon" class="noselect">
             <div class="email-address-and-btn">
-                {{ user.email }}
-                <button mat-button class="btn-edit btn-message">
+                {{ currentUser.email }}
+                <button mat-button class="btn-edit btn-message" *ngIf="!currentUser.guest">
                 <span>
                     <img src="assets/img/icons/pencil.png" alt="Pencil Icon">
                     Edit

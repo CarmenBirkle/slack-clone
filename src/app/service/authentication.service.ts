@@ -172,39 +172,35 @@ export class AuthenticationService {
     }
   }
 
-  /* async changePassword(oldPassword: string, newPassword: string) {
-    // const auth = getAuth();
-    // const user: any = auth.currentUser;
+  async changePassword(oldPassword: string, newPassword:string) {
     const user: any = this.user;
 
-    if (user) {
-      try {
-        await updatePassword(user, newPassword);
-      } catch (error: any) {
-        if (error.code === 'auth/requires-recent-login') {
-          try {
-            // Reauthenticate the user with their current credentials
-            const emailCredential = EmailAuthProvider.credential(user.email, oldPassword);
-            await reauthenticateWithCredential(user, emailCredential);
-            
-            // Update password again
-            await updatePassword(user, newPassword);
-          } catch (error) {
-            console.log('Error changing password:', error);
-          }
-        } else {
-          console.log('Error changing password:', error);
-        }
-      }
-    } else {
+    if (!user) {
       console.log('User is not signed in');
+      return false; // Exit the function if the user is not logged in
     }
-  } */
 
-  async changePassword(oldPassword: string, newPassword:string) {
-    
+    try {
+      // Reauthenticate the user with their current credentials
+      const emailCredential = EmailAuthProvider.credential(user.email, oldPassword);
+      await reauthenticateWithCredential(user, emailCredential);
+
+      // Update password
+      await updatePassword(user, newPassword);
+      //console.log('Password change successful');
+      this.errorMsg = null;
+      return true;
+    } catch (error: any) {
+      //console.log('Error changing password:', error);
+      this.errorMsg = 'Error changing password: ' + error;
+      if (error.code === 'auth/wrong-password') {
+        //console.log('Wrong password entered for reauthentication');
+        this.errorMsg = 'Wrong current password entered!';
+      }
+    }
+
+    return false;
   }
-  
   
 
 }

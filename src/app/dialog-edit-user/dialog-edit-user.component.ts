@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FirestoreUserService } from '../service/firestore-user.service';
 import { FormValidationService } from '../service/form-validation.service';
@@ -16,6 +16,7 @@ export class DialogEditUserComponent {
 
   isUsernameEditVisible = false;
   isPwdEditVisible = false;
+  isEmailEditVisible = false;
 
   errorUsername: boolean = false;
   errorNameTxt: string = '';
@@ -30,9 +31,12 @@ export class DialogEditUserComponent {
   currentPwdValue: string;
   newPwdValue: string;
   repeatPwdValue: string;
-
+  pwdChangeSuccess: boolean = false;
   errorPwdTxt: string = '';
-  errorPwd: boolean = false;
+  loadingPwd: boolean = false;
+
+  emailPwdValue: string;
+  loadingEmail: boolean = false;
 
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
@@ -56,6 +60,10 @@ export class DialogEditUserComponent {
   onSelect(event: Event) {
     event.preventDefault();
     window.getSelection()?.removeAllRanges();
+  }
+
+  logout() {
+    this.authentication.signout();
   }
 
   // ========== USERNAME ==========
@@ -133,18 +141,26 @@ export class DialogEditUserComponent {
   }
 
   async savePwd() { //newPwd: string, repeatPwd: string
-    console.log('Current Password:', this.currentPwdValue);
-    console.log('New Password:', this.newPwdValue);
-    console.log('Repeat Password:', this.repeatPwdValue);
+    this.loadingPwd = true;
     
     if(this.valPwd()) {
       if(this.valPwdRepeat()) {
-        debugger;
-        await this.authentication.changePassword(this.currentPwdValue, this.newPwdValue);
+        const success = await this.authentication.changePassword(this.currentPwdValue, this.newPwdValue);
+        
+        if(success) {
+          //console.log('Password change successful');
+          this.errorPwdTxt = '';
+          this.pwdChangeSuccess = true;
+          setTimeout(() => {
+            this.pwdChangeSuccess = false;
+            this.togglePwdEdit();
+          }, 5000);
+        } else {
+          this.errorPwdTxt = this.authentication.errorMsg;
+        }
       }
     }
-
-    console.log('errors:', this.errorPwd); 
+    this.loadingPwd = false;
   }
 
   toggleShowPwd(field: string) {
@@ -163,24 +179,34 @@ export class DialogEditUserComponent {
         uppercase, lowercase, numbers, special characters`;
     } else {
       this.errorPwdTxt = '';
-      this.errorPwd = false;
       return true;
     }
 
-    this.errorPwd = true;
     return false;
   }
 
   valPwdRepeat() {
     if(this.newPwdValue != this.repeatPwdValue) {
       this.errorPwdTxt = `New Passwords doesn't match.`;
-      this.errorPwd = true;
       return false;
     } else {
       this.errorPwdTxt = '';
-      this.errorPwd = false;
       return true;
     }
+  }
+
+  // ========== EMAIL ==========
+
+  saveEmailKey(event: KeyboardEvent) {
+    const saveEmail = document.getElementById('saveEmail');
+
+    if (event.key === "Enter" && saveEmail) {
+      saveEmail.click();
+    }
+  }
+
+  saveEmail() {
+
   }
 
 }

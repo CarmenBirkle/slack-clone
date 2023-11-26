@@ -49,7 +49,7 @@ export class SignInComponent {
   }
 
   signInTest() {
-    this.signIn('stan.loretta@re-gister.com', 'x$75Urzm-=');
+    this.signIn('stan.loretta@re-gister.com', 'x$75Urzm-='); // x$75Urzm-= | Test123!
   }
 
   toggleShowPwd() {

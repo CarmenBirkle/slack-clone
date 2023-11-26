@@ -61,26 +61,58 @@
     <span>Current Password</span>
     <div class="input-pwd">
       <input type="{{ passwordFieldTypes.current }}" #currentPwd="ngModel" required maxlength="30" 
-        (keydown)="savePasswordKey($event)" [(ngModel)]="currentPwdValue">
+        (keydown)="savePasswordKey($event)" [(ngModel)]="currentPwdValue" [disabled]="loadingPwd">
       <img class="noselect" [src]="passwordFieldTypes.current === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('current')">
     </div>
 
     <span>New Password</span>
     <div class="input-pwd">
       <input type="{{ passwordFieldTypes.new }}" #newPwd="ngModel" required maxlength="30" 
-        (keydown)="savePasswordKey($event)" [(ngModel)]="newPwdValue">
+        (keydown)="savePasswordKey($event)" [(ngModel)]="newPwdValue" [disabled]="loadingPwd">
       <img class="noselect" [src]="passwordFieldTypes.new === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('new')">
     </div>
     
     <span>Repeat new Password</span>
     <div class="input-pwd">
       <input type="{{ passwordFieldTypes.repeat }}" #newPwdRepeat="ngModel" required maxlength="30" 
-        (keydown)="savePasswordKey($event)" [(ngModel)]="repeatPwdValue">
+        (keydown)="savePasswordKey($event)" [(ngModel)]="repeatPwdValue" [disabled]="loadingPwd">
       <img class="noselect" [src]="passwordFieldTypes.repeat === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('repeat')">
     </div>
 
     <div class="error-pwd-container">
       <span>{{ errorPwdTxt }}</span>
+    </div>
+
+    <div class="pwd-changed" [class.d-none]="!pwdChangeSuccess">
+      Password changed
+    </div>
+
+  </div>
+
+  <!-- ========== EDIT EMAIL ========== -->
+  <div class="user-container edit-overlay" *ngIf="isPwdEditVisible">
+
+    <h1>Change Email</h1>
+    
+    <span>New Email address</span>
+    <input type="text" (keydown)="saveEmailKey($event)">
+
+    <span>Repeat Email address</span>
+    <input type="text" (keydown)="saveEmailKey($event)">
+    
+    <span>Password</span>
+    <div class="input-pwd">
+      <input type="{{ passwordFieldTypes.repeat }}" #emailPwd="ngModel" required
+        (keydown)="saveEmailKey($event)" [(ngModel)]="emailPwdValue" [disabled]="loadingEmail">
+      <img class="noselect" [src]="passwordFieldTypes.current === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('repeat')">
+    </div>
+
+    <div class="error-pwd-container">
+      <span>{{ errorPwdTxt }}</span>
+    </div>
+
+    <div class="pwd-changed" [class.d-none]="!pwdChangeSuccess">
+      Password changed
     </div>
 
   </div>
@@ -89,18 +121,33 @@
   <div mat-dialog-actions class="btn-close">
 
     <div class="">
-      <button *ngIf="!isPwdEditVisible">Logout</button>
+      <!-- <button mat-button class="btn-bottom" *ngIf="!isPwdEditVisible || !isEmailEditVisible"
+        (click)="logout()">
+        Logout
+      </button> -->
 
+      <!-- ===== PASSWORD ===== -->
       <button mat-button class="btn-bottom" *ngIf="isPwdEditVisible"
-        id="savePwd" (click)="savePwd()"> <!-- (click)="savePwd(currentPwd.value)" -->
-
+        id="savePwd" (click)="savePwd()" [disabled]="loadingPwd">
         <span>
           <img src="assets/img/icons/save.png" alt="Save Icon">
           Save
         </span>
       </button>
+
+      <!-- ===== EMAIL ===== -->
+      <button mat-button class="btn-bottom" *ngIf="isEmailEditVisible"
+        id="saveEmail" (click)="saveEmail()" [disabled]="loadingEmail">
+        <span>
+          <img src="assets/img/icons/save.png" alt="Save Icon">
+          Save
+        </span>
+      </button>
+
     </div>
 
-    <button mat-button mat-dialog-close>Close</button>
+    <button mat-button mat-dialog-close [disabled]="loadingPwd">
+      Close
+    </button>
   </div>
 </section>

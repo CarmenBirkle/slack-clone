@@ -55,6 +55,7 @@ button {
 }
 
 .edit-overlay {
+    position: relative;
     width: calc(100% - ($margin-sides * 2));
     margin: 20px $margin-sides 0;
 }
@@ -119,4 +120,15 @@ button {
 .error-pwd-container {
     color: $color-error !important;
     margin-bottom: 15px;
+}
+
+.pwd-changed {
+    position: absolute;
+    top: 7rem;
+    left: 5rem;
+    padding: 1.3rem;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background: $accent-lightgrey;
 }

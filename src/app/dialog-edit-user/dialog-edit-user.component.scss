@@ -132,3 +132,8 @@ button {
     font-weight: bold;
     background: $accent-lightgrey;
 }
+
+.email-input {
+    width: calc(100% - 20px);
+    margin-bottom: 15px;
+}

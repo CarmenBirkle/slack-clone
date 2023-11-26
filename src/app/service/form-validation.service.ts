@@ -59,7 +59,14 @@ export class FormValidationService {
   }
 
   testEmailFormat(inputString: string) {
-    const trimmedEmail = inputString.trim();
+    let trimmedEmail;
+
+    try {
+      trimmedEmail = inputString.trim();
+    } catch (error) {
+      console.log('error on trimming input:', inputString);
+      return false;
+    }
 
     const email = inputString.toLowerCase();
 

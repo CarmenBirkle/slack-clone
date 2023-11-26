@@ -41,11 +41,19 @@ export class FirestoreUserService {
     const userId = await this.authentication.getUserId();
     const docRef = doc(this.firestore, 'users', `${userId}`);
 
-    await updateDoc(docRef, {email: newEmail})
+    try {
+      await updateDoc(docRef, {email: newEmail});
+      return true;
+    } catch (error) {
+      
+      return false;
+    }
+
+    /* await updateDoc(docRef, {email: newEmail})
       .then((e) => { })
       .catch((err) => {
         console.log('Error while changing Username', err);
-    });
+    }); */
   }
 
   async changePhoto(newPhotoUrl: string) {

@@ -26,7 +26,8 @@ export class DialogEditUserComponent {
   passwordFieldTypes = {
     current: 'password',
     new: 'password',
-    repeat: 'password'
+    repeat: 'password',
+    email: 'password'
   };
   currentPwdValue: string;
   newPwdValue: string;
@@ -37,7 +38,9 @@ export class DialogEditUserComponent {
 
   emailPwdValue: string;
   loadingEmail: boolean = false;
-
+  errorEmailTxt: string;
+  newEmailValue: string;
+  repeatEmailValue: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
     public firestoreUserService: FirestoreUserService,
@@ -45,6 +48,10 @@ export class DialogEditUserComponent {
     private authentication: AuthenticationService) {
     this.currentUserId = data.currentUserId;
     this.getUser();
+
+    Object.keys(this.passwordFieldTypes).forEach(key => {
+      this.passwordFieldTypes[key] = 'password';
+    });
   }
 
   getUser(): void {
@@ -197,6 +204,10 @@ export class DialogEditUserComponent {
 
   // ========== EMAIL ==========
 
+  toggleEmailEdit() {
+    this.isEmailEditVisible = !this.isEmailEditVisible;
+  }
+
   saveEmailKey(event: KeyboardEvent) {
     const saveEmail = document.getElementById('saveEmail');
 
@@ -206,7 +217,64 @@ export class DialogEditUserComponent {
   }
 
   saveEmail() {
+    this.loadingEmail = true;
 
+    if(this.valEmail()) {
+      if(this.saveEmailAuth()) {
+        if (this.saveEmailFirebase()) {
+
+        }
+      }
+    }
+
+    this.loadingEmail = false;
   }
 
+  async saveEmailFirebase() {
+    const success = await this.firestoreUserService.changeEmail(this.newEmailValue);
+
+    if (success) {
+      this.errorEmailTxt = '';
+      return true;
+    } else {
+      this.errorEmailTxt = `Couldn't change Email. Please try it later.`;
+      return false;
+    }
+  }
+
+  async saveEmailAuth() {
+    const success = await this.authentication.changeEmail(this.newEmailValue, this.emailPwdValue);
+    if (success) {
+      this.errorEmailTxt = '';
+      return true;
+    } else {
+      this.errorEmailTxt = `Couldn't change Email. Please try it later.`;
+      return false;
+    }
+  }
+
+  async valEmail() {
+    const email = this.newEmailValue;
+    const repeatEmail = this.repeatEmailValue;
+
+    if(this.formValidation.testEmailFormat(email)) {
+      if(await this.formValidation.testExistEmail(email)) {
+        // Email not exist
+        if(email != repeatEmail) {
+          this.errorEmailTxt = `Repeat Email doesn't match`;
+          return false;
+        } else {
+          // email is OK
+          this.errorEmailTxt = '';
+          return true;
+        }
+      } else {
+        this.errorEmailTxt = 'Email already exist.';
+        return false;
+      }
+    }
+    // false Email format
+    this.errorEmailTxt = 'Email is invalid.';
+    return false;
+  }
 }

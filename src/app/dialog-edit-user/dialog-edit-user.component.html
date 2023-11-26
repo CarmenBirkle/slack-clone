@@ -60,24 +60,27 @@
     
     <span>Current Password</span>
     <div class="input-pwd">
-      <input type="{{ passwordFieldTypes.current }}" #currentPwd required maxlength="30" (keydown)="savePasswordKey($event)">
+      <input type="{{ passwordFieldTypes.current }}" #currentPwd="ngModel" required maxlength="30" 
+        (keydown)="savePasswordKey($event)" [(ngModel)]="currentPwdValue">
       <img class="noselect" [src]="passwordFieldTypes.current === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('current')">
     </div>
 
     <span>New Password</span>
     <div class="input-pwd">
-      <input type="{{ passwordFieldTypes.new }}" #newPwd required maxlength="30" (keydown)="savePasswordKey($event)">
+      <input type="{{ passwordFieldTypes.new }}" #newPwd="ngModel" required maxlength="30" 
+        (keydown)="savePasswordKey($event)" [(ngModel)]="newPwdValue">
       <img class="noselect" [src]="passwordFieldTypes.new === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('new')">
     </div>
     
     <span>Repeat new Password</span>
     <div class="input-pwd">
-      <input type="{{ passwordFieldTypes.repeat }}" #newPwdRepeat required maxlength="30" (keydown)="savePasswordKey($event)">
+      <input type="{{ passwordFieldTypes.repeat }}" #newPwdRepeat="ngModel" required maxlength="30" 
+        (keydown)="savePasswordKey($event)" [(ngModel)]="repeatPwdValue">
       <img class="noselect" [src]="passwordFieldTypes.repeat === 'password' ? pwdShow : pwdHide" (click)="toggleShowPwd('repeat')">
     </div>
 
     <div class="error-pwd-container">
-      <span>test</span>
+      <span>{{ errorPwdTxt }}</span>
     </div>
 
   </div>
@@ -89,7 +92,7 @@
       <button *ngIf="!isPwdEditVisible">Logout</button>
 
       <button mat-button class="btn-bottom" *ngIf="isPwdEditVisible"
-        id="savePwd" > <!-- (click)="savePwd(currentPwd.value)" -->
+        id="savePwd" (click)="savePwd()"> <!-- (click)="savePwd(currentPwd.value)" -->
 
         <span>
           <img src="assets/img/icons/save.png" alt="Save Icon">

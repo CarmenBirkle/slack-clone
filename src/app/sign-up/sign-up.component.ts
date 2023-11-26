@@ -103,7 +103,7 @@ export class SignUpComponent {
 
   valPwdRepeat(pwd: string, pwdRepeat: string) {
     if(pwd != pwdRepeat) {
-      this.errorPwdRepeatTxt = `Password don't match.`;
+      this.errorPwdRepeatTxt = `Passwords doesn't match.`;
       this.errorPwdRepeat = true;
       return false;
     } else {

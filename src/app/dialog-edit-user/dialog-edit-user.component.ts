@@ -2,6 +2,7 @@ import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FirestoreUserService } from '../service/firestore-user.service';
 import { FormValidationService } from '../service/form-validation.service';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -26,11 +27,18 @@ export class DialogEditUserComponent {
     new: 'password',
     repeat: 'password'
   };
+  currentPwdValue: string;
+  newPwdValue: string;
+  repeatPwdValue: string;
+
+  errorPwdTxt: string = '';
+  errorPwd: boolean = false;
 
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
     public firestoreUserService: FirestoreUserService,
-    private formValidation: FormValidationService) {
+    private formValidation: FormValidationService,
+    private authentication: AuthenticationService) {
     this.currentUserId = data.currentUserId;
     this.getUser();
   }
@@ -102,14 +110,17 @@ export class DialogEditUserComponent {
     return false;
   }
 
+  saveUsernameKey(event: KeyboardEvent) {
+    const saveUsername = document.getElementById('saveUsername')
+
+    if (event.key === "Enter" && saveUsername) {
+      saveUsername.click();
+    }
+  }
+
   // ========== PASSWORD ==========
   togglePwdEdit() {
     this.isPwdEditVisible = !this.isPwdEditVisible;
-
-    /* if(this.isPwdEditVisible) {
-      this.pwdField = {} as ElementRef<HTMLInputElement>;
-      this.pwdRepeatField = {} as ElementRef<HTMLInputElement>;
-    } */
   }
 
 
@@ -121,23 +132,55 @@ export class DialogEditUserComponent {
     }
   }
 
-  saveUsernameKey(event: KeyboardEvent) {
-    const saveUsername = document.getElementById('saveUsername')
-
-    if (event.key === "Enter" && saveUsername) {
-      saveUsername.click();
-    }
-  }
-
-  savePwd(currentPwd: string) { //newPwd: string, repeatPwd: string
-    console.log('Current Password:', currentPwd);
-    /* console.log('New Password:', newPwd);
-    console.log('Repeat Password:', repeatPwd); */
+  async savePwd() { //newPwd: string, repeatPwd: string
+    console.log('Current Password:', this.currentPwdValue);
+    console.log('New Password:', this.newPwdValue);
+    console.log('Repeat Password:', this.repeatPwdValue);
     
+    if(this.valPwd()) {
+      if(this.valPwdRepeat()) {
+        debugger;
+        await this.authentication.changePassword(this.currentPwdValue, this.newPwdValue);
+      }
+    }
+
+    console.log('errors:', this.errorPwd); 
   }
 
   toggleShowPwd(field: string) {
     this.passwordFieldTypes[field] = this.passwordFieldTypes[field] === 'password' ? 'text' : 'password';
+  }
+
+  valPwd() {
+    const pwd = this.newPwdValue;
+
+    if(!this.formValidation.testInputLengthLt(pwd, 8)) {
+      this.errorPwdTxt = 'New Password is to weak. Min. 8 characters required.'
+    } else if(!this.formValidation.testInputLengthGt(pwd, 30)) {
+      this.errorPwdTxt = 'New Password is to long. Max. 30 characters allowed.'
+    } else if(!this.formValidation.testInputStrength(pwd, 3)) {
+      this.errorPwdTxt = `New Password is to weak. You need 3 of this 4 criteria: 
+        uppercase, lowercase, numbers, special characters`;
+    } else {
+      this.errorPwdTxt = '';
+      this.errorPwd = false;
+      return true;
+    }
+
+    this.errorPwd = true;
+    return false;
+  }
+
+  valPwdRepeat() {
+    if(this.newPwdValue != this.repeatPwdValue) {
+      this.errorPwdTxt = `New Passwords doesn't match.`;
+      this.errorPwd = true;
+      return false;
+    } else {
+      this.errorPwdTxt = '';
+      this.errorPwd = false;
+      return true;
+    }
   }
 
 }

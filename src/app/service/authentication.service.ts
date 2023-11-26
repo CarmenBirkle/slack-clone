@@ -172,9 +172,9 @@ export class AuthenticationService {
     }
   }
 
-  async changePassword(oldPassword: string, newPassword: string) {
-    /* const auth = getAuth();
-    const user: any = auth.currentUser; */
+  /* async changePassword(oldPassword: string, newPassword: string) {
+    // const auth = getAuth();
+    // const user: any = auth.currentUser;
     const user: any = this.user;
 
     if (user) {
@@ -199,8 +199,11 @@ export class AuthenticationService {
     } else {
       console.log('User is not signed in');
     }
-  }
+  } */
 
+  async changePassword(oldPassword: string, newPassword:string) {
+    
+  }
   
   
 
